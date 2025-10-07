@@ -124,7 +124,7 @@ export function Chatbot() {
             <div className="absolute inset-0 -z-10">
                 <LightRays
                     raysColor="hsl(var(--primary))"
-                    lightSpread={0.5}
+                    lightSpread={0.2}
                     raysSpeed={0.5}
                     rayLength={1.0}
                     noiseAmount={0.2}
