@@ -5,18 +5,20 @@ import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const navLinks = [
-  { href: '#', label: 'Services' },
-  { href: '#', label: 'Products' },
-  { href: '#', label: 'Resources' },
-  { href: '#', label: 'Blog' },
-  { href: '#', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/products', label: 'Products' },
+  { href: '/library', label: 'Library' },
+  { href: '/clients', label: 'Clients' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="mr-4 hidden md:flex items-center">
+        <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo />
           </Link>
@@ -56,12 +58,18 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-8">
+                  <Button asChild size="lg" className="w-full">
+                    <Link href="/contact">Request Assessment</Link>
+                  </Button>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" size="sm">Log in</Button>
-            <Button size="sm">Sign up</Button>
+            <Button asChild>
+                <Link href="/contact">Request Assessment</Link>
+            </Button>
           </div>
         </div>
       </div>
