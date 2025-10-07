@@ -1,7 +1,6 @@
-import Link from "next/link";
 
 const Logo = ({ className }: { className?: string }) => (
-  <Link href="/" aria-label="EncryptArx Homepage" className={`flex items-center font-headline text-xl font-bold ${className}`}>
+  <div aria-label="EncryptArx Homepage" className={`flex items-center font-headline text-xl font-bold ${className}`}>
     <svg
       width="24"
       height="24"
@@ -43,6 +42,6 @@ const Logo = ({ className }: { className?: string }) => (
       />
     </svg>
     EncryptArx
-  </Link>
+  </div>
 );
 export default Logo;
