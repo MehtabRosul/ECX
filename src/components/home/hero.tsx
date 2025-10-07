@@ -18,11 +18,11 @@ export function Hero() {
             Build more secure, resilient, and trustworthy applications with EncryptArx's next-generation cryptographic infrastructure and security services.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" asChild className="transition-all duration-300 hover:scale-105 hover:brightness-110">
+            <Button size="lg" asChild className="transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <Link href="/contact">Request Assessment</Link>
             </Button>
             <ShineBorder color={['#2B8DBE', '#4896BD', '#2B8DBE']} borderWidth={2} duration={5}>
-              <Button size="lg" variant="outline" asChild className="transition-all duration-300 hover:scale-105 hover:brightness-110">
+              <Button size="lg" variant="outline" asChild className="transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
                 <Link href="/docs">
                   View Documentation
                   <ArrowRight className="ml-2 h-5 w-5" />
