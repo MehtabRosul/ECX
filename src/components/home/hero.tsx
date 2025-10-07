@@ -9,8 +9,9 @@ export function Hero() {
       <div className="container relative py-24 sm:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Cryptography for the
-            <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent"> new internet </span>
+            Your Data&apos;s
+            <br />
+            <span className="text-primary">Impregnable Citadel</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
             Build more secure, resilient, and trustworthy applications with EncryptArx's next-generation cryptographic infrastructure and security services.
