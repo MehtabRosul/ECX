@@ -4,6 +4,15 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: 'Neue Augenblick Ultra Bold';
+    src: url('/fonts/NeueAugenblick-UltraBold.woff2') format('woff2'),
+         url('/fonts/NeueAugenblick-UltraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
