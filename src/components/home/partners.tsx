@@ -19,7 +19,7 @@ const partners = [
 export function Partners() {
     return (
         <section className="py-12 sm:py-16">
-            <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+            <FadeContent>
                 <div className="container">
                     <h2 className="text-center text-lg font-semibold text-muted-foreground">
                         Trusted by the world's most innovative companies

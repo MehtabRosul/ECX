@@ -24,14 +24,13 @@ const FadeContent = ({
   const ref = useRef(null);
 
   useEffect(() => {
-    if (!ref.current) return;
+    const currentRef = ref.current;
+    if (!currentRef) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (ref.current) {
-            observer.unobserve(ref.current);
-          }
+          observer.unobserve(currentRef);
           setTimeout(() => {
             setInView(true);
           }, delay);
@@ -40,11 +39,11 @@ const FadeContent = ({
       { threshold }
     );
 
-    observer.observe(ref.current);
+    observer.observe(currentRef);
 
     return () => {
-        if (observer && ref.current) {
-            observer.unobserve(ref.current);
+        if (currentRef) {
+            observer.unobserve(currentRef);
         }
     };
   }, [threshold, delay]);
@@ -55,7 +54,8 @@ const FadeContent = ({
       className={className}
       style={{
         opacity: inView ? 1 : initialOpacity,
-        transition: `opacity ${duration}ms ${easing}, filter ${duration}ms ${easing}`,
+        transform: inView ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity ${duration}ms ${easing}, transform ${duration}ms ${easing}, filter ${duration}ms ${easing}`,
         filter: blur ? (inView ? 'blur(0px)' : 'blur(10px)') : 'none'
       }}
     >
