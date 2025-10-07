@@ -78,12 +78,8 @@ export default {
           },
         },
         'marquee': {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
-        'marquee2': {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0%)' },
+          'from': { transform: 'translateX(0)' },
+          'to': { transform: 'translateX(-50%)' },
         },
         'shine': {
           '0%': { backgroundPosition: '200% 0' },
@@ -94,7 +90,6 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'marquee': 'marquee 30s linear infinite',
-        'marquee2': 'marquee2 30s linear infinite',
         'shine': 'shine var(--shine-duration, 5s) linear infinite',
       },
       backgroundImage: {
