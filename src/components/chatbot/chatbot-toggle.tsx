@@ -12,8 +12,8 @@ export function ChatbotToggle() {
     <ShimmerButton
       onClick={toggleChat}
       className="relative w-12 h-12 rounded-full"
-      background="hsl(var(--primary))"
-      shimmerColor="hsl(var(--primary-foreground))"
+      background="radial-gradient(circle at 50% 50%, hsl(var(--primary)), #000)"
+      shimmerColor="hsl(var(--primary) / 0.5)"
     >
       <Bot
         className={cn(
