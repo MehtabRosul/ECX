@@ -16,6 +16,9 @@ const useDraggable = (ref: RefObject<HTMLElement>, handleRef: RefObject<HTMLElem
     const offset = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
+        // Set initial position once the component mounts on the client
+        setPosition({ x: window.innerWidth - 420, y: 90 });
+
         const handleMouseDown = (e: MouseEvent) => {
             if (handleRef.current && handleRef.current.contains(e.target as Node)) {
                 isDragging.current = true;
@@ -53,24 +56,6 @@ const useDraggable = (ref: RefObject<HTMLElement>, handleRef: RefObject<HTMLElem
             document.removeEventListener('mousemove', handleMouseMove);
         };
     }, [ref, handleRef]);
-
-    useEffect(() => {
-        // Center the window initially
-        const centerWindow = () => {
-            if (ref.current) {
-                const { innerWidth, innerHeight } = window;
-                const { offsetWidth, offsetHeight } = ref.current;
-                setPosition({
-                    x: (innerWidth - offsetWidth) / 2,
-                    y: (innerHeight - offsetHeight) / 2,
-                });
-            }
-        };
-        centerWindow();
-        window.addEventListener('resize', centerWindow);
-        return () => window.removeEventListener('resize', centerWindow);
-    }, [ref]);
-
 
     return position;
 };
@@ -119,7 +104,12 @@ export function Chatbot() {
     <div
       ref={draggableRef}
       className="fixed z-50 shadow-2xl rounded-lg"
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
+      style={{ 
+        left: `${position.x}px`, 
+        top: `${position.y}px`,
+        right: '20px',
+        bottom: 'auto',
+       }}
     >
       <ShineBorder
         className="w-[400px] h-[600px] bg-background/80 backdrop-blur-xl"
