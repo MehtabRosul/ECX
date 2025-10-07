@@ -17,55 +17,57 @@ const navLinks = [
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 max-w-screen-2xl items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2">
-          <Logo />
-        </Link>
+      <div className="container flex h-20 items-center justify-center">
+        <div className="flex w-full max-w-screen-xl items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <Logo />
+          </Link>
 
-        <nav className="hidden items-center justify-center gap-6 text-sm md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={`${link.href}-${link.label}`}
-                href={link.href}
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                {link.label}
-              </Link>
-            ))}
-        </nav>
-
-        <div className="flex items-center justify-end space-x-2">
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="pr-0 pt-10">
-                <Link href="/" className="mb-8 flex items-center">
-                  <Logo />
+          <nav className="hidden items-center justify-center gap-8 text-sm md:flex">
+              {navLinks.map((link) => (
+                <Link
+                  key={`${link.href}-${link.label}`}
+                  href={link.href}
+                  className="transition-colors hover:text-foreground/80 text-foreground/60"
+                >
+                  {link.label}
                 </Link>
-                <nav className="flex flex-col space-y-6">
-                  {navLinks.map((link) => (
-                    <Link key={`${link.href}-${link.label}`} href={link.href} className="text-lg font-medium hover:text-primary">
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-                <div className="mt-8">
-                  <Button asChild size="lg" className="w-full">
-                    <Link href="/contact">Request Assessment</Link>
+              ))}
+          </nav>
+
+          <div className="flex items-center justify-end">
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Toggle Menu</span>
                   </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-          <div className="hidden md:flex items-center gap-2">
-            <Button asChild>
-                <Link href="/contact">Request Assessment</Link>
-            </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="pr-0 pt-10">
+                  <Link href="/" className="mb-8 flex items-center">
+                    <Logo />
+                  </Link>
+                  <nav className="flex flex-col space-y-6">
+                    {navLinks.map((link) => (
+                      <Link key={`${link.href}-${link.label}`} href={link.href} className="text-lg font-medium hover:text-primary">
+                        {link.label}
+                      </Link>
+                    ))}
+                  </nav>
+                  <div className="mt-8">
+                    <Button asChild size="lg" className="w-full">
+                      <Link href="/contact">Request Assessment</Link>
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+            <div className="hidden md:flex items-center">
+              <Button asChild>
+                  <Link href="/contact">Request Assessment</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
