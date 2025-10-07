@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { ShineBorder } from '@/components/ui/shine-border';
 
 export function Hero() {
   return (
@@ -18,17 +17,15 @@ export function Hero() {
             Build more secure, resilient, and trustworthy applications with EncryptArx's next-generation cryptographic infrastructure and security services.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40">
+            <GradientButton asChild>
               <Link href="/contact">Request Assessment</Link>
-            </Button>
-            <ShineBorder color={['#2B8DBE', '#4896BD', '#2B8DBE']} borderWidth={2} duration={5}>
-              <Button size="lg" variant="outline" asChild className="group transition-colors hover:border-primary">
-                <Link href="/docs">
-                  View Documentation
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </ShineBorder>
+            </GradientButton>
+            <GradientButton variant="variant" asChild>
+              <Link href="/docs">
+                View Documentation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </GradientButton>
           </div>
         </div>
       </div>
