@@ -1,54 +1,25 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Clock, Globe, ShieldCheck, Users } from 'lucide-react';
-import { ShineBorder } from '@/components/ui/shine-border';
-
-const metrics = [
-  {
-    icon: ShieldCheck,
-    value: '99.9%',
-    label: 'Uptime SLA',
-    description: 'Guaranteed availability for critical infrastructure.',
-  },
-  {
-    icon: Clock,
-    value: '<10ms',
-    label: 'API Response Time',
-    description: 'Blazing fast performance across our global network.',
-  },
-  {
-    icon: Users,
-    value: '10,000+',
-    label: 'Active Deployments',
-    description: 'Trusted by businesses of all sizes, from startups to Fortune 500s.',
-  },
-  {
-    icon: Globe,
-    value: '20+',
-    label: 'Global Regions',
-    description: 'Low-latency access wherever your users are.',
-  },
-];
+import { CheckCircle, ShieldCheck, Zap, Code } from 'lucide-react';
 
 const features = [
     {
-      icon: CheckCircle,
+      icon: ShieldCheck,
       title: 'Post-Quantum Ready',
       description: 'Our algorithms are built to withstand threats from quantum computers.'
     },
     {
       icon: CheckCircle,
       title: 'Fully Audited',
-      description: 'Independently audited by top-tier security firms.'
+      description: 'Independently audited by top-tier security firms to ensure the highest standards.'
     },
     {
-      icon: CheckCircle,
-      title: 'Developer Friendly APIs',
-      description: 'Integrate powerful cryptography with just a few lines of code.'
-    },
-    {
-      icon: CheckCircle,
+      icon: Code,
       title: 'Immutable Audit Trails',
-      description: 'Verifiable, tamper-proof logs for all cryptographic operations.'
+      description: 'Verifiable, tamper-proof logs for all cryptographic operations and data access.'
+    },
+    {
+      icon: Zap,
+      title: 'Blazing Fast',
+      description: 'High-performance cryptographic operations with low latency across the globe.'
     }
 ]
 
@@ -57,38 +28,21 @@ export function Metrics() {
     <section className="py-12 sm:py-24 bg-background">
       <div className="container">
         <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl">Built for Trust and Scale</h2>
+            <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl">The most comprehensive & powerful platform</h2>
             <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
                 We're committed to providing a platform that is not only secure and compliant, but also performs at scale.
             </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {metrics.map((metric) => (
-            <Card key={metric.label} className="bg-card/80 backdrop-blur-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{metric.label}</CardTitle>
-                <metric.icon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold font-headline">{metric.value}</div>
-                <p className="text-xs text-muted-foreground">{metric.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, i) => (
-              <ShineBorder key={i} color={['#2B8DBE', '#4896BD', '#2B8DBE']}>
-                <div className="flex items-start space-x-4 p-4 h-full bg-card/80 backdrop-blur-sm rounded-md">
-                    <feature.icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                        <h3 className="font-semibold">{feature.title}</h3>
-                        <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <div key={i} className="flex flex-col items-center text-center">
+                    <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+                        <feature.icon className="h-8 w-8 text-primary" />
                     </div>
+                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
                 </div>
-              </ShineBorder>
             ))}
         </div>
       </div>

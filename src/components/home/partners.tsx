@@ -5,13 +5,12 @@ const PartnerLogo = ({ children }: { children: React.ReactNode }) => (
 )
 
 const partners = [
-    "SecureCo",
-    "InnovateTech",
-    "DataProtect",
-    "QuantumLeap",
-    "NexusGuard",
-    "ApexCyber",
+    "Global Innovators",
+    "Quantum Corp",
+    "Secure Nest",
+    "Apex",
     "Vertex",
+    "NexusGuard",
 ];
 
 export function Partners() {
@@ -19,7 +18,7 @@ export function Partners() {
         <section className="py-12 sm:py-16">
             <div className="container">
                 <h2 className="text-center text-lg font-semibold text-muted-foreground">
-                    Powering the world's most innovative companies
+                    Trusted by the world's most innovative companies
                 </h2>
                 <div className="relative mt-10 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
                     <div className="animate-marquee flex min-w-full flex-shrink-0 items-center justify-around gap-12">

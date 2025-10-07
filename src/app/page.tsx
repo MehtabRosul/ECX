@@ -5,6 +5,7 @@ import { Metrics } from '@/components/home/metrics';
 import { Testimonials } from '@/components/home/testimonials';
 import { Partners } from '@/components/home/partners';
 import { Cta } from '@/components/home/cta';
+import { WhatWeDo } from '@/components/home/what-we-do';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Partners />
+        <WhatWeDo />
         <Metrics />
         <Testimonials />
         <Cta />

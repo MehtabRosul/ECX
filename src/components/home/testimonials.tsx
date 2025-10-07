@@ -13,19 +13,19 @@ import Image from "next/image"
 const testimonials = [
   {
     quote: "EncryptArx has revolutionized our security posture. Their tools are both powerful and incredibly easy to integrate. A must-have for any security-conscious organization.",
-    name: "Jane Doe",
+    name: "Sarah Johnson",
     title: "CTO, SecureCo",
     avatarId: "testimonial-1",
   },
   {
     quote: "The performance and reliability of EncryptArx's infrastructure are second to none. We've seen a significant reduction in latency and a massive boost in developer productivity.",
-    name: "John Smith",
+    name: "Michael Chen",
     title: "Head of Engineering, InnovateTech",
     avatarId: "testimonial-2",
   },
   {
     quote: "Working with the EncryptArx team has been a fantastic experience. Their expertise in cryptography is unparalleled, and their support is always responsive and helpful.",
-    name: "Emily White",
+    name: "David Lee",
     title: "CEO, DataProtect",
     avatarId: "testimonial-3",
   },
@@ -40,7 +40,7 @@ export function Testimonials() {
     <section className="bg-muted/30 py-12 sm:py-24">
       <div className="container">
         <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl">Trusted by Industry Leaders</h2>
+            <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl">What our customers are saying</h2>
             <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
                 Hear what our customers have to say about EncryptArx.
             </p>
