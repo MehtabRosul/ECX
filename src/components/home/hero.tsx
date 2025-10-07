@@ -18,10 +18,13 @@ export function Hero() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button size="lg" asChild>
-                <Link href="/products">
-                    Explore Products
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+              <Link href="/contact">Request Assessment</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/docs">
+                View Documentation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </div>
