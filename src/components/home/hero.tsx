@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { ShineBorder } from '@/components/ui/shine-border';
 
 export function Hero() {
   return (
@@ -17,15 +18,17 @@ export function Hero() {
             Build more secure, resilient, and trustworthy applications with EncryptArx's next-generation cryptographic infrastructure and security services.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" asChild>
+            <Button size="lg" asChild className="transition-all duration-300 hover:scale-105 hover:brightness-110">
               <Link href="/contact">Request Assessment</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/docs">
-                View Documentation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+            <ShineBorder color={['#2B8DBE', '#4896BD', '#2B8DBE']} borderWidth={2} duration={5}>
+              <Button size="lg" variant="outline" asChild className="transition-all duration-300 hover:scale-105 hover:brightness-110">
+                <Link href="/docs">
+                  View Documentation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </ShineBorder>
           </div>
         </div>
       </div>
