@@ -11,23 +11,27 @@ export function ChatbotToggle() {
   return (
     <ShimmerButton
       onClick={toggleChat}
-      className="relative w-12 h-12 rounded-full"
+      className="relative px-4 py-2"
       background="radial-gradient(circle at 50% 50%, hsl(var(--primary)), #000)"
       shimmerColor="hsl(var(--primary) / 0.5)"
     >
-      <Bot
-        className={cn(
-          'w-6 h-6 text-primary-foreground transition-transform duration-300 ease-in-out',
-          isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
-        )}
-      />
-      <X
-        className={cn(
-          'w-6 h-6 text-primary-foreground absolute transition-transform duration-300 ease-in-out',
-          isOpen ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
-        )}
-      />
-      <span className="sr-only">Toggle Chat</span>
+      <div className="flex items-center gap-2">
+        <span className="relative h-6 w-6">
+            <Bot
+            className={cn(
+                'w-6 h-6 text-primary-foreground transition-transform duration-300 ease-in-out',
+                isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
+            )}
+            />
+            <X
+            className={cn(
+                'w-6 h-6 text-primary-foreground absolute top-0 left-0 transition-transform duration-300 ease-in-out',
+                isOpen ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
+            )}
+            />
+        </span>
+        <span className="text-sm font-medium text-primary-foreground">AI Assistant</span>
+      </div>
     </ShimmerButton>
   );
 }
