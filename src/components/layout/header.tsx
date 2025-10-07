@@ -3,6 +3,7 @@ import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { ChatbotToggle } from '@/components/chatbot/chatbot-toggle';
 
 const navLinks = [
   { href: '/services', label: 'Services' },
@@ -56,17 +57,13 @@ export function Header() {
                     ))}
                   </nav>
                   <div className="mt-8">
-                    <Button asChild size="lg" className="w-full">
-                      <Link href="/contact">Request Assessment</Link>
-                    </Button>
+                    <ChatbotToggle />
                   </div>
                 </SheetContent>
               </Sheet>
             </div>
             <div className="hidden md:flex items-center">
-              <Button asChild>
-                  <Link href="/contact">Request Assessment</Link>
-              </Button>
+                <ChatbotToggle />
             </div>
           </div>
         </div>

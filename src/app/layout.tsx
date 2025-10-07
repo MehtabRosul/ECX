@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { ChatProvider } from '@/context/chat-context';
+import { Chatbot } from '@/components/chatbot/chatbot';
 
 export const metadata: Metadata = {
   title: 'EncryptArx',
@@ -21,7 +23,10 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
-        {children}
+        <ChatProvider>
+          {children}
+          <Chatbot />
+        </ChatProvider>
         <Toaster />
       </body>
     </html>
