@@ -32,7 +32,7 @@ export function Partners() {
                         </ShineBorder>
                     </div>
                     <div className="relative mt-10 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
-                        <div className="flex w-max animate-marquee">
+                        <div className="flex w-max animate-marquee [--gap:3rem]">
                             {[...partners, ...partners].map((name, i) => (
                                 <PartnerLogo key={`${name}-${i}`}>
                                     <span className="text-2xl font-bold text-center">{name}</span>
