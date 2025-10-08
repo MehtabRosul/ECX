@@ -12,7 +12,6 @@ import { SolutionsCarousel } from '@/components/home/solutions-carousel';
 import { ResearchLab } from '@/components/home/research-lab';
 import { Community } from '@/components/home/community';
 import { FeaturedResearch } from '@/components/home/featured-research';
-import { ActivityFeed } from '@/components/home/activity-feed';
 import { FeaturedIntegrations } from '@/components/home/featured-integrations';
 import { SecuritySnapshot } from '@/components/home/security-snapshot';
 import { UpcomingEvents } from '@/components/home/upcoming-events';
@@ -34,7 +33,6 @@ export default function Home() {
         <Community />
         <FeaturedResearch />
         <CaseStudies />
-        <ActivityFeed />
         <FeaturedIntegrations />
         <SecuritySnapshot />
         <UpcomingEvents />

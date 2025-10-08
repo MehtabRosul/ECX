@@ -53,6 +53,66 @@
       "description": "Logo for a case study.",
       "imageUrl": "https://picsum.photos/seed/logo3/200/40",
       "imageHint": "company logo"
+    },
+    {
+      "id": "solution-finance",
+      "description": "Abstract image for finance solution.",
+      "imageUrl": "https://picsum.photos/seed/finance/600/400",
+      "imageHint": "abstract finance"
+    },
+    {
+      "id": "solution-healthcare",
+      "description": "Abstract image for healthcare solution.",
+      "imageUrl": "https://picsum.photos/seed/healthcare/600/400",
+      "imageHint": "abstract healthcare"
+    },
+    {
+      "id": "solution-ecommerce",
+      "description": "Abstract image for e-commerce solution.",
+      "imageUrl": "https://picsum.photos/seed/ecommerce/600/400",
+      "imageHint": "abstract ecommerce"
+    },
+    {
+      "id": "solution-logistics",
+      "description": "Abstract image for logistics solution.",
+      "imageUrl": "https://picsum.photos/seed/logistics/600/400",
+      "imageHint": "abstract logistics"
+    },
+    {
+      "id": "integration-slack",
+      "description": "Logo for Slack.",
+      "imageUrl": "https://picsum.photos/seed/slack/100/100",
+      "imageHint": "slack logo"
+    },
+    {
+      "id": "integration-splunk",
+      "description": "Logo for Splunk.",
+      "imageUrl": "https://picsum.photos/seed/splunk/100/100",
+      "imageHint": "splunk logo"
+    },
+    {
+      "id": "integration-aws",
+      "description": "Logo for AWS.",
+      "imageUrl": "https://picsum.photos/seed/aws/100/100",
+      "imageHint": "aws logo"
+    },
+    {
+      "id": "integration-okta",
+      "description": "Logo for Okta.",
+      "imageUrl": "https://picsum.photos/seed/okta/100/100",
+      "imageHint": "okta logo"
+    },
+    {
+      "id": "integration-datadog",
+      "description": "Logo for Datadog.",
+      "imageUrl": "https://picsum.photos/seed/datadog/100/100",
+      "imageHint": "datadog logo"
+    },
+    {
+      "id": "integration-gcp",
+      "description": "Logo for Google Cloud.",
+      "imageUrl": "https://picsum.photos/seed/gcp/100/100",
+      "imageHint": "gcp logo"
     }
   ]
 }
