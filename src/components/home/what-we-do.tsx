@@ -1,4 +1,3 @@
-
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -6,12 +5,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ShineBorder } from '../ui/shine-border';
 import { Code, Lock, BrainCircuit } from 'lucide-react';
-import FadeContent from '../ui/fade-content';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const whatWeDoTabs = [
   {
@@ -47,62 +45,35 @@ function getWhatWeDoImage(id: string) {
   return PlaceHolderImages.find((p) => p.id === id);
 }
 
-const FlipCard = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
-    const [isFlipped, setIsFlipped] = useState(false);
+const GlowCard = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
     const image = getWhatWeDoImage(tab.imageId);
 
     return (
-        <div 
-            className="perspective-1000 w-full h-80"
-            onMouseEnter={() => setIsFlipped(true)}
-            onMouseLeave={() => setIsFlipped(false)}
+        <ShineBorder
+            className="w-full h-80 group"
+            color={['#2B8DBE', '#4896BD', '#F4A460']}
         >
-            <motion.div
-                className="relative w-full h-full"
-                style={{ transformStyle: 'preserve-3d' }}
-                animate={{ rotateY: isFlipped ? 180 : 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-                {/* Front */}
-                <div className="absolute w-full h-full backface-hidden">
-                    <ShineBorder
-                        className="w-full h-full"
-                        color={['#2B8DBE', '#4896BD', '#F4A460']}
-                    >
-                        <div className="relative w-full h-full rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6">
-                             {image && (
-                                <Image
-                                    src={image.imageUrl}
-                                    alt={tab.title}
-                                    fill
-                                    className="object-cover rounded-lg"
-                                    data-ai-hint={image.imageHint}
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-black/50"></div>
-                            <div className="relative text-center">
-                                <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
-                                <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
-                            </div>
-                        </div>
-                    </ShineBorder>
+            <div className="relative w-full h-full rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6 overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-2">
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(43,141,190,0.2)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                 {image && (
+                    <Image
+                        src={image.imageUrl}
+                        alt={tab.title}
+                        fill
+                        className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                        data-ai-hint={image.imageHint}
+                    />
+                )}
+                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="relative text-center">
+                    <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
                 </div>
-                {/* Back */}
-                <div className="absolute w-full h-full backface-hidden" style={{ transform: 'rotateY(180deg)' }}>
-                     <ShineBorder
-                        className="w-full h-full"
-                        color={['#F4A460', '#2B8DBE', '#4896BD']}
-                    >
-                         <div className="relative w-full h-full rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6">
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(43,141,190,0.2)_0%,transparent_70%)]"></div>
-                            <p className="text-center text-muted text-sm relative">{tab.description}</p>
-                        </div>
-                    </ShineBorder>
-                </div>
-            </motion.div>
-        </div>
+            </div>
+        </ShineBorder>
     );
 };
+
 
 export function WhatWeDo() {
   const [activeTab, setActiveTab] = useState(whatWeDoTabs[0].id);
@@ -142,7 +113,7 @@ export function WhatWeDo() {
                     <TabsContent value={tab.id} forceMount>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div className='lg:order-2'>
-                               <FlipCard tab={tab} />
+                               <GlowCard tab={tab} />
                             </div>
                             <div className='lg:order-1'>
                                 <Card className="border-0 bg-transparent shadow-none">
