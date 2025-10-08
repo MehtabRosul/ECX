@@ -126,7 +126,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee': 'marquee 30s linear infinite',
+        'marquee': 'marquee var(--duration) linear infinite',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         'shine': 'shine var(--shine-duration, 5s) linear infinite',
         'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
