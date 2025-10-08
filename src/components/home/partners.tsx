@@ -1,4 +1,5 @@
 'use client';
+import { ShineBorder } from "@/components/ui/shine-border";
 import FadeContent from "@/components/ui/fade-content";
 
 const PartnerLogo = ({ children }: { children: React.ReactNode }) => (
@@ -21,9 +22,14 @@ export function Partners() {
         <section className="py-12 sm:py-16">
             <FadeContent>
                 <div className="container">
-                    <h2 className="text-center text-lg font-semibold text-muted-foreground">
-                        Trusted by the world's most innovative companies
-                    </h2>
+                    <div className="flex justify-center">
+                        <ShineBorder
+                            className="text-center text-md font-medium capitalize py-3 px-6"
+                            color={['#2B8DBE', '#4896BD', '#2B8DBE']}
+                        >
+                            Trusted by the world&apos;s most innovative companies
+                        </ShineBorder>
+                    </div>
                     <div className="relative mt-10 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
                         <div className="flex w-max animate-marquee">
                             {[...partners, ...partners].map((name, i) => (
