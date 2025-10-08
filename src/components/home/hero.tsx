@@ -9,7 +9,7 @@ export function Hero() {
       <SplashCursor />
       <div className="absolute inset-0 h-full w-full bg-background bg-dot-pattern bg-repeat [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]" />
       <div className="container relative py-24 sm:py-32">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="relative mx-auto max-w-3xl text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Your Data&apos;s
             <br />
