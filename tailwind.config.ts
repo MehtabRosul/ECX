@@ -1,6 +1,8 @@
 
 import type {Config} from 'tailwindcss';
 
+const plugin = require('tailwindcss/plugin')
+
 export default {
   darkMode: ['class'],
   content: [
@@ -134,10 +136,19 @@ export default {
       backgroundImage: {
         'dot-pattern': 'radial-gradient(hsl(var(--muted)) 1px, transparent 1px)',
       },
-      backgroundSize: {
-        'dot-pattern': '1rem 1rem',
-      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+      require('tailwindcss-animate'),
+      plugin(function({ addUtilities }: { addUtilities: any }) {
+        addUtilities({
+          '.perspective-1000': {
+            perspective: '1000px',
+          },
+          '.backface-hidden': {
+            'backface-visibility': 'hidden',
+          },
+        })
+      })
+    ],
 } satisfies Config;
