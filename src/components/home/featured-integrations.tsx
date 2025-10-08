@@ -1,39 +1,14 @@
 'use client';
 
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import LogoLoop from "@/components/ui/logo-loop";
-
-const integrations = [
-    { name: "Slack", imageId: "integration-slack" },
-    { name: "Splunk", imageId: "integration-splunk" },
-    { name: "AWS", imageId: "integration-aws" },
-    { name: "Okta", imageId: "integration-okta" },
-    { name: "Datadog", imageId: "integration-datadog" },
-    { name: "Google Cloud", imageId: "integration-gcp" },
-    { name: "Kubernetes", imageId: "integration-kubernetes" },
-    { name: "HashiCorp Vault", imageId: "integration-vault" },
-    { name: "Jira", imageId: "integration-jira" },
-    { name: "Azure", imageId: "integration-azure" },
-    { name: "Docker", imageId: "integration-docker" },
-    { name: "Terraform", imageId: "integration-terraform" },
-    { name: "Figma", imageId: "integration-figma" },
-    { name: "Notion", imageId: "integration-notion" },
-    { name: "Stripe", imageId: "integration-stripe" },
-    { name: "Twilio", imageId: "integration-twilio" },
-];
-
-function getIntegrationImage(id: string) {
-    return PlaceHolderImages.find(p => p.id === id);
-}
+import { techLogos } from "@/components/icons/tech-logos";
 
 export function FeaturedIntegrations() {
-    const imageLogos = integrations.map(item => {
-        const image = getIntegrationImage(item.imageId);
-        return {
-            src: image?.imageUrl || '',
-            alt: item.name,
-        };
-    }).filter(logo => logo.src);
+    
+    const logos = Object.values(techLogos).map(logo => ({
+        node: logo.node,
+        title: logo.title,
+    }));
 
     return (
         <section className="py-12 sm:py-24 bg-surface-2">
@@ -46,11 +21,11 @@ export function FeaturedIntegrations() {
                 </div>
                 <div className="relative w-full">
                      <LogoLoop
-                        logos={imageLogos}
+                        logos={logos}
                         speed={80}
                         direction="left"
                         logoHeight={48}
-                        gap={60}
+                        gap={80}
                         pauseOnHover
                         scaleOnHover
                         fadeOut
