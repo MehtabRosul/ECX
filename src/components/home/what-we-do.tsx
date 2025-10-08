@@ -3,8 +3,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Code, Lock, BrainCircuit } from 'lucide-react';
@@ -66,7 +64,7 @@ export function WhatWeDo() {
             </TabsList>
           </div>
           
-          <div className="relative">
+          <div className="relative mt-12">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={activeTab}
