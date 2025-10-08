@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Code, Lock, BrainCircuit } from 'lucide-react';
 import { AnimatedTabs } from '../ui/animated-tabs';
 import { EffectCard } from '../ui/effect-card';
+import FadeContent from '../ui/fade-content';
 
 const whatWeDoTabs = [
   {
@@ -65,69 +66,71 @@ export function WhatWeDo() {
 
   return (
     <section className="py-12 sm:py-24 bg-surface-2">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="font-headline text-3xl font-bold tracking-tight text-high sm:text-4xl">What We Do</h2>
-          <p className="mt-4 text-muted max-w-2xl mx-auto">
-            EncryptArx provides a comprehensive suite of security services and infrastructure.
-          </p>
-        </div>
+      <FadeContent>
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl font-bold tracking-tight text-high sm:text-4xl">What We Do</h2>
+            <p className="mt-4 text-muted max-w-2xl mx-auto">
+              EncryptArx provides a comprehensive suite of security services and infrastructure.
+            </p>
+          </div>
 
-        <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <div className="flex justify-center mb-8">
-            <AnimatedTabs tabs={whatWeDoTabs} activeTab={activeTab} onTabChange={handleTabChange} />
-          </div>
-          
-          <div className="relative mt-12 overflow-hidden h-[340px]">
-            <AnimatePresence initial={false} custom={direction}>
-                {whatWeDoTabs.map(tab => (
-                    activeTab === tab.id && (
-                        <motion.div
-                            key={tab.id}
-                            custom={direction}
-                            variants={{
-                                enter: (direction: number) => ({
-                                    x: direction > 0 ? '100%' : '-100%',
-                                    opacity: 0,
-                                }),
-                                center: {
-                                    x: 0,
-                                    opacity: 1,
-                                },
-                                exit: (direction: number) => ({
-                                    x: direction < 0 ? '100%' : '-100%',
-                                    opacity: 0,
-                                }),
-                            }}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{
-                                x: { type: "spring", stiffness: 300, damping: 30 },
-                                opacity: { duration: 0.2 }
-                            }}
-                            className="absolute w-full"
-                        >
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                <div className='lg:order-2'>
-                                    <CardContent tab={tab} />
-                                </div>
-                                <div className='lg:order-1'>
-                                    <div className="border-0 bg-transparent shadow-none p-0">
-                                    <p className="text-muted mb-6">{tab.description}</p>
-                                    <Button asChild>
-                                        <Link href={tab.href}>Learn More &rarr;</Link>
-                                    </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )
-                ))}
-            </AnimatePresence>
-          </div>
-        </Tabs>
-      </div>
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+            <div className="flex justify-center mb-8">
+              <AnimatedTabs tabs={whatWeDoTabs} activeTab={activeTab} onTabChange={handleTabChange} />
+            </div>
+            
+            <div className="relative mt-12 overflow-hidden h-[340px]">
+              <AnimatePresence initial={false} custom={direction}>
+                  {whatWeDoTabs.map(tab => (
+                      activeTab === tab.id && (
+                          <motion.div
+                              key={tab.id}
+                              custom={direction}
+                              variants={{
+                                  enter: (direction: number) => ({
+                                      x: direction > 0 ? '100%' : '-100%',
+                                      opacity: 0,
+                                  }),
+                                  center: {
+                                      x: 0,
+                                      opacity: 1,
+                                  },
+                                  exit: (direction: number) => ({
+                                      x: direction < 0 ? '100%' : '-100%',
+                                      opacity: 0,
+                                  }),
+                              }}
+                              initial="enter"
+                              animate="center"
+                              exit="exit"
+                              transition={{
+                                  x: { type: "spring", stiffness: 300, damping: 30 },
+                                  opacity: { duration: 0.2 }
+                              }}
+                              className="absolute w-full"
+                          >
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                  <div className='lg:order-2'>
+                                      <CardContent tab={tab} />
+                                  </div>
+                                  <div className='lg:order-1'>
+                                      <div className="border-0 bg-transparent shadow-none p-0">
+                                      <p className="text-muted mb-6">{tab.description}</p>
+                                      <Button asChild>
+                                          <Link href={tab.href}>Learn More &rarr;</Link>
+                                      </Button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </motion.div>
+                      )
+                  ))}
+              </AnimatePresence>
+            </div>
+          </Tabs>
+        </div>
+      </FadeContent>
     </section>
   );
 }
