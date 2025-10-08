@@ -13,41 +13,44 @@ export function AnimatedTabs({
   tabs,
   activeTab,
   onTabChange,
+  className,
 }: {
   tabs: Tab[];
   activeTab: string;
   onTabChange: (id: string) => void;
+  className?: string;
 }) {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
 
   return (
     <div
-      className="relative flex items-center justify-center"
+      className={cn("relative flex items-center", className)}
       onMouseLeave={() => setHoveredTab(null)}
     >
-      {tabs.map(tab => (
+      {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           onMouseEnter={() => setHoveredTab(tab.id)}
           className={cn(
-            'relative z-10 px-4 py-2 text-sm font-medium transition-colors',
+            "relative z-10 px-4 py-2 text-sm font-medium transition-colors",
             activeTab === tab.id
-              ? 'text-white'
-              : 'text-muted-foreground hover:text-white'
+              ? "text-primary"
+              : "text-muted-foreground hover:text-foreground"
           )}
+          style={{ WebkitTapHighlightColor: "transparent" }}
         >
           {hoveredTab === tab.id && (
-            <motion.div
+            <motion.span
               layoutId="hover-glow"
-              className="absolute inset-0 -z-10 rounded-md bg-primary/20"
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              className="absolute inset-0 -z-10 rounded-md bg-white/5"
+              transition={{ type: "spring", stiffness: 400, damping: 40 }}
             />
           )}
           {activeTab === tab.id && (
-            <motion.div
+             <motion.div
               layoutId="active-pill"
-              className="absolute inset-0 -z-10 rounded-md bg-primary"
+              className="absolute inset-0 -z-10 rounded-md bg-primary/10"
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             />
           )}
