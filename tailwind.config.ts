@@ -136,6 +136,9 @@ export default {
       backgroundImage: {
         'dot-pattern': 'radial-gradient(hsl(var(--muted)) 1px, transparent 1px)',
       },
+      backgroundSize: {
+        'dot-pattern': '1.5rem 1.5rem',
+      },
     },
   },
   plugins: [
