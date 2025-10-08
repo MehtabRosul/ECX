@@ -35,6 +35,24 @@
       "description": "Abstract image representing consulting.",
       "imageUrl": "https://picsum.photos/seed/consulting/600/400",
       "imageHint": "abstract consulting"
+    },
+    {
+      "id": "case-study-1",
+      "description": "Logo for a case study.",
+      "imageUrl": "https://picsum.photos/seed/logo1/200/40",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "case-study-2",
+      "description": "Logo for a case study.",
+      "imageUrl": "https://picsum.photos/seed/logo2/200/40",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "case-study-3",
+      "description": "Logo for a case study.",
+      "imageUrl": "https://picsum.photos/seed/logo3/200/40",
+      "imageHint": "company logo"
     }
   ]
 }

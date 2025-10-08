@@ -37,25 +37,28 @@
   }
  
   .dark {
-    --background: 220 20% 5%;
-    --foreground: 210 20% 90%;
-    --card: 220 20% 7%;
-    --card-foreground: 210 20% 90%;
-    --popover: 220 20% 7%;
-    --popover-foreground: 210 20% 90%;
-    --primary: 201 62% 46%;
+    --background: 210 40% 2.1%; /* Equivalent to #050505 */
+    --foreground: 210 20% 90.2%; /* Equivalent to #EAF0F6 */
+    --card: 216 28% 4.5%; /* Equivalent to #0B0F12 */
+    --card-foreground: 210 20% 90.2%;
+    --popover: 216 28% 4.5%;
+    --popover-foreground: 210 20% 90.2%;
+    --primary: 201 62% 46%; /* #2B8DBE */
     --primary-foreground: 210 20% 98%;
     --secondary: 215 15% 15%;
     --secondary-foreground: 210 20% 98%;
-    --muted: 215 15% 25%;
-    --muted-foreground: 210 20% 65%;
-    --accent: 202 48% 51%;
+    --muted: 210 15% 42.9%; /* #BFC6CD */
+    --muted-foreground: 210 15% 75%;
+    --accent: 29 95% 65%; /* #F4A460 */
     --accent-foreground: 210 20% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 20% 98%;
     --border: 215 15% 15%;
     --input: 215 15% 15%;
     --ring: 201 62% 56%;
+    --surface-1: 210 40% 2.1%; /* #050505 */
+    --surface-2: 216 28% 4.5%; /* #0B0F12 */
+    --glass-01: rgba(255,255,255,0.04);
   }
 
   @property --pos-x {
@@ -266,4 +269,34 @@
     --border-color-1: hsla(320, 75%, 90%, 0.2);
     --border-color-2: hsla(320, 50%, 90%, 0.75);
   }
+}
+
+:root {
+  --shadow-soft: 0 8px 32px rgba(2,6,23,0.6);
+}
+
+body {
+  background-color: hsl(var(--surface-1));
+}
+
+.bg-surface-1 {
+  background-color: hsl(var(--surface-1));
+}
+.bg-surface-2 {
+  background-color: hsl(var(--surface-2));
+}
+
+.text-high {
+  color: hsl(var(--text-high));
+}
+.text-muted {
+  color: hsl(var(--text-muted));
+}
+
+.bg-glass-01 {
+  background-color: var(--glass-01);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
 }
