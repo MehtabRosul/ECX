@@ -80,99 +80,213 @@
     },
     {
       "id": "integration-slack",
-      "description": "Logo for Slack.",
+      "description": "Slack",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/slack.svg",
       "imageHint": "slack logo"
     },
     {
       "id": "integration-splunk",
-      "description": "Logo for Splunk.",
+      "description": "Splunk",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/splunk.svg",
       "imageHint": "splunk logo"
     },
     {
       "id": "integration-aws",
-      "description": "Logo for AWS.",
+      "description": "AWS",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/aws.svg",
       "imageHint": "aws logo"
     },
     {
       "id": "integration-okta",
-      "description": "Logo for Okta.",
+      "description": "Okta",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/okta.svg",
       "imageHint": "okta logo"
     },
     {
       "id": "integration-datadog",
-      "description": "Logo for Datadog.",
+      "description": "Datadog",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/datadog.svg",
       "imageHint": "datadog logo"
     },
     {
       "id": "integration-gcp",
-      "description": "Logo for Google Cloud.",
+      "description": "Google Cloud",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/gcp.svg",
       "imageHint": "gcp logo"
     },
     {
       "id": "integration-kubernetes",
-      "description": "Logo for Kubernetes.",
+      "description": "Kubernetes",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/kubernetes.svg",
       "imageHint": "kubernetes logo"
     },
     {
       "id": "integration-vault",
-      "description": "Logo for HashiCorp Vault.",
+      "description": "HashiCorp Vault",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/vault.svg",
       "imageHint": "vault logo"
     },
     {
       "id": "integration-jira",
-      "description": "Logo for Jira.",
+      "description": "Jira",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/jira.svg",
       "imageHint": "jira logo"
     },
     {
       "id": "integration-azure",
-      "description": "Logo for Azure.",
+      "description": "Azure",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/azure.svg",
       "imageHint": "azure logo"
     },
     {
       "id": "integration-docker",
-      "description": "Logo for Docker.",
+      "description": "Docker",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/docker.svg",
       "imageHint": "docker logo"
     },
     {
       "id": "integration-terraform",
-      "description": "Logo for Terraform.",
+      "description": "Terraform",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/terraform.svg",
       "imageHint": "terraform logo"
     },
     {
       "id": "integration-figma",
-      "description": "Logo for Figma.",
+      "description": "Figma",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/figma.svg",
       "imageHint": "figma logo"
     },
     {
       "id": "integration-notion",
-      "description": "Logo for Notion.",
+      "description": "Notion",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/notion.svg",
       "imageHint": "notion logo"
     },
     {
       "id": "integration-stripe",
-      "description": "Logo for Stripe.",
+      "description": "Stripe",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/stripe.svg",
       "imageHint": "stripe logo"
     },
     {
       "id": "integration-twilio",
-      "description": "Logo for Twilio.",
+      "description": "Twilio",
       "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/twilio.svg",
       "imageHint": "twilio logo"
+    },
+    {
+      "id": "integration-vercel",
+      "description": "Vercel",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/vercel.svg",
+      "imageHint": "vercel logo"
+    },
+    {
+      "id": "integration-netlify",
+      "description": "Netlify",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/netlify.svg",
+      "imageHint": "netlify logo"
+    },
+    {
+      "id": "integration-github",
+      "description": "GitHub",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/github.svg",
+      "imageHint": "github logo"
+    },
+    {
+      "id": "integration-gitlab",
+      "description": "GitLab",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/gitlab.svg",
+      "imageHint": "gitlab logo"
+    },
+    {
+      "id": "integration-bitbucket",
+      "description": "Bitbucket",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/bitbucket.svg",
+      "imageHint": "bitbucket logo"
+    },
+    {
+      "id": "integration-jenkins",
+      "description": "Jenkins",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/jenkins.svg",
+      "imageHint": "jenkins logo"
+    },
+    {
+      "id": "integration-circleci",
+      "description": "CircleCI",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/circleci.svg",
+      "imageHint": "circleci logo"
+    },
+    {
+      "id": "integration-travisci",
+      "description": "Travis CI",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/travis-ci.svg",
+      "imageHint": "travis ci logo"
+    },
+    {
+      "id": "integration-sentry",
+      "description": "Sentry",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/sentry.svg",
+      "imageHint": "sentry logo"
+    },
+    {
+      "id": "integration-newrelic",
+      "description": "New Relic",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/new-relic.svg",
+      "imageHint": "new relic logo"
+    },
+    {
+      "id": "integration-grafana",
+      "description": "Grafana",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/grafana.svg",
+      "imageHint": "grafana logo"
+    },
+    {
+      "id": "integration-prometheus",
+      "description": "Prometheus",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/prometheus.svg",
+      "imageHint": "prometheus logo"
+    },
+    {
+      "id": "integration-elastic",
+      "description": "Elastic",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/elastic.svg",
+      "imageHint": "elastic logo"
+    },
+    {
+      "id": "integration-mongodb",
+      "description": "MongoDB",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/mongodb.svg",
+      "imageHint": "mongodb logo"
+    },
+    {
+      "id": "integration-postgresql",
+      "description": "PostgreSQL",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/postgresql.svg",
+      "imageHint": "postgresql logo"
+    },
+    {
+      "id": "integration-redis",
+      "description": "Redis",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/redis.svg",
+      "imageHint": "redis logo"
+    },
+    {
+      "id": "integration-kafka",
+      "description": "Kafka",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/kafka.svg",
+      "imageHint": "kafka logo"
+    },
+    {
+      "id": "integration-rabbitmq",
+      "description": "RabbitMQ",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/rabbitmq.svg",
+      "imageHint": "rabbitmq logo"
+    },
+    {
+      "id": "integration-auth0",
+      "description": "Auth0",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/auth0.svg",
+      "imageHint": "auth0 logo"
     },
     {
       "id": "avatar-jack",
