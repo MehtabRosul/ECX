@@ -1,4 +1,3 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -7,7 +6,7 @@ import LogoLoop from "@/components/ui/logo-loop";
 const integrations = [
     { name: "Slack", imageId: "integration-slack" },
     { name: "Splunk", imageId: "integration-splunk" },
-    { name: "AWS KMS", imageId: "integration-aws" },
+    { name: "AWS", imageId: "integration-aws" },
     { name: "Okta", imageId: "integration-okta" },
     { name: "Datadog", imageId: "integration-datadog" },
     { name: "Google Cloud", imageId: "integration-gcp" },
@@ -15,6 +14,12 @@ const integrations = [
     { name: "HashiCorp Vault", imageId: "integration-vault" },
     { name: "Jira", imageId: "integration-jira" },
     { name: "Azure", imageId: "integration-azure" },
+    { name: "Docker", imageId: "integration-docker" },
+    { name: "Terraform", imageId: "integration-terraform" },
+    { name: "Figma", imageId: "integration-figma" },
+    { name: "Notion", imageId: "integration-notion" },
+    { name: "Stripe", imageId: "integration-stripe" },
+    { name: "Twilio", imageId: "integration-twilio" },
 ];
 
 function getIntegrationImage(id: string) {

@@ -81,62 +81,98 @@
     {
       "id": "integration-slack",
       "description": "Logo for Slack.",
-      "imageUrl": "https://picsum.photos/seed/slack/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/slack.svg",
       "imageHint": "slack logo"
     },
     {
       "id": "integration-splunk",
       "description": "Logo for Splunk.",
-      "imageUrl": "https://picsum.photos/seed/splunk/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/splunk.svg",
       "imageHint": "splunk logo"
     },
     {
       "id": "integration-aws",
       "description": "Logo for AWS.",
-      "imageUrl": "https://picsum.photos/seed/aws/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/aws.svg",
       "imageHint": "aws logo"
     },
     {
       "id": "integration-okta",
       "description": "Logo for Okta.",
-      "imageUrl": "https://picsum.photos/seed/okta/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/okta.svg",
       "imageHint": "okta logo"
     },
     {
       "id": "integration-datadog",
       "description": "Logo for Datadog.",
-      "imageUrl": "https://picsum.photos/seed/datadog/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/datadog.svg",
       "imageHint": "datadog logo"
     },
     {
       "id": "integration-gcp",
       "description": "Logo for Google Cloud.",
-      "imageUrl": "https://picsum.photos/seed/gcp/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/gcp.svg",
       "imageHint": "gcp logo"
     },
     {
       "id": "integration-kubernetes",
       "description": "Logo for Kubernetes.",
-      "imageUrl": "https://picsum.photos/seed/kubernetes/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/kubernetes.svg",
       "imageHint": "kubernetes logo"
     },
     {
       "id": "integration-vault",
       "description": "Logo for HashiCorp Vault.",
-      "imageUrl": "https://picsum.photos/seed/vault/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/vault.svg",
       "imageHint": "vault logo"
     },
     {
       "id": "integration-jira",
       "description": "Logo for Jira.",
-      "imageUrl": "https://picsum.photos/seed/jira/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/jira.svg",
       "imageHint": "jira logo"
     },
     {
       "id": "integration-azure",
       "description": "Logo for Azure.",
-      "imageUrl": "https://picsum.photos/seed/azure/100/100",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/azure.svg",
       "imageHint": "azure logo"
+    },
+    {
+      "id": "integration-docker",
+      "description": "Logo for Docker.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/docker.svg",
+      "imageHint": "docker logo"
+    },
+    {
+      "id": "integration-terraform",
+      "description": "Logo for Terraform.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/terraform.svg",
+      "imageHint": "terraform logo"
+    },
+    {
+      "id": "integration-figma",
+      "description": "Logo for Figma.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/figma.svg",
+      "imageHint": "figma logo"
+    },
+    {
+      "id": "integration-notion",
+      "description": "Logo for Notion.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/notion.svg",
+      "imageHint": "notion logo"
+    },
+    {
+      "id": "integration-stripe",
+      "description": "Logo for Stripe.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/stripe.svg",
+      "imageHint": "stripe logo"
+    },
+    {
+      "id": "integration-twilio",
+      "description": "Logo for Twilio.",
+      "imageUrl": "https://raw.githubusercontent.com/firebase-studio/prototyper-assets/main/tech-logos/twilio.svg",
+      "imageHint": "twilio logo"
     },
     {
       "id": "avatar-jack",
