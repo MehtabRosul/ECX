@@ -1,13 +1,13 @@
 'use client'
 
-import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShineBorder } from '../ui/shine-border';
 import { Code, Lock, BrainCircuit } from 'lucide-react';
 import { AnimatedTabs } from '../ui/animated-tabs';
+import { EffectCard } from '../ui/effect-card';
 
 const whatWeDoTabs = [
   {
@@ -39,20 +39,16 @@ const whatWeDoTabs = [
   },
 ];
 
-const GlowCard = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
+const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
     return (
-        <ShineBorder
-            className="w-full h-full bg-surface-2 hover:-translate-y-2 transition-transform duration-300"
-            color={['#2B8DBE', '#4896BD', '#2B8DBE']}
-        >
+        <EffectCard>
             <div className="relative w-full h-80 rounded-lg flex items-center justify-center p-6 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_50%_50%,_hsl(var(--primary)/0.1)_0%,_transparent_100%)] group-hover:bg-[radial-gradient(40%_40%_at_50%_50%,_hsl(var(--primary)/0.2)_0%,_transparent_100%)] transition-all duration-300"></div>
                 <div className="relative text-center z-10">
                     <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
                 </div>
             </div>
-        </ShineBorder>
+        </EffectCard>
     )
 }
 
@@ -114,7 +110,7 @@ export function WhatWeDo() {
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div className='lg:order-2'>
-                                    <GlowCard tab={tab} />
+                                    <CardContent tab={tab} />
                                 </div>
                                 <div className='lg:order-1'>
                                     <div className="border-0 bg-transparent shadow-none p-0">
