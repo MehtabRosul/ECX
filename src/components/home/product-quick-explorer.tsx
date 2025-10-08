@@ -26,7 +26,7 @@ export function ProductQuickExplorer() {
 
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) return;
+    if (!query.trim() && filters.every(f => !f.selected)) return;
 
     setIsLoading(true);
     setHasSearched(true);
@@ -51,44 +51,45 @@ export function ProductQuickExplorer() {
     );
   };
   
+  const runSearch = useCallback(() => {
+    if(query.trim() || filters.some(f => f.selected)) {
+        handleSearch(new Event('submit') as any);
+    }
+  }, [query, filters]);
+
   useEffect(() => {
-    if(hasSearched && query.trim()) {
+    if (hasSearched) {
         const debounce = setTimeout(() => {
-            handleSearch(new Event('submit') as any);
+            runSearch();
         }, 500);
         return () => clearTimeout(debounce);
     }
-  }, [filters, hasSearched, query]);
+  }, [filters, hasSearched, runSearch]);
 
   return (
-    <section className="py-12 sm:py-24 bg-surface-2">
+    <section className="py-12 sm:py-24 bg-surface-1">
       <FadeContent>
         <div className="container max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="font-headline text-3xl font-bold tracking-tight text-high sm:text-4xl">Product & SDK Explorer</h2>
-            <p className="mt-4 text-muted max-w-2xl mx-auto">
-                Use our AI-powered semantic search to find the perfect product or tool.
-            </p>
-          </div>
-          <form onSubmit={handleSearch}>
-            <div className="group relative">
-                <div className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,hsl(var(--primary)/0.2),transparent_50%,hsl(var(--primary)/0.2))] bg-[length:300%_100%] animate-shine opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
-                <div className="absolute inset-0.5 rounded-full bg-surface-2" />
-
-                <div className="relative flex items-center">
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-muted pointer-events-none" />
-                    <Input
-                        type="search"
-                        placeholder='Search products, e.g., "threat detection API", "crypto SDK"'
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        className="w-full pl-14 pr-6 py-3 h-16 text-lg bg-transparent rounded-full border-2 border-border focus:border-primary"
-                    />
-                </div>
+          <div className="bg-surface-2 p-8 rounded-xl shadow-soft">
+            <div className="text-center mb-8">
+              <h2 className="font-headline text-3xl font-bold tracking-tight text-high sm:text-4xl">Product & SDK Explorer</h2>
+              <p className="mt-4 text-muted max-w-2xl mx-auto">
+                  Use our AI-powered semantic search to find the perfect product or tool.
+              </p>
             </div>
-          </form>
+            <form onSubmit={handleSearch} className="mb-6">
+              <div className="relative flex items-center">
+                  <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-muted pointer-events-none" />
+                  <Input
+                      type="search"
+                      placeholder='Search products, e.g., "threat detection API", "crypto SDK"'
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      className="w-full pl-14 pr-6 py-3 h-16 text-lg bg-background rounded-full border-2 border-border focus:border-primary"
+                  />
+              </div>
+            </form>
 
-          <div className="mt-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm text-muted mr-2 flex items-center gap-2">
                 <Filter className="w-4 h-4" /> Filters:
@@ -100,8 +101,10 @@ export function ProductQuickExplorer() {
                   size="sm"
                   onClick={() => toggleFilter(index)}
                   className={cn(
-                    "rounded-full transition-all duration-200",
-                    filter.selected ? 'bg-primary/10 border-primary text-primary' : 'bg-glass-01 border-white/10 hover:bg-white/5'
+                    "rounded-full transition-all duration-200 border",
+                    filter.selected 
+                      ? 'bg-primary border-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-glass-01 border-white/10 hover:bg-white/5 text-high'
                   )}
                 >
                   {filter.selected ? (
@@ -139,7 +142,7 @@ export function ProductQuickExplorer() {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20 }}
                           transition={{ delay: index * 0.1 }}
-                          className="p-4 rounded-lg bg-surface-1 border border-border"
+                          className="p-4 rounded-lg bg-surface-2 border border-border"
                         >
                           <p className="text-high">{result}</p>
                         </motion.div>
@@ -148,7 +151,7 @@ export function ProductQuickExplorer() {
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-center text-muted"
+                        className="text-center text-muted p-8 bg-surface-2 rounded-lg"
                       >
                         No results found for your query.
                       </motion.div>
