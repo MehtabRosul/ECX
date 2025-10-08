@@ -109,6 +109,17 @@ export default {
             transform: 'translateZ(0) rotate(360deg)',
           },
         },
+        'gradient': {
+          '0%': {
+            'background-position': '0% 50%',
+          },
+          '50%': {
+            'background-position': '100% 50%',
+          },
+          '100%': {
+            'background-position': '0% 50%',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -118,6 +129,7 @@ export default {
         'shine': 'shine var(--shine-duration, 5s) linear infinite',
         'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
         'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
+        'gradient': 'gradient 8s linear infinite',
       },
       backgroundImage: {
         'dot-pattern': 'radial-gradient(hsl(var(--muted)) 1px, transparent 1px)',
