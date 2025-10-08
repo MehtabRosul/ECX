@@ -51,9 +51,9 @@ export function WhatWeDo() {
           </p>
         </div>
 
-        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex justify-center mb-8">
-            <AnimatedTabs tabs={whatWeDoTabs} />
+            <AnimatedTabs tabs={whatWeDoTabs} activeTab={activeTab} onTabChange={setActiveTab} />
           </div>
           
           <div className="relative mt-20">

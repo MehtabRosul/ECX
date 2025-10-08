@@ -3,23 +3,22 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { useTabsContext } from '@radix-ui/react-tabs';
 
 type Tab = {
   id: string;
   title: string;
 };
 
-export function AnimatedTabs({ tabs }: { tabs: Tab[] }) {
-  const tabsContext = useTabsContext();
+export function AnimatedTabs({
+  tabs,
+  activeTab,
+  onTabChange,
+}: {
+  tabs: Tab[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
+}) {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
-
-  if (!tabsContext || !tabsContext.value) {
-    console.warn('AnimatedTabs must be used within a Tabs component from Radix UI');
-    return null;
-  }
-  
-  const activeTab = tabsContext.value;
 
   return (
     <div
@@ -29,7 +28,7 @@ export function AnimatedTabs({ tabs }: { tabs: Tab[] }) {
       {tabs.map(tab => (
         <button
           key={tab.id}
-          onClick={() => tabsContext.onValueChange?.(tab.id)}
+          onClick={() => onTabChange(tab.id)}
           onMouseEnter={() => setHoveredTab(tab.id)}
           className={cn(
             'relative z-10 px-4 py-2 text-sm font-medium transition-colors',
