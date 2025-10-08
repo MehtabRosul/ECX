@@ -113,6 +113,42 @@
       "description": "Logo for Google Cloud.",
       "imageUrl": "https://picsum.photos/seed/gcp/100/100",
       "imageHint": "gcp logo"
+    },
+    {
+      "id": "avatar-jack",
+      "description": "Avatar for Jack.",
+      "imageUrl": "https://avatar.vercel.sh/jack",
+      "imageHint": "person avatar"
+    },
+    {
+      "id": "avatar-jill",
+      "description": "Avatar for Jill.",
+      "imageUrl": "https://avatar.vercel.sh/jill",
+      "imageHint": "person avatar"
+    },
+    {
+      "id": "avatar-john",
+      "description": "Avatar for John.",
+      "imageUrl": "https://avatar.vercel.sh/john",
+      "imageHint": "person avatar"
+    },
+    {
+      "id": "avatar-jane",
+      "description": "Avatar for Jane.",
+      "imageUrl": "https://avatar.vercel.sh/jane",
+      "imageHint": "person avatar"
+    },
+    {
+      "id": "avatar-jenny",
+      "description": "Avatar for Jenny.",
+      "imageUrl": "https://avatar.vercel.sh/jenny",
+      "imageHint": "person avatar"
+    },
+    {
+      "id": "avatar-james",
+      "description": "Avatar for James.",
+      "imageUrl": "https://avatar.vercel.sh/james",
+      "imageHint": "person avatar"
     }
   ]
 }

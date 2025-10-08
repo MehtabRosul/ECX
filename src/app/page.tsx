@@ -17,6 +17,7 @@ import { SecuritySnapshot } from '@/components/home/security-snapshot';
 import { UpcomingEvents } from '@/components/home/upcoming-events';
 import { NewsletterCta } from '@/components/home/newsletter-cta';
 import { Faq } from '@/components/home/faq';
+import { Testimonials } from '@/components/home/testimonials';
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
         <FeaturedIntegrations />
         <SecuritySnapshot />
         <UpcomingEvents />
+        <Testimonials />
         <NewsletterCta />
         <Faq />
         <Cta />

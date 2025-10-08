@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -78,8 +79,12 @@ export default {
           },
         },
         'marquee': {
-          'from': { transform: 'translateX(0)' },
-          'to': { transform: 'translateX(-50%)' },
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-vertical': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(calc(-100% - var(--gap)))' },
         },
         'shine': {
           '0%': { backgroundPosition: '200% 0' },
@@ -108,7 +113,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee': 'marquee 30s linear infinite',
+        'marquee': 'marquee var(--duration) linear infinite',
+        'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         'shine': 'shine var(--shine-duration, 5s) linear infinite',
         'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
         'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
