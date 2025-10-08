@@ -1,6 +1,8 @@
 
+'use client';
+
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import Image from "next/image";
+import LogoLoop from "@/components/ui/logo-loop";
 
 const integrations = [
     { name: "Slack", imageId: "integration-slack" },
@@ -9,6 +11,10 @@ const integrations = [
     { name: "Okta", imageId: "integration-okta" },
     { name: "Datadog", imageId: "integration-datadog" },
     { name: "Google Cloud", imageId: "integration-gcp" },
+    { name: "Kubernetes", imageId: "integration-kubernetes" },
+    { name: "HashiCorp Vault", imageId: "integration-vault" },
+    { name: "Jira", imageId: "integration-jira" },
+    { name: "Azure", imageId: "integration-azure" },
 ];
 
 function getIntegrationImage(id: string) {
@@ -16,6 +22,14 @@ function getIntegrationImage(id: string) {
 }
 
 export function FeaturedIntegrations() {
+    const imageLogos = integrations.map(item => {
+        const image = getIntegrationImage(item.imageId);
+        return {
+            src: image?.imageUrl || '',
+            alt: item.name,
+        };
+    }).filter(logo => logo.src);
+
     return (
         <section className="py-12 sm:py-24 bg-surface-2">
             <div className="container">
@@ -25,26 +39,19 @@ export function FeaturedIntegrations() {
                         EncryptArx works seamlessly with the tools you already use.
                     </p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                    {integrations.map(item => {
-                        const image = getIntegrationImage(item.imageId);
-                        return (
-                            <div key={item.name} className="flex flex-col items-center justify-center p-6 bg-surface-1 rounded-lg shadow-soft grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                                {image && (
-                                     <div className="relative h-12 w-12">
-                                        <Image
-                                            src={image.imageUrl}
-                                            alt={`${item.name} Logo`}
-                                            fill
-                                            className="object-contain"
-                                            data-ai-hint={image.imageHint}
-                                        />
-                                    </div>
-                                )}
-                                <p className="text-sm font-semibold text-high mt-4">{item.name}</p>
-                            </div>
-                        )
-                    })}
+                <div className="relative w-full">
+                     <LogoLoop
+                        logos={imageLogos}
+                        speed={80}
+                        direction="left"
+                        logoHeight={48}
+                        gap={60}
+                        pauseOnHover
+                        scaleOnHover
+                        fadeOut
+                        fadeOutColor="hsl(var(--surface-2))"
+                        ariaLabel="Featured Integrations"
+                    />
                 </div>
             </div>
         </section>
