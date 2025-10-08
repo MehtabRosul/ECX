@@ -7,9 +7,9 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShineBorder } from '../ui/shine-border';
 import { Code, Lock, BrainCircuit } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EffectCard } from '../ui/effect-card';
 
 const whatWeDoTabs = [
   {
@@ -41,42 +41,9 @@ const whatWeDoTabs = [
   },
 ];
 
-function getWhatWeDoImage(id: string) {
-  return PlaceHolderImages.find((p) => p.id === id);
-}
-
-const GlowCard = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
-    const image = getWhatWeDoImage(tab.imageId);
-
-    return (
-        <ShineBorder
-            className="w-full h-80 group"
-            color={['#2B8DBE', '#4896BD', '#F4A460']}
-        >
-            <div className="relative w-full h-full rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6 overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-2">
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(43,141,190,0.2)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                 {image && (
-                    <Image
-                        src={image.imageUrl}
-                        alt={tab.title}
-                        fill
-                        className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
-                        data-ai-hint={image.imageHint}
-                    />
-                )}
-                <div className="absolute inset-0 bg-black/50"></div>
-                <div className="relative text-center">
-                    <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
-                </div>
-            </div>
-        </ShineBorder>
-    );
-};
-
-
 export function WhatWeDo() {
   const [activeTab, setActiveTab] = useState(whatWeDoTabs[0].id);
+  const activeTabData = whatWeDoTabs.find(tab => tab.id === activeTab);
 
   return (
     <section className="py-12 sm:py-24 bg-surface-2">
@@ -101,35 +68,38 @@ export function WhatWeDo() {
           
           <div className="relative">
             <AnimatePresence mode="wait">
-              {whatWeDoTabs.map((tab) => (
-                activeTab === tab.id && (
-                  <motion.div
-                    key={tab.id}
+                <motion.div
+                    key={activeTab}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                  >
-                    <TabsContent value={tab.id} forceMount>
+                >
+                    {activeTabData && (
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div className='lg:order-2'>
-                               <GlowCard tab={tab} />
+                               <EffectCard>
+                                    <div className="relative w-full h-80 rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6 overflow-hidden">
+                                        <div className="relative text-center z-10">
+                                            <activeTabData.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                                            <h3 className="text-2xl font-bold text-high">{activeTabData.title}</h3>
+                                        </div>
+                                    </div>
+                               </EffectCard>
                             </div>
                             <div className='lg:order-1'>
                                 <Card className="border-0 bg-transparent shadow-none">
                                     <CardContent className="p-0">
-                                    <p className="text-muted mb-6">{tab.description}</p>
+                                    <p className="text-muted mb-6">{activeTabData.description}</p>
                                     <Button asChild>
-                                        <Link href={tab.href}>Learn More &rarr;</Link>
+                                        <Link href={activeTabData.href}>Learn More &rarr;</Link>
                                     </Button>
                                     </CardContent>
                                 </Card>
                             </div>
                         </div>
-                    </TabsContent>
-                  </motion.div>
-                )
-              ))}
+                    )}
+                </motion.div>
             </AnimatePresence>
           </div>
 

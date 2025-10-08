@@ -140,13 +140,16 @@ export default {
   },
   plugins: [
       require('tailwindcss-animate'),
-      plugin(function({ addUtilities }: { addUtilities: any }) {
+      plugin(function({ addUtilities, theme }: { addUtilities: any, theme: any }) {
         addUtilities({
           '.perspective-1000': {
             perspective: '1000px',
           },
           '.backface-hidden': {
             'backface-visibility': 'hidden',
+          },
+          '.transform-style-3d': {
+            'transform-style': 'preserve-3d',
           },
         })
       })
