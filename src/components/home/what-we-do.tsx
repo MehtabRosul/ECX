@@ -41,7 +41,6 @@ const whatWeDoTabs = [
 
 export function WhatWeDo() {
   const [activeTab, setActiveTab] = useState(whatWeDoTabs[0].id);
-  const activeTabData = whatWeDoTabs.find(tab => tab.id === activeTab);
 
   return (
     <section className="py-12 sm:py-24 bg-surface-2">
@@ -66,41 +65,41 @@ export function WhatWeDo() {
           
           <div className="relative mt-12">
             <AnimatePresence mode="wait">
-                <motion.div
-                    key={activeTab}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    {activeTabData && (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                            <div className='lg:order-2'>
-                               <EffectCard>
-                                    <div className="relative w-full h-80 rounded-lg bg-surface-2 shadow-soft flex items-center justify-center p-6 overflow-hidden">
-                                        <div className="relative text-center z-10">
-                                            <activeTabData.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
-                                            <h3 className="text-2xl font-bold text-high">{activeTabData.title}</h3>
-                                        </div>
-                                    </div>
-                               </EffectCard>
-                            </div>
-                            <div className='lg:order-1'>
-                                <Card className="border-0 bg-transparent shadow-none">
-                                    <CardContent className="p-0">
-                                    <p className="text-muted mb-6">{activeTabData.description}</p>
-                                    <Button asChild>
-                                        <Link href={activeTabData.href}>Learn More &rarr;</Link>
-                                    </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </div>
-                    )}
-                </motion.div>
+              {whatWeDoTabs.map(tab => activeTab === tab.id && (
+                  <motion.div
+                      key={tab.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                  >
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                          <div className='lg:order-2'>
+                             <EffectCard>
+                                  <div className="relative w-full h-80 rounded-lg bg-surface-2 flex items-center justify-center p-6 overflow-hidden">
+                                      <div className="relative text-center z-10">
+                                          <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
+                                          <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
+                                      </div>
+                                  </div>
+                             </EffectCard>
+                          </div>
+                          <div className='lg:order-1'>
+                              <Card className="border-0 bg-transparent shadow-none">
+                                  <CardContent className="p-0">
+                                  <p className="text-muted mb-6">{tab.description}</p>
+                                  <Button asChild>
+                                      <Link href={tab.href}>Learn More &rarr;</Link>
+                                  </Button>
+                                  </CardContent>
+                              </Card>
+                          </div>
+                      </div>
+                  </motion.div>
+                )
+              )}
             </AnimatePresence>
           </div>
-
         </Tabs>
       </div>
     </section>
