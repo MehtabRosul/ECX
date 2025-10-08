@@ -1,14 +1,35 @@
 'use client';
 
 import LogoLoop from "@/components/ui/logo-loop";
-import { techLogos } from "@/components/icons/tech-logos";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+
+const integrations = [
+    "integration-aws",
+    "integration-gcp",
+    "integration-azure",
+    "integration-kubernetes",
+    "integration-docker",
+    "integration-terraform",
+    "integration-splunk",
+    "integration-datadog",
+    "integration-okta",
+    "integration-vault",
+    "integration-slack",
+    "integration-jira",
+    "integration-figma",
+    "integration-notion",
+    "integration-stripe",
+];
 
 export function FeaturedIntegrations() {
     
-    const logos = Object.values(techLogos).map(logo => ({
-        node: logo.node,
-        title: logo.title,
-    }));
+    const logos = integrations.map(id => {
+        const placeholder = PlaceHolderImages.find(p => p.id === id);
+        return {
+            src: placeholder?.imageUrl || '',
+            alt: placeholder?.description || 'Integration logo'
+        }
+    });
 
     return (
         <section className="py-12 sm:py-24 bg-surface-2">
