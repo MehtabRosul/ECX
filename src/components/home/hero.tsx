@@ -1,3 +1,4 @@
+
 import { GradientButton } from '@/components/ui/gradient-button';
 import SplashCursor from '@/components/ui/splash-cursor';
 import { ArrowRight } from 'lucide-react';
