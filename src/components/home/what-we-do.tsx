@@ -42,7 +42,7 @@ const whatWeDoTabs = [
 const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
     return (
         <EffectCard>
-            <div className="relative w-full h-80 rounded-lg flex items-center justify-center p-6 overflow-hidden">
+            <div className="relative w-full h-72 rounded-lg flex items-center justify-center p-6 overflow-hidden">
                 <div className="relative text-center z-10">
                     <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
@@ -78,7 +78,7 @@ export function WhatWeDo() {
             <AnimatedTabs tabs={whatWeDoTabs} activeTab={activeTab} onTabChange={handleTabChange} />
           </div>
           
-          <div className="relative mt-12 overflow-hidden h-[360px]">
+          <div className="relative mt-12 overflow-hidden h-[340px]">
             <AnimatePresence initial={false} custom={direction}>
                 {whatWeDoTabs.map(tab => (
                     activeTab === tab.id && (
