@@ -24,8 +24,9 @@ export function AnimatedTabs({
 
   return (
     <div
-      className={cn("relative flex items-center", className)}
+      className={cn("relative grid w-full items-center", className)}
       onMouseLeave={() => setHoveredTab(null)}
+      style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
     >
       {tabs.map((tab) => (
         <button
@@ -33,7 +34,7 @@ export function AnimatedTabs({
           onClick={() => onTabChange(tab.id)}
           onMouseEnter={() => setHoveredTab(tab.id)}
           className={cn(
-            "relative z-10 px-4 py-2 text-sm font-medium transition-colors",
+            "relative z-10 px-4 py-2 text-sm font-medium transition-colors text-center",
             activeTab === tab.id
               ? "text-primary"
               : "text-muted-foreground hover:text-foreground"

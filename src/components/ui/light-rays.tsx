@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
+type RendererType = typeof Renderer extends { prototype: infer U } ? U : never;
 
 export type RaysOrigin =
   | 'top-center'
@@ -92,7 +93,7 @@ const LightRays: React.FC<LightRaysProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const uniformsRef = useRef<any>(null);
-  const rendererRef = useRef<Renderer | null>(null);
+  const rendererRef = useRef<InstanceType<typeof Renderer> | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const smoothMouseRef = useRef({ x: 0.5, y: 0.5 });
   const animationIdRef = useRef<number | null>(null);
@@ -390,7 +391,7 @@ void main() {
     if (!uniformsRef.current || !containerRef.current || !rendererRef.current) return;
 
     const u = uniformsRef.current;
-    const renderer = rendererRef.current;
+    const renderer = rendererRef.current as InstanceType<typeof Renderer>;
 
     u.raysColor.value = hexToRgb(raysColor);
     u.raysSpeed.value = raysSpeed;

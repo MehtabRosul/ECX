@@ -21,7 +21,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['"Neue Augenblick Ultra Bold"', 'Space Grotesk', 'sans-serif'],
+        headline: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -122,6 +122,38 @@ export default {
             'background-position': '0% 50%',
           },
         },
+        'neon-rotate': {
+          '0%': {
+            transform: 'rotate(0deg)',
+            filter: 'hue-rotate(0deg)',
+          },
+          '25%': {
+            transform: 'rotate(90deg)',
+            filter: 'hue-rotate(90deg)',
+          },
+          '50%': {
+            transform: 'rotate(180deg)',
+            filter: 'hue-rotate(180deg)',
+          },
+          '75%': {
+            transform: 'rotate(270deg)',
+            filter: 'hue-rotate(270deg)',
+          },
+          '100%': {
+            transform: 'rotate(360deg)',
+            filter: 'hue-rotate(360deg)',
+          },
+        },
+        'neon-pulse': {
+          '0%, 100%': {
+            opacity: '0.8',
+            transform: 'scale(1)',
+          },
+          '50%': {
+            opacity: '1',
+            transform: 'scale(1.05)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -132,6 +164,8 @@ export default {
         'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
         'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
         'gradient': 'gradient 8s linear infinite',
+        'neon-rotate': 'neon-rotate 4s linear infinite',
+        'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
       },
       backgroundImage: {
         'dot-pattern': 'radial-gradient(hsl(var(--muted)) 1px, transparent 1px)',

@@ -3,47 +3,51 @@
 import { useChat } from '@/context/chat-context';
 import { Bot, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { AnimatedGradientText } from '@/components/ui/animated-gradient-text';
+import { useState } from 'react';
 
 export function ChatbotToggle() {
   const { isOpen, toggleChat } = useChat();
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div 
-        className="group relative flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#2B8DBE1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#2B8DBE3f] cursor-pointer"
-        onClick={toggleChat}
+    <button
+      onClick={toggleChat}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={cn(
+        "group relative flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200",
+        "bg-primary/5 hover:bg-primary/10 border border-primary/20 hover:border-primary/30",
+        "text-sm font-medium text-foreground/80 hover:text-foreground",
+        isOpen && "bg-primary/10 border-primary/30 text-primary"
+      )}
     >
-      <span
-        className={cn(
-          "animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-primary/50 via-accent/50 to-primary/50 bg-[length:300%_100%] p-[1px]"
-        )}
-        style={{
-          WebkitMask:
-            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          WebkitMaskComposite: "destination-out",
-          mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          maskComposite: "subtract",
-        }}
-      />
-      <div className="flex items-center gap-2">
-         <span className="relative h-4 w-4">
-            <Bot
-            className={cn(
-                'w-4 h-4 text-primary transition-transform duration-300 ease-in-out',
-                isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
-            )}
-            />
-            <X
-            className={cn(
-                'w-4 h-4 text-primary absolute top-0 left-0 transition-transform duration-300 ease-in-out',
-                isOpen ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
-            )}
-            />
-        </span>
-        <AnimatedGradientText className="text-sm font-medium">
-             AI Assistant
-        </AnimatedGradientText>
+      {/* Icon */}
+      <div className="relative">
+        <Bot
+          className={cn(
+            "w-4 h-4 transition-all duration-200",
+            isOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+          )}
+        />
+        <X
+          className={cn(
+            "w-4 h-4 absolute top-0 left-0 transition-all duration-200",
+            isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
+          )}
+        />
       </div>
-    </div>
+      
+      {/* Text */}
+      <span className="relative">
+        AI Assistant
+      </span>
+      
+      {/* Subtle underline */}
+      <div className={cn(
+        "absolute bottom-0 left-4 right-4 h-px bg-transparent transition-all duration-200",
+        "group-hover:bg-primary/50",
+        isOpen && "bg-primary/50"
+      )} />
+    </button>
   );
 }

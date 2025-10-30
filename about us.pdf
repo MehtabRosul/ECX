@@ -1,0 +1,1223 @@
+Below is the complete, production-ready About Us page — only text, extremely detailed, creative, and precise. It includes exact headings and copy you can paste, placement and descriptive instructions for the LaserFlow and other animations (what to include and where), the content hierarchy and what each block must communicate, microcopy, accessibility and SEO text, analytics events to capture, and all supporting content and assets. This is the canonical content for the page; once approved I can produce Figma or storybook specs, JSON mocks or a full markdown doc.
+
+About Us — EncryptArx (ECX)
+
+Page purpose (one line): The single source of truth that explains who EncryptArx is, what we build, why we exist, how we operate, and why customers, partners and researchers should trust us — presented as a confident, research-led, security-first technology organization.
+
+Tone: Authoritative, visionary, human-but-technical, concise. Use the brand voice: confident, exact, research-driven, secure.
+
+Primary theme colors (for reference in copy/CTAs): #2B8DBE (primary), #4896BD (accent), black/near-black surfaces and muted grays.
+
+Page outline — ordered sections (top → bottom)
+
+Meta / SEO / OpenGraph (page-level)
+
+Immersive Hero (LaserFlow background + short positioning)
+
+Quick Values Row (3 value pillars)
+
+What We Do — high-level summary (services + products + consultancy)
+
+Our Approach (how we partner) — engagement model & deliverables
+
+Innovation & R&D Lab (capabilities, projects → products pipeline)
+
+Signature Products (Defenza, Deepfake Detection, others)
+
+Capabilities Matrix (detailed skillset & proof points)
+
+Consultancy Snapshot (summarized)
+
+Research Library & Publications preview
+
+Clients, Partners & Trusted By (logos + case study links)
+
+Team / Minds (abstract, capability-first panel — no human faces)
+
+Culture & Careers (values & how we hire)
+
+Security, Compliance & Governance statement
+
+Community & Open Source (contributions)
+
+Call to Action / Contact / Consultancy booking
+
+Footer links & microcopy
+
+1) Meta / SEO / OpenGraph (content to include in head)
+
+Title: EncryptArx — Research-driven Security, AI & Trusted Digital Transformation
+
+Meta description: EncryptArx builds research-driven cybersecurity, AI/ML, and blockchain solutions. We combine deep technical research, product engineering and strategic consultancy to secure and scale your digital systems.
+
+OpenGraph: same title/description, image: hero snapshot (1200×630).
+
+Structured data: Organization JSON-LD with sameAs links to LinkedIn and GitHub; WebSite and WebPage for About.
+
+2) Immersive Hero — "LaserFlow Experience" (full content & exact copy)
+
+Purpose: immediate emotional and intellectual impact — show that ECX is cutting-edge, research-grade, and can bring rigor + imagination.
+
+Exact heading (H1):
+EncryptArx — Securing the Future, One Breakthrough at a Time
+
+Subhead (lead, 2 lines):
+We combine rigorous research, production-grade engineering and deep security expertise to build resilient digital systems, trustworthy AI, and transparent Web3 infrastructures.
+
+Primary CTAs (two):
+
+Primary (action): Book a Technical Discovery →
+
+Secondary (info): Explore our Research Library
+
+Hero microcopy (small):
+Research • Secure Infrastructure • AI • Blockchain • Product Engineering
+
+Hero visuals & animation placement (text instructions):
+
+The hero uses the LaserFlow WebGL/Three.js shader as the full-bleed animated background. LaserFlow should be configured in hero with a slow, elegant color drawn from the brand family — recommended --primary-500 (#2B8DBE) with a touch of #4896BD for richness, or a variant like #7fd0f0 for highlights. Provide an accessible fallback static hero still that matches the motion-based hero for users who disable animations.
+
+LaserFlow effects here should be subtle and slow: low flowSpeed, modest wispIntensity, moderate fogIntensity, color tuned for white text legibility. The LaserFlow layer should be layered behind a translucent card that contains the H1/subhead and CTAs (centered).
+
+For pointer interaction: reduce mouse tilt and movement sensitivity in hero to avoid distraction on initial page view.
+
+Provide an option to pause animations and respect prefers-reduced-motion.
+
+Hero accessibility:
+
+H1 and subheading must be HTML text (not part of canvas) for SEO and screen readers.
+
+LaserFlow canvas must have aria-hidden="true" and a skip link to allow keyboard users to jump past the hero.
+
+Analytic events (hero): about_hero_cta_primary, about_hero_cta_secondary, about_hero_view.
+
+3) Quick Values Row (3 pillars) — exact copy
+
+Heading (H2): Our values, in practice
+
+Pillar 1 (Research-First):
+We publish reproducible research and transform findings into production-ready solutions that scale.
+
+Pillar 2 (Security-by-Design):
+Every recommendation, product and integration places security and data safety at the center.
+
+Pillar 3 (Engineering with Ownership):
+We build maintainable, testable systems and transfer knowledge to client teams for long-term resilience.
+
+Micro-interaction: each pillar is a card that flips or expands slightly on hover to reveal one bullet deliverable (e.g., “Reproducible experiments & artifacts” for Research-First). Use a small micro-animation: subtle lift and glow on hover.
+
+4) What We Do — short, authoritative map
+
+Heading (H2): What we do — services, products & consultancy
+
+Intro (one paragraph):
+EncryptArx combines four integrated competencies — AI & ML, Cybersecurity, Product & Platform Engineering, and Cloud Architecture — complemented by a dedicated consultancy arm and studio-grade product teams. We research, prototype, and deliver solutions that are auditable, resilient and designed for enterprise readiness.
+
+Bulleted list (short blurbs):
+
+AI & ML: bespoke models, MLOps & explainable AI.
+
+Cybersecurity: assessments, red-team, SOC integration, and secure engineering.
+
+Tech Solutions: full-stack product engineering & embedded systems.
+
+Cloud: secure, resilient cloud architecture & migration.
+
+Consultancy: strategic advisory, compliance mapping and technical due diligence.
+
+Products: in-house solutions derived from R&D (e.g., Defenza, Deepfake Detection).
+
+CTA: View all services (links to /services)
+
+5) Our Approach — how we partner (detailed copy)
+
+Heading (H2): How we partner — method, deliverables, and ownership
+
+Intro paragraph:
+We work in measurable, repeatable phases — discovery, prototype, validation, delivery and operation. Each engagement produces artifacts and acceptance criteria, and is designed to ensure your team can maintain and evolve the solution.
+
+Five-step explainer (short text for each, exact strings):
+
+Discovery & Risk Mapping — We align on business objectives, capture constraints, inventory assets, and quantify risk. Deliverable: Scoping brief & prioritized risk register.
+
+Hypothesis & Prototype — Rapidly validate core assumptions with reproducible prototypes and benchmarks. Deliverable: Prototype demo + evaluation metrics.
+
+Engineering & Integration — Harden the solution for production with CI/CD, tests and secure deployment. Deliverable: Code, infra-as-code, and runbooks.
+
+Handover & Enablement — Transfer knowledge with training, documentation and operational runbooks. Deliverable: Runbooks, training recordings, acceptance reports.
+
+Operate & Evolve — Continuous monitoring, model maintenance and periodic reassessments. Deliverable: Health dashboards and scheduled review board.
+
+Microcopy (emphasis): Each step lists 2–3 concrete artifacts so clients know what they receive.
+
+Design note (textual): show this as a horizontal timeline or stacked cards with icons and short artifact lists.
+
+6) Innovation & R&D Lab — content-rich explanation (detailed copy)
+
+Heading (H2): R&D Lab — turning research into products
+
+Intro paragraph (carefully worded):
+ECX Lab drives our long-term advantage. We publish reproducible research, run controlled experiments, and incubate prototypes that graduate to production products. The Lab is both a research engine and a product factory: experiments, papers and open-source artifacts feed commercial productization.
+
+What the Lab does (short bullets):
+
+Advanced cryptography research and primitives evaluation.
+
+ML for security: anomaly detection, adversarial robustness and explainability.
+
+Systems & architecture experiments: secure enclaves, federated learning patterns.
+
+Web3 research: secure smart-contract patterns and off-chain privacy techniques.
+
+Artifacts & outputs (concrete):
+
+Whitepapers, reproducible notebooks, datasets (sanitized), and tech demos.
+
+Prototype reference implementations and containerized demos.
+
+Open-source toolkits & contribution-ready repos.
+
+CTA: Explore Lab Projects → (links to /research)
+
+Analytics: about_research_click
+
+7) Signature Products & Outcomes (content)
+
+Heading (H2): From lab to product — signature solutions
+
+Intro paragraph:
+Our product line consists of solutions that began as lab experiments and matured into production offerings. Each product is supported by research artifacts and a clear security posture.
+
+Product feature blocks (each item with 3 lines):
+
+Defenza — Digital Threat Companion
+An integrated threat-detection assistant designed for cross-platform deployment. Outputs include incident reports, recommended remediations and automated containment scripts. (CTA: Request demo)
+
+Deepfake Detection (ECX Detector)
+An API & SDK for verifying media integrity with explainable confidence scores and provenance signals. Useful for content moderation and enterprise verification workflows. (CTA: Learn more)
+
+ThreatSense Engine (example product family)
+A configurable analytics and detection core that powers enterprise SOCs with research-derived detection rules and RAG-enabled intelligence summaries. (CTA: Explore integrations)
+
+Microcopy: For each product, list typical artifacts and compliance notes (e.g., "signed attestations, evidence logs, reproducibility notebooks").
+
+8) Capabilities Matrix — proof and scope (detailed list)
+
+Heading (H2): Capabilities & proof points
+
+Intro: A compact, scannable list of our capabilities mapped to outcomes clients care about.
+
+Matrix (textual, groupings):
+
+Security & Compliance: penetration testing, vulnerability management, SOC integration, compliance mapping (NIST/ISO/SOC2), vulnerability disclosure program.
+
+AI & Data: supervised learning, unsupervised anomaly detection, embeddings & search, LLM integrations, MLOps pipelines, model explainability.
+
+Systems & Dev: microservices, event-driven systems, real-time streaming, low-latency inference, high-availability design.
+
+Blockchain & Web3: smart-contract audits, tokenomics advisory, off-chain privacy, decentralized identity.
+
+Cloud & Infra: multi-cloud architecture, IaC, cost & reliability optimizations, secure CI/CD.
+
+Proof points (bulleted):
+
+“>40 research artifacts published” (or use real number from your internal data).
+
+“Multiple enterprise integrations — SIEM, KMS, SSO providers.”
+
+“R&D-to-product pipeline with reproducible artifacts and open-source contributions.”
+
+9) Consultancy Snapshot (concise content)
+
+Heading (H2): Consultancy & strategic advisory
+
+Text:
+Our consultancy service helps leaders make technically sound, secure decisions. We provide technical due diligence, compliance readiness, enterprise roadmaps, and board-level briefings — all underpinned by engineering-level artifacts.
+
+What clients get (bulleted):
+
+Actionable technical roadmaps and a prioritized SoW.
+
+Audit-ready evidence packages and compliance mapping.
+
+Executive briefings with technical annexes for the board and regulators.
+
+CTA: Request a Consultancy Brief
+
+10) Research Library & Publications preview (text)
+
+Heading (H2): Research Library — papers, notebooks & datasets
+
+Text:
+Browse our curated archive of whitepapers, reproducible notebooks and experiment artifacts. Each item includes the methodology, artifacts necessary to reproduce the results, and references to projects or products that use the research.
+
+Featured items (3 titles with 1-line descriptions)
+
+“Hardening Enclaves for Multi-tenant Cloud” — experimental results and a reference implementation.
+
+“Adversarial Robustness for Threat Detection” — datasets and notebooks.
+
+“Practical Deepfake Detection Benchmarks” — evaluation suite and model baselines.
+
+CTA: Open Library
+
+11) Clients, Partners & Trusted By (content)
+
+Heading (H2): Trusted by innovators
+
+Intro sentence:
+We partner with enterprises, startups and research groups across finance, healthcare, logistics, and Web3.
+
+Microcopy: Format logos grid + 1–2 featured case studies (title + 1-line outcome). For each case study include a one-liner outcome (e.g., “Reduced mean time to detection by 70% for X client”).
+
+CTA: View all case studies
+
+12) Team / Minds — abstract capability-first presentation (no human faces)
+
+Heading (H2): The collective behind EncryptArx
+
+Text:
+We present our capability network rather than individual portraits on this page: clusters of expertise (Cryptography, ML, Systems, Cloud, Product) and the cohorts that drive each area. For full bios and contact pathways, please visit the Team page.
+
+How to present on page: an interactive “Innovation Matrix” (node graph) with capability nodes; on hover/tap show role groups and links to the team or cohort anchor in /about/team. No personal photographs on this primary public page.
+
+CTA: Meet the Team (link) — leads to /about/team where bios can be shown (if desired).
+
+13) Culture & Careers — short content
+
+Heading (H2): Culture — curious, rigorous, and responsible
+
+Text:
+We hire curious engineers, researchers and operators who treat software and security as craft. We value reproducibility, respectful skepticism and a commitment to continual improvement.
+
+Bullets: Core values: Curiosity, Ownership, Security-first, Reproducible results.
+
+CTA: Careers (link to /careers)
+
+14) Security, Compliance & Governance — unambiguous statements
+
+Heading (H2): Security & governance — what we commit to
+
+Text:
+Security is central: we encrypt data in transit and at rest, keep audit trails for sensitive actions, and operate a vulnerability disclosure policy for responsible reporting. We map engagements to compliance frameworks on request and produce audit-friendly artifacts for validation.
+
+Microcopy (must-have lines):
+
+“All penetration testing is done by mutual agreement and within a signed scope.”
+
+“We recommend anonymized data for prototype phases and strict data governance for production.”
+
+15) Community & Open Source — contributions
+
+Heading (H2): Open source & community
+
+Text:
+We open-source research toolkits and maintain public repos used by researchers and practitioners. Join our community channels or contribute on GitHub.
+
+Links: GitHub, community forum, open-source projects list.
+
+16) Call to Action — clear, prioritized CTAs
+
+Primary CTA: Book a Technical Discovery (sticky / highly visible)
+Secondary CTAs: Request Research Brief / Request a Product Demo / Subscribe to Research Updates
+
+Microcopy under CTAs: “We’ll respond within one business day” (or your internal SLA text).
+
+17) Footer microcopy & legal points
+
+Footer snippet text:
+© {year} EncryptArx (ECX) LLP — All rights reserved. For vulnerability disclosure please see /security/vulnerability-disclosure. For privacy & legal details see /legal.
+
+LaserFlow & animations — placement and textual integration (what to show and how)
+
+You provided a robust LaserFlow component and shader; here's the exact textual plan for where and how to integrate it, with affordances and parameters.
+
+Primary uses of LaserFlow on About Us
+
+Hero background (primary): full-bleed LaserFlow with color tuned to #2B8DBE (or slightly lighter). Parameters: low flowSpeed, wispIntensity small, fogIntensity moderate, horizontalBeamOffset near 0.1 for subtle lateral drift. Respect prefers-reduced-motion and provide a "Pause Motion" control.
+
+R&D Section accent: a smaller, darker LaserFlow instance inside the R&D banner, color shifted to #4896BD or a cyan-teal variant. Increase wispDensity slightly to suggest activity.
+
+Product reveal panels: use the LaserFlow image-reveal variant you described to produce an interactive reveal for a product screenshot or research visualization — the radial mask reveal that follows the mouse. For accessibility, also provide a keyboard-triggered reveal hotspot.
+
+Subtle ambient layers: lightweight parallax particle layers (not full LaserFlow) for the Capabilities matrix and Innovation Matrix. Use CSS/WebGL micro-animations (slow drift) — purely decorative.
+
+LaserFlow UX rules (text)
+
+Start animation only after LCP (i.e., defer heavy shader init until after hero text paint).
+
+On mobile, reduce resolution (DPR) and lower wispDensity to save battery.
+
+Provide a motion toggle in preferences and a Reduce Motion fallback.
+
+Add aria-hidden="true" to the canvas and ensure all textual content is real HTML for screen readers.
+
+Props and suggested values (textual, so devs know what to set)
+
+color: #2B8DBE (hero), #4896BD (R&D), alternate #FF79C6 for accent spots only.
+
+flowSpeed: hero 0.15–0.35 (slow); R&D 0.25–0.45.
+
+wispDensity: hero 0.7–1.2; product reveal 1.5–2.0.
+
+fogIntensity: hero 0.35–0.6 (for mystical depth).
+
+verticalSizing & horizontalSizing: tune per container aspect ratio.
+
+Additional animations & component inspirations (text only, mapped to page places)
+
+Below are the animation/component patterns to use across the page (inspired by modern component systems such as MagicUI/ReactBits/21st.dev). I list them as textual components and where to use them:
+
+Magic Bento / Component Grid (Capabilities Matrix)
+
+Use a modular, card-based "bento" grid with asymmetrical tile sizing: large hero tile + supportive tiles. Tiles animate with subtle scale & shadow on hover.
+
+Place: Capabilities matrix.
+
+Tilted Card + Glass Panels (Proof points & Products)
+
+Slight 3D tilt on pointer move, soft glass borders and subtle neon outlines (same color family).
+
+Place: Product feature blocks.
+
+Scroll-triggered reveals & sticky progress (Our Approach timeline)
+
+As user scrolls, each phase reveals with fade+translate and small motion path; a vertical progress line (interactive) shows current stage.
+
+Place: Our Approach timeline.
+
+Interactive node graph (Innovation Matrix)
+
+Use SVG or lightweight Canvas nodes with hover tooltips and keyboard focus; connections have subtle motion. No human faces in team nodes.
+
+Place: Innovation & R&D Lab.
+
+Micro-Interactions for CTAs
+
+Primary CTA: small pulse on hover, secondary CTA: outline/grow. Add delight: on click show small micro-check that indicates submission queued.
+
+Place: everywhere CTAs occur.
+
+Parallax Layering
+
+Multiple background layers with different speeds on scroll: LaserFlow (slowest), soft noise/texture (mid), foreground decorative geometry (fast). Keep movement subtle.
+
+Data sparklines & live counters
+
+Small inline sparklines next to KPIs; animate counts on first view. Place sparklines in Capabilities Matrix / R&D metrics.
+
+Reveal-on-hover masked image
+
+Use the image-reveal mask technique you described (radial mask linked to mouse) for product or research artifact previews.
+
+Accessible modal for video / interactive demos
+
+Always focus-trap, with keyboard/esc close. Place for demo or product details.
+
+Performance rule (text): lazy-load heavy animations and defer WebGL initialization to after main content paint. Provide static fallback snapshots for SEO and users who block WebGL.
+
+Content, copy and microcopy — exact text blocks you can paste
+
+(Everything below is precise copy-ready text.)
+
+Hero H1 — (repeat)
+
+EncryptArx — Securing the Future, One Breakthrough at a Time
+
+Hero subhead
+
+We combine rigorous research, production-grade engineering and deep security expertise to build resilient digital systems, trustworthy AI, and transparent Web3 infrastructures.
+
+3 Pillars title
+
+Research • Security • Engineering
+
+What We Do brief
+
+We research, prototype and deliver secure systems across AI, software engineering, blockchain and cloud. Our work is reproducible, auditable and built for enterprise readiness.
+
+Approach headline
+
+From discovery to operation — a predictable, artifact-driven approach
+
+R&D intro
+
+ECX Lab experiments at the intersection of cryptography, machine learning and distributed systems. Our lab publishes artifacts, runs reproducible benchmarks and incubates product-grade software.
+
+Product intro
+
+Built from our research — solutions for detection, verification and resilient workflows.
+
+Consultancy pitch (short)
+
+Our consultancy connects technical rigor with strategic clarity — roadmaps, compliance, and evidence-based decisions to guide leadership.
+
+Security & governance line
+
+We design systems with security as a first-class property. All engagements include governance artifacts and audit-friendly evidence on request.
+
+CTA footer
+
+Ready to discuss? Book a Technical Discovery.
+
+Accessibility & content governance (essential text instructions)
+
+All visual text must have HTML equivalents. LaserFlow and other canvas animations are decorative (aria-hidden="true").
+
+Provide keyboard-only interaction for every interactive element.
+
+Respect prefers-reduced-motion and offer a site-wide toggle.
+
+All externally-hosted research PDFs must have alt text and captions; provide accessible viewers.
+
+For every claim (e.g., number of papers, case studies), the copy must reference the evidence (link to library/case study) — do not state unverifiable metrics.
+
+Analytics & tracking (events to capture — text)
+
+Track interactions that indicate interest and conversion:
+
+about_hero_view — when hero is in viewport.
+
+about_hero_cta_book — Book a Technical Discovery clicked.
+
+about_research_click — R&D link clicked.
+
+about_product_demo_click — Product demo clicked.
+
+about_consult_request_start / about_consult_request_submit — consultancy form events.
+
+about_team_matrix_interact — capability node clicked.
+
+about_cta_subscribe — research subscription.
+
+Note: never send PII in analytics; only anonymized event payloads.
+
+Dynamic content & API endpoints (text description)
+
+To keep the page fresh, these dynamic endpoints will populate widgets:
+
+/api/about/metrics → {papers, prototypes, audits, customers} for live counters.
+
+/api/research/featured → list of 3–6 featured research assets for library preview.
+
+/api/products/featured → product summary tiles.
+
+/api/clients/featured → partner logos & case-study links.
+
+/api/innovation/nodes → capability nodes for Innovation Matrix.
+
+All endpoints should be cached (CDN) and support stale-while-revalidate semantics.
+
+Assets & editorial checklist (text)
+
+Hero snapshot (1200×630), R&D thumbnails 1120×640, product thumbnails 800×500.
+
+SVG icons for each capability.
+
+Research PDFs (sanitized) served from signed URLs for viewer.
+
+Case study PDFs & media — ensure permissions.
+
+Editorial approvals required:
+
+Research artifact links verified.
+
+Any client logos used have written permission.
+
+Product and capability claims confirmed with engineering.
+
+Mobile & progressive enhancement (text)
+
+LaserFlow reduced or disabled on mobile; show static hero snapshot or lightweight CSS-based gradient.
+
+Capabilities matrix collapses to chip grid and textual fallback lists.
+
+R&D visuals switch to accessible list with links.
+
+Final, high-impact microcopy suggestions (short lines to use in small places)
+
+“Research-backed. Production-ready.”
+
+“We ship reproducible artifacts and secure-by-default systems.”
+
+“Discuss your use case → Book a discovery call.”
+
+“Responsible disclosure welcome — see our security page.”
+
+Closing advisory (what to do next)
+
+Approve the content and the LaserFlow placements above.
+
+Provide final numbers for metrics (papers, prototypes, customers) to populate live counters.
+
+Confirm whether the Team page will contain human bios (and if so, whether photos are allowed), since the About page uses an abstract capability-first presentation.
+
+i want this animation here:
+import LaserFlow from './LaserFlow';
+import { useRef } from 'react';
+
+// NOTE: You can also adjust the variables in the shader for super detailed customization
+
+// Basic Usage
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <LaserFlow />
+</div>
+
+// Image Example Interactive Reveal Effect
+function LaserFlowBoxExample() {
+  const revealImgRef = useRef(null);
+
+  return (
+    <div 
+      style={{ 
+        height: '800px', 
+        position: 'relative', 
+        overflow: 'hidden',
+        backgroundColor: '#060010'
+      }}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const el = revealImgRef.current;
+        if (el) {
+          el.style.setProperty('--mx', `${x}px`);
+          el.style.setProperty('--my', `${y + rect.height * 0.5}px`);
+        }
+      }}
+      onMouseLeave={() => {
+        const el = revealImgRef.current;
+        if (el) {
+          el.style.setProperty('--mx', '-9999px');
+          el.style.setProperty('--my', '-9999px');
+        }
+      }}
+    >
+      <LaserFlow
+        horizontalBeamOffset={0.1}
+        verticalBeamOffset={0.0}
+        color="#FF79C6"
+      />
+      
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '86%',
+        height: '60%',
+        backgroundColor: '#060010',
+        borderRadius: '20px',
+        border: '2px solid #FF79C6',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '2rem',
+        zIndex: 6
+      }}>
+        {/* Your content here */}
+      </div>
+
+      <img
+        ref={revealImgRef}
+        src="/path/to/image.jpg"
+        alt="Reveal effect"
+        style={{
+          position: 'absolute',
+          width: '100%',
+          top: '-50%',
+          zIndex: 5,
+          mixBlendMode: 'lighten',
+          opacity: 0.3,
+          pointerEvents: 'none',
+          '--mx': '-9999px',
+          '--my': '-9999px',
+          WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+          maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat'
+        }}
+      />
+    </div>
+  );
+}
+code
+
+
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import './LaserFlow.css';
+
+const VERT = `
+precision highp float;
+attribute vec3 position;
+void main(){
+  gl_Position = vec4(position, 1.0);
+}
+`;
+
+const FRAG = `
+#ifdef GL_ES
+#extension GL_OES_standard_derivatives : enable
+#endif
+precision highp float;
+precision mediump int;
+
+uniform float iTime;
+uniform vec3 iResolution;
+uniform vec4 iMouse;
+uniform float uWispDensity;
+uniform float uTiltScale;
+uniform float uFlowTime;
+uniform float uFogTime;
+uniform float uBeamXFrac;
+uniform float uBeamYFrac;
+uniform float uFlowSpeed;
+uniform float uVLenFactor;
+uniform float uHLenFactor;
+uniform float uFogIntensity;
+uniform float uFogScale;
+uniform float uWSpeed;
+uniform float uWIntensity;
+uniform float uFlowStrength;
+uniform float uDecay;
+uniform float uFalloffStart;
+uniform float uFogFallSpeed;
+uniform vec3 uColor;
+uniform float uFade;
+
+// Core beam/flare shaping and dynamics
+#define PI 3.14159265359
+#define TWO_PI 6.28318530718
+#define EPS 1e-6
+#define EDGE_SOFT (DT_LOCAL*4.0)
+#define DT_LOCAL 0.0038
+#define TAP_RADIUS 6
+#define R_H 150.0
+#define R_V 150.0
+#define FLARE_HEIGHT 16.0
+#define FLARE_AMOUNT 8.0
+#define FLARE_EXP 2.0
+#define TOP_FADE_START 0.1
+#define TOP_FADE_EXP 1.0
+#define FLOW_PERIOD 0.5
+#define FLOW_SHARPNESS 1.5
+
+// Wisps (animated micro-streaks) that travel along the beam
+#define W_BASE_X 1.5
+#define W_LAYER_GAP 0.25
+#define W_LANES 10
+#define W_SIDE_DECAY 0.5
+#define W_HALF 0.01
+#define W_AA 0.15
+#define W_CELL 20.0
+#define W_SEG_MIN 0.01
+#define W_SEG_MAX 0.55
+#define W_CURVE_AMOUNT 15.0
+#define W_CURVE_RANGE (FLARE_HEIGHT - 3.0)
+#define W_BOTTOM_EXP 10.0
+
+// Volumetric fog controls
+#define FOG_ON 1
+#define FOG_CONTRAST 1.2
+#define FOG_SPEED_U 0.1
+#define FOG_SPEED_V -0.1
+#define FOG_OCTAVES 5
+#define FOG_BOTTOM_BIAS 0.8
+#define FOG_TILT_TO_MOUSE 0.05
+#define FOG_TILT_DEADZONE 0.01
+#define FOG_TILT_MAX_X 0.35
+#define FOG_TILT_SHAPE 1.5
+#define FOG_BEAM_MIN 0.0
+#define FOG_BEAM_MAX 0.75
+#define FOG_MASK_GAMMA 0.5
+#define FOG_EXPAND_SHAPE 12.2
+#define FOG_EDGE_MIX 0.5
+
+// Horizontal vignette for the fog volume
+#define HFOG_EDGE_START 0.20
+#define HFOG_EDGE_END 0.98
+#define HFOG_EDGE_GAMMA 1.4
+#define HFOG_Y_RADIUS 25.0
+#define HFOG_Y_SOFT 60.0
+
+// Beam extents and edge masking
+#define EDGE_X0 0.22
+#define EDGE_X1 0.995
+#define EDGE_X_GAMMA 1.25
+#define EDGE_LUMA_T0 0.0
+#define EDGE_LUMA_T1 2.0
+#define DITHER_STRENGTH 1.0
+
+    float g(float x){return x<=0.00031308?12.92*x:1.055*pow(x,1.0/2.4)-0.055;}
+    float bs(vec2 p,vec2 q,float powr){
+        float d=distance(p,q),f=powr*uFalloffStart,r=(f*f)/(d*d+EPS);
+        return powr*min(1.0,r);
+    }
+    float bsa(vec2 p,vec2 q,float powr,vec2 s){
+        vec2 d=p-q; float dd=(d.x*d.x)/(s.x*s.x)+(d.y*d.y)/(s.y*s.y),f=powr*uFalloffStart,r=(f*f)/(dd+EPS);
+        return powr*min(1.0,r);
+    }
+    float tri01(float x){float f=fract(x);return 1.0-abs(f*2.0-1.0);}
+    float tauWf(float t,float tmin,float tmax){float a=smoothstep(tmin,tmin+EDGE_SOFT,t),b=1.0-smoothstep(tmax-EDGE_SOFT,tmax,t);return max(0.0,a*b);} 
+    float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+34.123);return fract(p.x*p.y);}
+    float vnoise(vec2 p){
+        vec2 i=floor(p),f=fract(p);
+        float a=h21(i),b=h21(i+vec2(1,0)),c=h21(i+vec2(0,1)),d=h21(i+vec2(1,1));
+        vec2 u=f*f*(3.0-2.0*f);
+        return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+    }
+    float fbm2(vec2 p){
+        float v=0.0,amp=0.6; mat2 m=mat2(0.86,0.5,-0.5,0.86);
+        for(int i=0;i<FOG_OCTAVES;++i){v+=amp*vnoise(p); p=m*p*2.03+17.1; amp*=0.52;}
+        return v;
+    }
+    float rGate(float x,float l){float a=smoothstep(0.0,W_AA,x),b=1.0-smoothstep(l,l+W_AA,x);return max(0.0,a*b);}
+    float flareY(float y){float t=clamp(1.0-(clamp(y,0.0,FLARE_HEIGHT)/max(FLARE_HEIGHT,EPS)),0.0,1.0);return pow(t,FLARE_EXP);}
+
+    float vWisps(vec2 uv,float topF){
+    float y=uv.y,yf=(y+uFlowTime*uWSpeed)/W_CELL;
+    float dRaw=clamp(uWispDensity,0.0,2.0),d=dRaw<=0.0?1.0:dRaw;
+    float lanesF=floor(float(W_LANES)*min(d,1.0)+0.5); // WebGL1-safe
+    int lanes=int(max(1.0,lanesF));
+    float sp=min(d,1.0),ep=max(d-1.0,0.0);
+    float fm=flareY(max(y,0.0)),rm=clamp(1.0-(y/max(W_CURVE_RANGE,EPS)),0.0,1.0),cm=fm*rm;
+    const float G=0.05; float xS=1.0+(FLARE_AMOUNT*W_CURVE_AMOUNT*G)*cm;
+    float sPix=clamp(y/R_V,0.0,1.0),bGain=pow(1.0-sPix,W_BOTTOM_EXP),sum=0.0;
+    for(int s=0;s<2;++s){
+        float sgn=s==0?-1.0:1.0;
+        for(int i=0;i<W_LANES;++i){
+            if(i>=lanes) break;
+            float off=W_BASE_X+float(i)*W_LAYER_GAP,xc=sgn*(off*xS);
+            float dx=abs(uv.x-xc),lat=1.0-smoothstep(W_HALF,W_HALF+W_AA,dx),amp=exp(-off*W_SIDE_DECAY);
+            float seed=h21(vec2(off,sgn*17.0)),yf2=yf+seed*7.0,ci=floor(yf2),fy=fract(yf2);
+            float seg=mix(W_SEG_MIN,W_SEG_MAX,h21(vec2(ci,off*2.3)));
+            float spR=h21(vec2(ci,off+sgn*31.0)),seg1=rGate(fy,seg)*step(spR,sp);
+            if(ep>0.0){float spR2=h21(vec2(ci*3.1+7.0,off*5.3+sgn*13.0)); float f2=fract(fy+0.5); seg1+=rGate(f2,seg*0.9)*step(spR2,ep);}
+            sum+=amp*lat*seg1;
+        }
+    }
+    float span=smoothstep(-3.0,0.0,y)*(1.0-smoothstep(R_V-6.0,R_V,y));
+    return uWIntensity*sum*topF*bGain*span;
+}
+
+void mainImage(out vec4 fc,in vec2 frag){
+    vec2 C=iResolution.xy*.5; float invW=1.0/max(C.x,1.0);
+    float sc=512.0/iResolution.x*.4;
+    vec2 uv=(frag-C)*sc,off=vec2(uBeamXFrac*iResolution.x*sc,uBeamYFrac*iResolution.y*sc);
+    vec2 uvc = uv - off;
+    float a=0.0,b=0.0;
+    float basePhase=1.5*PI+uDecay*.5; float tauMin=basePhase-uDecay; float tauMax=basePhase;
+    float cx=clamp(uvc.x/(R_H*uHLenFactor),-1.0,1.0),tH=clamp(TWO_PI-acos(cx),tauMin,tauMax);
+    for(int k=-TAP_RADIUS;k<=TAP_RADIUS;++k){
+        float tu=tH+float(k)*DT_LOCAL,wt=tauWf(tu,tauMin,tauMax); if(wt<=0.0) continue;
+        float spd=max(abs(sin(tu)),0.02),u=clamp((basePhase-tu)/max(uDecay,EPS),0.0,1.0),env=pow(1.0-abs(u*2.0-1.0),0.8);
+        vec2 p=vec2((R_H*uHLenFactor)*cos(tu),0.0);
+        a+=wt*bs(uvc,p,env*spd);
+    }
+    float yPix=uvc.y,cy=clamp(-yPix/(R_V*uVLenFactor),-1.0,1.0),tV=clamp(TWO_PI-acos(cy),tauMin,tauMax);
+    for(int k=-TAP_RADIUS;k<=TAP_RADIUS;++k){
+        float tu=tV+float(k)*DT_LOCAL,wt=tauWf(tu,tauMin,tauMax); if(wt<=0.0) continue;
+        float yb=(-R_V)*cos(tu),s=clamp(yb/R_V,0.0,1.0),spd=max(abs(sin(tu)),0.02);
+        float env=pow(1.0-s,0.6)*spd;
+        float cap=1.0-smoothstep(TOP_FADE_START,1.0,s); cap=pow(cap,TOP_FADE_EXP); env*=cap;
+        float ph=s/max(FLOW_PERIOD,EPS)+uFlowTime*uFlowSpeed;
+        float fl=pow(tri01(ph),FLOW_SHARPNESS);
+        env*=mix(1.0-uFlowStrength,1.0,fl);
+        float yp=(-R_V*uVLenFactor)*cos(tu),m=pow(smoothstep(FLARE_HEIGHT,0.0,yp),FLARE_EXP),wx=1.0+FLARE_AMOUNT*m;
+        vec2 sig=vec2(wx,1.0),p=vec2(0.0,yp);
+        float mask=step(0.0,yp);
+        b+=wt*bsa(uvc,p,mask*env,sig);
+    }
+    float sPix=clamp(yPix/R_V,0.0,1.0),topA=pow(1.0-smoothstep(TOP_FADE_START,1.0,sPix),TOP_FADE_EXP);
+    float L=a+b*topA;
+    float w=vWisps(vec2(uvc.x,yPix),topA);
+    float fog=0.0;
+#if FOG_ON
+    vec2 fuv=uvc*uFogScale;
+    float mAct=step(1.0,length(iMouse.xy)),nx=((iMouse.x-C.x)*invW)*mAct;
+    float ax = abs(nx);
+    float stMag = mix(ax, pow(ax, FOG_TILT_SHAPE), 0.35);
+    float st = sign(nx) * stMag * uTiltScale;
+    st = clamp(st, -FOG_TILT_MAX_X, FOG_TILT_MAX_X);
+    vec2 dir=normalize(vec2(st,1.0));
+    fuv+=uFogTime*uFogFallSpeed*dir;
+    vec2 prp=vec2(-dir.y,dir.x);
+    fuv+=prp*(0.08*sin(dot(uvc,prp)*0.08+uFogTime*0.9));
+    float n=fbm2(fuv+vec2(fbm2(fuv+vec2(7.3,2.1)),fbm2(fuv+vec2(-3.7,5.9)))*0.6);
+    n=pow(clamp(n,0.0,1.0),FOG_CONTRAST);
+    float pixW = 1.0 / max(iResolution.y, 1.0);
+#ifdef GL_OES_standard_derivatives
+    float wL = max(fwidth(L), pixW);
+#else
+    float wL = pixW;
+#endif
+    float m0=pow(smoothstep(FOG_BEAM_MIN - wL, FOG_BEAM_MAX + wL, L),FOG_MASK_GAMMA);
+    float bm=1.0-pow(1.0-m0,FOG_EXPAND_SHAPE); bm=mix(bm*m0,bm,FOG_EDGE_MIX);
+    float yP=1.0-smoothstep(HFOG_Y_RADIUS,HFOG_Y_RADIUS+HFOG_Y_SOFT,abs(yPix));
+    float nxF=abs((frag.x-C.x)*invW),hE=1.0-smoothstep(HFOG_EDGE_START,HFOG_EDGE_END,nxF); hE=pow(clamp(hE,0.0,1.0),HFOG_EDGE_GAMMA);
+    float hW=mix(1.0,hE,clamp(yP,0.0,1.0));
+    float bBias=mix(1.0,1.0-sPix,FOG_BOTTOM_BIAS);
+    float browserFogIntensity = uFogIntensity;
+    browserFogIntensity *= 1.8;
+    float radialFade = 1.0 - smoothstep(0.0, 0.7, length(uvc) / 120.0);
+    float safariFog = n * browserFogIntensity * bBias * bm * hW * radialFade;
+    fog = safariFog;
+#endif
+    float LF=L+fog;
+    float dith=(h21(frag)-0.5)*(DITHER_STRENGTH/255.0);
+    float tone=g(LF+w);
+    vec3 col=tone*uColor+dith;
+    float alpha=clamp(g(L+w*0.6)+dith*0.6,0.0,1.0);
+    float nxE=abs((frag.x-C.x)*invW),xF=pow(clamp(1.0-smoothstep(EDGE_X0,EDGE_X1,nxE),0.0,1.0),EDGE_X_GAMMA);
+    float scene=LF+max(0.0,w)*0.5,hi=smoothstep(EDGE_LUMA_T0,EDGE_LUMA_T1,scene);
+    float eM=mix(xF,1.0,hi);
+    col*=eM; alpha*=eM;
+    col*=uFade; alpha*=uFade;
+    fc=vec4(col,alpha);
+}
+
+void main(){
+  vec4 fc;
+  mainImage(fc, gl_FragCoord.xy);
+  gl_FragColor = fc;
+}
+`;
+
+export const LaserFlow = ({
+  className,
+  style,
+  wispDensity = 1,
+  dpr,
+  mouseSmoothTime = 0.0,
+  mouseTiltStrength = 0.01,
+  horizontalBeamOffset = 0.1,
+  verticalBeamOffset = 0.0,
+  flowSpeed = 0.35,
+  verticalSizing = 2.0,
+  horizontalSizing = 0.5,
+  fogIntensity = 0.45,
+  fogScale = 0.3,
+  wispSpeed = 15.0,
+  wispIntensity = 5.0,
+  flowStrength = 0.25,
+  decay = 1.1,
+  falloffStart = 1.2,
+  fogFallSpeed = 0.6,
+  color = '#FF79C6'
+}) => {
+  const mountRef = useRef(null);
+  const rendererRef = useRef(null);
+  const uniformsRef = useRef(null);
+  const hasFadedRef = useRef(false);
+  const rectRef = useRef(null);
+  const baseDprRef = useRef(1);
+  const currentDprRef = useRef(1);
+  const fpsSamplesRef = useRef([]);
+  const lastFpsCheckRef = useRef(performance.now());
+  const emaDtRef = useRef(16.7);
+  const pausedRef = useRef(false);
+  const inViewRef = useRef(true);
+
+  const hexToRGB = hex => {
+    let c = hex.trim();
+    if (c[0] === '#') c = c.slice(1);
+    if (c.length === 3)
+      c = c
+        .split('')
+        .map(x => x + x)
+        .join('');
+    const n = parseInt(c, 16) || 0xffffff;
+    return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
+  };
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      alpha: false,
+      depth: false,
+      stencil: false,
+      powerPreference: 'high-performance',
+      premultipliedAlpha: false,
+      preserveDrawingBuffer: false,
+      failIfMajorPerformanceCaveat: false,
+      logarithmicDepthBuffer: false
+    });
+    rendererRef.current = renderer;
+
+    baseDprRef.current = Math.min(dpr ?? (window.devicePixelRatio || 1), 2);
+    currentDprRef.current = baseDprRef.current;
+
+    renderer.setPixelRatio(currentDprRef.current);
+    renderer.shadowMap.enabled = false;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 1);
+    const canvas = renderer.domElement;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.display = 'block';
+    mount.appendChild(canvas);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-1, -1, 0, 3, -1, 0, -1, 3, 0]), 3));
+
+    const uniforms = {
+      iTime: { value: 0 },
+      iResolution: { value: new THREE.Vector3(1, 1, 1) },
+      iMouse: { value: new THREE.Vector4(0, 0, 0, 0) },
+      uWispDensity: { value: wispDensity },
+      uTiltScale: { value: mouseTiltStrength },
+      uFlowTime: { value: 0 },
+      uFogTime: { value: 0 },
+      uBeamXFrac: { value: horizontalBeamOffset },
+      uBeamYFrac: { value: verticalBeamOffset },
+      uFlowSpeed: { value: flowSpeed },
+      uVLenFactor: { value: verticalSizing },
+      uHLenFactor: { value: horizontalSizing },
+      uFogIntensity: { value: fogIntensity },
+      uFogScale: { value: fogScale },
+      uWSpeed: { value: wispSpeed },
+      uWIntensity: { value: wispIntensity },
+      uFlowStrength: { value: flowStrength },
+      uDecay: { value: decay },
+      uFalloffStart: { value: falloffStart },
+      uFogFallSpeed: { value: fogFallSpeed },
+      uColor: { value: new THREE.Vector3(1, 1, 1) },
+      uFade: { value: hasFadedRef.current ? 1 : 0 }
+    };
+    uniformsRef.current = uniforms;
+
+    const material = new THREE.RawShaderMaterial({
+      vertexShader: VERT,
+      fragmentShader: FRAG,
+      uniforms,
+      transparent: false,
+      depthTest: false,
+      depthWrite: false,
+      blending: THREE.NormalBlending
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.frustumCulled = false;
+    scene.add(mesh);
+
+    const clock = new THREE.Clock();
+    let prevTime = 0;
+    let fade = hasFadedRef.current ? 1 : 0;
+
+    const mouseTarget = new THREE.Vector2(0, 0);
+    const mouseSmooth = new THREE.Vector2(0, 0);
+
+    const setSizeNow = () => {
+      const w = mount.clientWidth || 1;
+      const h = mount.clientHeight || 1;
+      const pr = currentDprRef.current;
+      renderer.setPixelRatio(pr);
+      renderer.setSize(w, h, false);
+      uniforms.iResolution.value.set(w * pr, h * pr, pr);
+      rectRef.current = canvas.getBoundingClientRect();
+    };
+
+    let resizeRaf = 0;
+    const scheduleResize = () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(setSizeNow);
+    };
+
+    setSizeNow();
+    const ro = new ResizeObserver(scheduleResize);
+    ro.observe(mount);
+
+    const io = new IntersectionObserver(
+      entries => {
+        inViewRef.current = entries[0]?.isIntersecting ?? true;
+      },
+      { root: null, threshold: 0 }
+    );
+    io.observe(mount);
+
+    const onVis = () => {
+      pausedRef.current = document.hidden;
+    };
+    document.addEventListener('visibilitychange', onVis, { passive: true });
+
+    const updateMouse = (clientX, clientY) => {
+      const rect = rectRef.current;
+      if (!rect) return;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      const ratio = currentDprRef.current;
+      const hb = rect.height * ratio;
+      mouseTarget.set(x * ratio, hb - y * ratio);
+    };
+    const onMove = ev => updateMouse(ev.clientX, ev.clientY);
+    const onLeave = () => mouseTarget.set(0, 0);
+    canvas.addEventListener('pointermove', onMove, { passive: true });
+    canvas.addEventListener('pointerdown', onMove, { passive: true });
+    canvas.addEventListener('pointerenter', onMove, { passive: true });
+    canvas.addEventListener('pointerleave', onLeave, { passive: true });
+
+    const onCtxLost = e => {
+      e.preventDefault();
+      pausedRef.current = true;
+    };
+    const onCtxRestored = () => {
+      pausedRef.current = false;
+      scheduleResize();
+    };
+    canvas.addEventListener('webglcontextlost', onCtxLost, false);
+    canvas.addEventListener('webglcontextrestored', onCtxRestored, false);
+
+    let raf = 0;
+
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const dprFloor = 0.6;
+    const lowerThresh = 50;
+    const upperThresh = 58;
+    let lastDprChangeRef = 0;
+    const dprChangeCooldown = 2000;
+
+    const adjustDprIfNeeded = now => {
+      const elapsed = now - lastFpsCheckRef.current;
+      if (elapsed < 750) return;
+
+      const samples = fpsSamplesRef.current;
+      if (samples.length === 0) {
+        lastFpsCheckRef.current = now;
+        return;
+      }
+      const avgFps = samples.reduce((a, b) => a + b, 0) / samples.length;
+
+      let next = currentDprRef.current;
+      const base = baseDprRef.current;
+
+      if (avgFps < lowerThresh) {
+        next = clamp(currentDprRef.current * 0.85, dprFloor, base);
+      } else if (avgFps > upperThresh && currentDprRef.current < base) {
+        next = clamp(currentDprRef.current * 1.1, dprFloor, base);
+      }
+
+      if (Math.abs(next - currentDprRef.current) > 0.01 && now - lastDprChangeRef > dprChangeCooldown) {
+        currentDprRef.current = next;
+        lastDprChangeRef = now;
+        setSizeNow();
+      }
+
+      fpsSamplesRef.current = [];
+      lastFpsCheckRef.current = now;
+    };
+
+    const animate = () => {
+      raf = requestAnimationFrame(animate);
+      if (pausedRef.current || !inViewRef.current) return;
+
+      const t = clock.getElapsedTime();
+      const dt = Math.max(0, t - prevTime);
+      prevTime = t;
+
+      const dtMs = dt * 1000;
+      emaDtRef.current = emaDtRef.current * 0.9 + dtMs * 0.1;
+      const instFps = 1000 / Math.max(1, emaDtRef.current);
+      fpsSamplesRef.current.push(instFps);
+
+      uniforms.iTime.value = t;
+
+      const cdt = Math.min(0.033, Math.max(0.001, dt));
+      uniforms.uFlowTime.value += cdt;
+      uniforms.uFogTime.value += cdt;
+
+      if (!hasFadedRef.current) {
+        const fadeDur = 1.0;
+        fade = Math.min(1, fade + cdt / fadeDur);
+        uniforms.uFade.value = fade;
+        if (fade >= 1) hasFadedRef.current = true;
+      }
+
+      const tau = Math.max(1e-3, mouseSmoothTime);
+      const alpha = 1 - Math.exp(-cdt / tau);
+      mouseSmooth.lerp(mouseTarget, alpha);
+      uniforms.iMouse.value.set(mouseSmooth.x, mouseSmooth.y, 0, 0);
+
+      renderer.render(scene, camera);
+
+      adjustDprIfNeeded(performance.now());
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+      document.removeEventListener('visibilitychange', onVis);
+      canvas.removeEventListener('pointermove', onMove);
+      canvas.removeEventListener('pointerdown', onMove);
+      canvas.removeEventListener('pointerenter', onMove);
+      canvas.removeEventListener('pointerleave', onLeave);
+      canvas.removeEventListener('webglcontextlost', onCtxLost);
+      canvas.removeEventListener('webglcontextrestored', onCtxRestored);
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+      if (mount.contains(canvas)) mount.removeChild(canvas);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dpr]);
+
+  useEffect(() => {
+    const uniforms = uniformsRef.current;
+    if (!uniforms) return;
+
+    uniforms.uWispDensity.value = wispDensity;
+    uniforms.uTiltScale.value = mouseTiltStrength;
+    uniforms.uBeamXFrac.value = horizontalBeamOffset;
+    uniforms.uBeamYFrac.value = verticalBeamOffset;
+    uniforms.uFlowSpeed.value = flowSpeed;
+    uniforms.uVLenFactor.value = verticalSizing;
+    uniforms.uHLenFactor.value = horizontalSizing;
+    uniforms.uFogIntensity.value = fogIntensity;
+    uniforms.uFogScale.value = fogScale;
+    uniforms.uWSpeed.value = wispSpeed;
+    uniforms.uWIntensity.value = wispIntensity;
+    uniforms.uFlowStrength.value = flowStrength;
+    uniforms.uDecay.value = decay;
+    uniforms.uFalloffStart.value = falloffStart;
+    uniforms.uFogFallSpeed.value = fogFallSpeed;
+
+    const { r, g, b } = hexToRGB(color || '#FFFFFF');
+    uniforms.uColor.value.set(r, g, b);
+  }, [
+    wispDensity,
+    mouseTiltStrength,
+    horizontalBeamOffset,
+    verticalBeamOffset,
+    flowSpeed,
+    verticalSizing,
+    horizontalSizing,
+    fogIntensity,
+    fogScale,
+    wispSpeed,
+    wispIntensity,
+    flowStrength,
+    decay,
+    falloffStart,
+    fogFallSpeed,
+    color
+  ]);
+
+  return <div ref={mountRef} className={`laser-flow-container ${className || ''}`} style={style} />;
+};
+
+export default LaserFlow;
+CSS
+.laser-flow-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: none;
+}

@@ -41,6 +41,8 @@ const integrations = [
     "integration-twilio",
 ];
 
+import FadeContent from "../ui/fade-content";
+
 export function FeaturedIntegrations() {
     
     const logos = integrations.map(id => {
@@ -53,7 +55,7 @@ export function FeaturedIntegrations() {
 
     return (
         <section className="py-12 sm:py-24 bg-surface-2">
-            <div className="container">
+            <FadeContent><div className="container">
                 <div className="text-center mb-12">
                     <h2 className="font-headline text-3xl font-bold tracking-tight text-high sm:text-4xl">Featured Integrations</h2>
                     <p className="mt-4 text-muted max-w-2xl mx-auto">
@@ -74,7 +76,7 @@ export function FeaturedIntegrations() {
                         ariaLabel="Featured Integrations"
                     />
                 </div>
-            </div>
+            </div></FadeContent>
         </section>
     );
 }

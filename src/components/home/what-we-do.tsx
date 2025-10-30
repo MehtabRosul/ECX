@@ -1,61 +1,81 @@
 'use client'
 
 import { Tabs } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Code, Lock, BrainCircuit } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { AnimatedTabs } from '../ui/animated-tabs';
 import { EffectCard } from '../ui/effect-card';
 import FadeContent from '../ui/fade-content';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const whatWeDoTabs = [
   {
-    id: 'api',
-    title: 'Cryptography API',
+    id: 'services',
+    title: 'Our Services',
     description:
-      "Access a comprehensive suite of cryptographic functionalities through a simple, yet powerful API. From hashing and encryption to digital signatures and key management, our API provides the building blocks for secure application development. It's designed for ease of use without compromising on security, enabling developers to integrate advanced cryptographic features with minimal overhead.",
-    imageId: 'what-we-do-api',
-    href: '/services/cryptography-api',
-    Icon: Code
+      "A complete suite of security and privacy services—from cryptography engineering and enclave deployments to security audits and architecture reviews. We help teams design, build, and operate trustworthy systems with hands‑on expertise and battle‑tested practices.",
+    href: '/services',
   },
   {
-    id: 'enclave',
-    title: 'Secure Enclave',
+    id: 'products',
+    title: 'Our Products',
     description:
-      'Leverage the power of hardware-based security with our Secure Enclave solution. This service provides an isolated, confidential computing environment to protect your most sensitive data and code, even on compromised systems. Ideal for applications requiring the highest level of assurance, such as digital asset custody, machine learning on private data, and secure multi-party computation.',
-    imageId: 'what-we-do-enclave',
-    href: '#',
-    Icon: Lock
+      'Explore ECX products born from our research: high‑assurance building blocks for encryption, confidential computing, key management, and analytics on private data. Designed for developers, ready for production.',
+    href: '/products',
   },
   {
-    id: 'consulting',
-    title: 'Consulting',
+    id: 'consult',
+    title: 'Consult with us',
     description:
-      'Navigate the complex landscape of digital security with our expert consulting services. Our team of world-renowned cryptographers and security engineers can help you with protocol design, security audits, and implementation reviews. We partner with you to build a robust security posture, from threat modeling to developing custom cryptographic solutions tailored to your unique needs.',
-    imageId: 'what-we-do-consulting',
-    href: '#',
-    Icon: BrainCircuit
+      'Work directly with our researchers and engineers. We co‑design protocols, review implementations, and guide your roadmap to achieve measurable security outcomes—from threat modeling to production hardening.',
+    href: '/contact',
   },
 ];
 
 const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
-    return (
-        <EffectCard>
-            <div className="relative w-full h-72 rounded-lg flex items-center justify-center p-6 overflow-hidden">
-                <div className="relative text-center z-10">
-                    <tab.Icon className="w-16 h-16 text-primary mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-high">{tab.title}</h3>
-                </div>
-            </div>
-        </EffectCard>
-    )
+  return (
+    <EffectCard>
+      <div className="relative w-full h-72 rounded-lg flex items-center justify-center p-6 overflow-hidden">
+         {tab.id === 'services' ? (
+           <video
+             src="/Videos/2340-157269921.mp4"
+             autoPlay
+             loop
+             muted
+             playsInline
+             className="w-full h-full object-cover"
+           />
+         ) : tab.id === 'products' ? (
+           <video
+             src="/Videos/299527_medium.mp4"
+             autoPlay
+             loop
+             muted
+             playsInline
+             className="w-full h-full object-cover"
+           />
+         ) : tab.id === 'consult' ? (
+          <video
+            src="/Videos/198890-909564521_medium.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
+         ) : (
+          <div className="w-full h-full" />
+        )}
+      </div>
+    </EffectCard>
+  )
 }
 
 export function WhatWeDo() {
   const [activeTab, setActiveTab] = useState(whatWeDoTabs[0].id);
   const [direction, setDirection] = useState(0);
+  const prefersReduced = useReducedMotion();
 
   const handleTabChange = (newTabId: string) => {
     const currentIndex = whatWeDoTabs.findIndex(t => t.id === activeTab);
@@ -79,53 +99,82 @@ export function WhatWeDo() {
             <div className="flex justify-center mb-8">
               <AnimatedTabs tabs={whatWeDoTabs} activeTab={activeTab} onTabChange={handleTabChange} />
             </div>
-            
+
             <div className="relative mt-12 overflow-hidden h-[340px]">
-              <AnimatePresence initial={false} custom={direction}>
-                  {whatWeDoTabs.map(tab => (
-                      activeTab === tab.id && (
-                          <motion.div
-                              key={tab.id}
-                              custom={direction}
-                              variants={{
-                                  enter: (direction: number) => ({
-                                      x: direction > 0 ? '100%' : '-100%',
-                                      opacity: 0,
-                                  }),
-                                  center: {
-                                      x: 0,
-                                      opacity: 1,
-                                  },
-                                  exit: (direction: number) => ({
-                                      x: direction < 0 ? '100%' : '-100%',
-                                      opacity: 0,
-                                  }),
-                              }}
-                              initial="enter"
-                              animate="center"
-                              exit="exit"
-                              transition={{
-                                  x: { type: "spring", stiffness: 300, damping: 30 },
-                                  opacity: { duration: 0.2 }
-                              }}
-                              className="absolute w-full"
-                          >
-                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                  <div className='lg:order-2'>
-                                      <CardContent tab={tab} />
-                                  </div>
-                                  <div className='lg:order-1'>
-                                      <div className="border-0 bg-transparent shadow-none p-0">
-                                      <p className="text-muted mb-6">{tab.description}</p>
-                                      <Button asChild>
-                                          <Link href={tab.href}>Learn More &rarr;</Link>
-                                      </Button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </motion.div>
-                      )
-                  ))}
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                {whatWeDoTabs.map(tab => (
+                  activeTab === tab.id && (
+                    <motion.div
+                      key={tab.id}
+                      custom={direction}
+                      variants={{
+                        enter: (dir: number) => ({
+                          opacity: 0,
+                          y: prefersReduced ? 0 : 24,
+                        }),
+                        center: {
+                          opacity: 1,
+                          y: 0,
+                          transition: {
+                            duration: 0.32,
+                            ease: [0.22, 1, 0.36, 1],
+                          }
+                        },
+                        exit: (dir: number) => ({
+                          opacity: 0,
+                          y: prefersReduced ? 0 : -24,
+                          transition: {
+                            duration: 0.22,
+                            ease: [0.4, 0, 0.2, 1],
+                          }
+                        }),
+                      }}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="absolute w-full"
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <motion.div
+                          className='lg:order-2'
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <CardContent tab={tab} />
+                        </motion.div>
+                        <motion.div
+                          className='lg:order-1'
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <div className="border-0 bg-transparent shadow-none p-0">
+                            <motion.p
+                              className="text-muted mb-6"
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                              {tab.description}
+                            </motion.p>
+                            <motion.div
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                              <Link href={tab.href} className="group relative inline-flex items-center justify-center px-6 py-2 text-xs font-medium text-white transition-all duration-300 ease-out transform hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50">
+                                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-gray-900 to-blue-600 rounded-md opacity-90 group-hover:opacity-100 transition-opacity duration-300"></span>
+                                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-gray-900 to-blue-600 rounded-md blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                                <span className="relative flex items-center gap-1.5">Learn More</span>
+                              </Link>
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  )
+                ))}
               </AnimatePresence>
             </div>
           </Tabs>

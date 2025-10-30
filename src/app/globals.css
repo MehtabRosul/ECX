@@ -3,15 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ScrambledText Performance Optimizations */
+.scrambled-text-char {
+  will-change: contents;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  height: auto;
+  min-height: 1em;
+  line-height: inherit;
+}
+
 @layer base {
-  @font-face {
-    font-family: 'Neue Augenblick Ultra Bold';
-    src: url('/fonts/NeueAugenblick-UltraBold.woff2') format('woff2'),
-         url('/fonts/NeueAugenblick-UltraBold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-  }
 
   :root {
     --background: 0 0% 100%;
@@ -35,7 +37,7 @@
     --ring: 201 62% 46%;
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 210 40% 2.1%; /* Equivalent to #050505 */
     --foreground: 210 20% 90.2%; /* Equivalent to #EAF0F6 */
@@ -162,8 +164,11 @@
     initial-value: 100%;
     inherits: false;
   }
+  .theme {
+    --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -299,4 +304,216 @@ body {
 
 .shadow-soft {
   box-shadow: var(--shadow-soft);
+}
+
+/* Subtle animated gradient background */
+@keyframes gradient-move {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient-bg {
+  position: absolute;
+  inset: -20% -10%; /* extend beyond to avoid edges during animation */
+  z-index: 0;
+  pointer-events: none;
+  /* Cool, professional palette: teal → cyan → blue → indigo */
+  background-image: linear-gradient(120deg,
+    rgba(45,212,191,0.20), /* teal-400 */
+    rgba(34,211,238,0.18), /* cyan-400 */
+    rgba(59,130,246,0.22), /* blue-500 */
+    rgba(99,102,241,0.20)  /* indigo-500 */
+  );
+  background-size: 320% 320%;
+  filter: blur(40px);
+  opacity: 0.30; /* subtle */
+  animation: gradient-move 28s linear infinite;
+  will-change: background-position;
+}
+
+/* Performance optimizations for smooth animations */
+@layer utilities {
+  .animate-smooth {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-auto {
+    will-change: auto;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-smooth,
+    .will-change-transform,
+    .will-change-opacity {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      will-change: auto !important;
+    }
+  }
+}
+
+@theme inline {
+  @keyframes blink-cursor {
+  0%, 49% {
+    opacity: 1;
+    }
+  50%, 100% {
+    opacity: 0;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes float-up {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-10px) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(43, 141, 190, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(43, 141, 190, 0.6);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  @keyframes orbit1 {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-22px) scale(1.03); }
+  }
+
+  @keyframes orbit2 {
+    from { transform: translate(0,0) scale(1.02); }
+    to { transform: translate(-38px,22px) scale(.96); }
+  }
+
+  @keyframes orbit3 {
+    from { transform: translate(-12px,0) scale(.98); }
+    to { transform: translate(14px,-24px) scale(1.04); }
+  }
+
+  @keyframes orbit4 {
+    from { transform: translateY(0) scale(1.03); }
+    to { transform: translateY(-16px) scale(.976); }
+  }
+
+  @keyframes floatAurora {
+    0%,100% { transform: translateY(0); opacity:.71; }
+    46% { transform: translateY(-30px); opacity:.55; }
+  }
+
+  @keyframes floatAuroraFast {
+    from { opacity:.58; }
+    50% { opacity:.73; }
+    to { opacity:.46; }
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  .animation-delay-800 {
+    animation-delay: 800ms;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
+  }
+
+  .animate-orbit-1 { 
+    animation: orbit1 14s ease-in-out infinite alternate; 
+  }
+  
+  .animate-orbit-2 { 
+    animation: orbit2 21s ease-in-out infinite alternate; 
+  }
+  
+  .animate-orbit-3 { 
+    animation: orbit3 17s ease-in-out infinite alternate; 
+  }
+  
+  .animate-orbit-4 { 
+    animation: orbit4 24s linear infinite alternate; 
+  }
+  
+  .animate-float-aurora { 
+    animation: floatAurora 15s ease-in-out infinite alternate; 
+  }
+  
+  .animate-float-aurora-fast { 
+    animation: floatAurora 15s linear infinite alternate; 
+  }
 }

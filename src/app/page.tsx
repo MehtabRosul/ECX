@@ -1,6 +1,4 @@
 
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
 import { Hero } from '@/components/home/hero';
 import { Metrics } from '@/components/home/metrics';
 import { CaseStudies } from '@/components/home/case-studies';
@@ -13,16 +11,15 @@ import { ResearchLab } from '@/components/home/research-lab';
 import { Community } from '@/components/home/community';
 import { FeaturedResearch } from '@/components/home/featured-research';
 import { FeaturedIntegrations } from '@/components/home/featured-integrations';
-import { SecuritySnapshot } from '@/components/home/security-snapshot';
+import { InnovationMatrix } from '@/components/home/innovation-matrix';
 import { UpcomingEvents } from '@/components/home/upcoming-events';
-import { NewsletterCta } from '@/components/home/newsletter-cta';
 import { Faq } from '@/components/home/faq';
 import { Testimonials } from '@/components/home/testimonials';
+import { AdvertisementBanner } from '@/components/home/advertisement-banner';
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-surface-1">
-      <Header />
       <main className="flex-1">
         <Hero />
         <Partners />
@@ -35,14 +32,15 @@ export default function Home() {
         <FeaturedResearch />
         <CaseStudies />
         <FeaturedIntegrations />
-        <SecuritySnapshot />
+        <InnovationMatrix />
         <UpcomingEvents />
         <Testimonials />
-        <NewsletterCta />
+        <AdvertisementBanner />
         <Faq />
         <Cta />
+        {/* Extra spacing between CTA and Footer */}
+        <div className="h-24" />
       </main>
-      <Footer />
     </div>
   );
 }

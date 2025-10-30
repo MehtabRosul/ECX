@@ -3,10 +3,27 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ChatProvider } from '@/context/chat-context';
 import { Chatbot } from '@/components/chatbot/chatbot';
+import { MobileChatbot } from '@/components/chatbot/mobile-chatbot';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 
 export const metadata: Metadata = {
-  title: 'EncryptArx',
+  title: 'ECX',
   description: 'Advanced cryptographic solutions for a secure digital world.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'manifest', url: '/site.webmanifest' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -24,8 +41,17 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
         <ChatProvider>
+          <Header />
           {children}
-          <Chatbot />
+          <Footer />
+          {/* Desktop Chatbot - Only shows on screens 1280px and above */}
+          <div className="hidden xl:block">
+            <Chatbot />
+          </div>
+          {/* Mobile Chatbot - Only shows on screens below 1280px */}
+          <div className="xl:hidden">
+            <MobileChatbot />
+          </div>
         </ChatProvider>
         <Toaster />
       </body>
