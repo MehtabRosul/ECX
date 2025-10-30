@@ -11,7 +11,7 @@ import {
   Database,
   Activity
 } from "lucide-react";
-import { FloatingParticlesBackground } from "@/components/floating-particles-background";
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
 
 export default function ProductAnalyticsPage() {
   return (
