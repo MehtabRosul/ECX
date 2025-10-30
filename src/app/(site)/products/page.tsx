@@ -6,7 +6,7 @@ import { Product, productsData, productCategories, productStatuses } from "@/dat
 import { Search, Filter, Grid, List, Star, Zap, Shield, Eye, Download, ArrowRight, ChevronDown, X } from "lucide-react";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { EffectCard } from "@/components/ui/effect-card";
-import { FloatingParticlesBackground } from "@/components/floating-particles-background";
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

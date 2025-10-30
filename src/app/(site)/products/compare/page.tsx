@@ -19,7 +19,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FloatingParticlesBackground } from "@/components/floating-particles-background";
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
 import { ProductsNav } from "@/components/products/products-nav";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 

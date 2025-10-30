@@ -22,7 +22,7 @@ import {
   Database
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FloatingParticlesBackground } from "@/components/floating-particles-background";
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { EffectCard } from "@/components/ui/effect-card";
 import { ProductFeedback } from "@/components/products/product-feedback";

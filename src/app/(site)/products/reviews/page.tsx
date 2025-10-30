@@ -1,6 +1,6 @@
 import { ProductsNav } from "@/components/products/products-nav";
 import { ProductFeedback } from "@/components/products/product-feedback";
-import { FloatingParticlesBackground } from "@/components/floating-particles-background";
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
 
 export default function ProductReviewsPage() {
   return (
