@@ -7,7 +7,7 @@ const DynamicFloatingParticlesBackground = dynamic(
   { ssr: false }
 );
 
-export function FloatingParticlesBackgroundClient(props: { className?: string }) {
+export function FloatingParticlesBackgroundClient(props: { className?: string; count?: number }) {
   return <DynamicFloatingParticlesBackground {...props} />;
 }
 

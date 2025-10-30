@@ -2,10 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
-// @ts-ignore
-import * as random from 'maath/random/dist/maath-random.esm';
 import LightRays from '@/components/ui/light-rays';
 import { AnimatedGradientText } from '@/components/ui/animated-gradient-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,50 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { AnimatedTabs } from '@/components/ui/animated-tabs';
 import { Sparkles, Brain, Shield, Cloud, Code, BookOpen, Users, Zap, Globe, Lock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { FloatingParticlesBackground } from '@/components/floating-particles-background';
+import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from '@/components/floating-particles-background.client';
 import { EnhancedButton } from '@/components/enhanced-button';
 
-// Floating Particles Component for Background
-function FloatingParticles(props: any) {
-  const ref: any = useRef();
-  const [sphere] = useState(() => {
-    // Create a smaller sphere with valid positions
-    const positions = new Float32Array(5000 * 3);
-    for (let i = 0; i < 5000; i++) {
-      const i3 = i * 3;
-      // Generate random positions in a sphere with radius 1.5
-      const radius = 1.5 * Math.cbrt(Math.random());
-      const theta = Math.random() * 2 * Math.PI;
-      const phi = Math.acos(2 * Math.random() - 1);
-      
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i3 + 2] = radius * Math.cos(phi);
-    }
-    return positions;
-  });
-
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
-    }
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
-        <PointMaterial
-          transparent
-          color="#2B8DBE"
-          size={0.005}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
-  );
-}
+//
 
 // Value Pillar Component
 function ValuePillar({ title, description, icon: Icon, index }: { title: string; description: string; icon: any; index: number }) {
@@ -451,12 +407,8 @@ export default function AboutPage() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Floating Particles (always, any device) */}
-        <div className="absolute inset-0 z-0">
-          <Canvas dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: 'high-performance' }} camera={{ position: [0, 0, 1] }}>
-            <FloatingParticles />
-          </Canvas>
-        </div>
+        {/* Floating Particles background */}
+        <FloatingParticlesBackground className="opacity-30" count={30000} />
         
         {/* Light Rays Effect */}
         <div className="absolute inset-0 z-10">
@@ -520,7 +472,7 @@ export default function AboutPage() {
 
       {/* Values Section */}
       <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-30" />
+        <FloatingParticlesBackground className="opacity-30" count={30000} />
         <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background/0"></div>
         <div className="container mx-auto px-4 relative">
           <motion.div
@@ -562,7 +514,7 @@ export default function AboutPage() {
 
       {/* What We Do Section */}
       <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" />
+        <FloatingParticlesBackground className="opacity-20" count={30000} />
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -748,7 +700,7 @@ export default function AboutPage() {
 
       {/* Our Approach Section */}
       <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-25" />
+        <FloatingParticlesBackground className="opacity-25" count={30000} />
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -827,7 +779,7 @@ export default function AboutPage() {
 
       {/* Signature Products Section */}
       <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-20" />
+        <FloatingParticlesBackground className="opacity-20" count={30000} />
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1123,7 +1075,7 @@ export default function AboutPage() {
 
       {/* Research Library Section */}
       <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-30" />
+        <FloatingParticlesBackground className="opacity-30" count={30000} />
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1292,7 +1244,7 @@ export default function AboutPage() {
 
       {/* Team & Culture Section */}
       <section className="py-24 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" />
+        <FloatingParticlesBackground className="opacity-20" count={30000} />
         <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
           <div className="absolute -top-32 right-10 size-72 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 left-20 size-80 rounded-full bg-cyan-500/10 blur-3xl" />
@@ -1304,7 +1256,7 @@ export default function AboutPage() {
 
       {/* Security & Governance Section */}
       <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" />
+        <FloatingParticlesBackground className="opacity-20" count={30000} />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -1413,7 +1365,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="py-24 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-30" />
+        <FloatingParticlesBackground className="opacity-30" count={30000} />
         <div className="absolute inset-0 -z-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
           <div className="absolute left-1/2 top-8 -translate-x-1/2 h-44 w-[70%] rounded-full bg-primary/10 blur-3xl" />
         </div>
