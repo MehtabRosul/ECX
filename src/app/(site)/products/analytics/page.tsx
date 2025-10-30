@@ -11,8 +11,7 @@ import {
   Database,
   Activity
 } from "lucide-react";
-import dynamic from "next/dynamic";
-const FloatingParticlesBackground = dynamic(() => import("@/components/floating-particles-background").then(m => m.FloatingParticlesBackground), { ssr: false });
+import { FloatingParticlesBackground } from "@/components/floating-particles-background";
 
 export default function ProductAnalyticsPage() {
   return (
