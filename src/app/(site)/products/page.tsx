@@ -11,53 +11,17 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
+import dynamic from "next/dynamic";
 
 import { ProductsNav } from "@/components/products/products-nav";
 import { ProductEcosystemMinimal } from "@/components/products/product-ecosystem-minimal";
 import { ProductLifecycleTimeline } from "@/components/products/product-lifecycle-timeline";
 import { ProductFeedback } from "@/components/products/product-feedback";
 
-// 3D Product Visualization Component
-function ProductVisualization() {
-  const ref = useRef<any>();
-  const [sphere] = useState(() => {
-    const positions = new Float32Array(2000 * 3);
-    for (let i = 0; i < 2000; i++) {
-      const i3 = i * 3;
-      const radius = 1.2 * Math.cbrt(Math.random());
-      const theta = Math.random() * 2 * Math.PI;
-      const phi = Math.acos(2 * Math.random() - 1);
-      
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i3 + 2] = radius * Math.cos(phi);
-    }
-    return positions;
-  });
-
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x -= delta / 20;
-      ref.current.rotation.y -= delta / 25;
-    }
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color="#2B8DBE"
-          size={0.005}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
-  );
-}
+const ProductVisualization = dynamic(
+  () => import("@/components/products/product-visualization.client"),
+  { ssr: false }
+);
 
 // Interactive Product Card Component
 function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid" | "list" }) {
@@ -308,9 +272,7 @@ export default function ProductsHubPage() {
       
       {/* 3D Visualization Background */}
       <div className="absolute right-0 top-0 h-96 w-96 opacity-20 will-change-transform">
-        <Canvas dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: "high-performance" }} camera={{ position: [0, 0, 1] }}>
-          <ProductVisualization />
-        </Canvas>
+        <ProductVisualization />
       </div>
       
       <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12">
