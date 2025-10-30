@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 
@@ -67,6 +67,23 @@ function FloatingParticles({ count = 15000 }: FloatingParticlesProps) {
 }
 
 export function FloatingParticlesBackground({ className = "", count = 15000 }: { className?: string; count?: number }) {
+  const [canRender, setCanRender] = useState(false);
+
+  useEffect(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      const gl =
+        canvas.getContext('webgl2', { powerPreference: 'high-performance' }) ||
+        canvas.getContext('webgl') ||
+        canvas.getContext('experimental-webgl');
+      setCanRender(!!gl);
+    } catch {
+      setCanRender(false);
+    }
+  }, []);
+
+  if (!canRender) return <div className={`absolute inset-0 z-0 ${className}`} />;
+
   return (
     <div className={`absolute inset-0 z-0 ${className}`}>
       <Canvas

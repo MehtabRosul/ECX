@@ -138,6 +138,17 @@ const LightRays: React.FC<LightRaysProps> = ({
 
       if (!containerRef.current) return;
 
+      // Feature detect WebGL; gracefully bail on unsupported environments
+      try {
+        const testCanvas = document.createElement('canvas');
+        const testGl = testCanvas.getContext('webgl2') || testCanvas.getContext('webgl');
+        if (!testGl) {
+          return;
+        }
+      } catch {
+        return;
+      }
+
       const renderer = new Renderer({
         dpr: Math.min(window.devicePixelRatio, 2),
         alpha: true
