@@ -1,11 +1,13 @@
 import { ProductsNav } from "@/components/products/products-nav";
 import { ProductFeedback } from "@/components/products/product-feedback";
-import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
+import { ProductsBackgroundVisualization } from "@/components/products-background-visualization";
+
 
 export default function ProductReviewsPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <FloatingParticlesBackground className="opacity-20" />
+      {/* Dynamic Background Visualization */}
+      <ProductsBackgroundVisualization />
       
       <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12">
         {/* Breadcrumbs and Navigation */}

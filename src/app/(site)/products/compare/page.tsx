@@ -19,9 +19,10 @@ import {
   AlertCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
+
 import { ProductsNav } from "@/components/products/products-nav";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
+import { ProductsBackgroundVisualization } from "@/components/products-background-visualization";
 
 export default function ProductComparePage() {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -118,8 +119,8 @@ export default function ProductComparePage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background Particles */}
-      <FloatingParticlesBackground className="opacity-20" />
+      {/* Dynamic Background Visualization */}
+      <ProductsBackgroundVisualization />
       
       <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12">
         {/* Nav */}

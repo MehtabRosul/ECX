@@ -22,7 +22,7 @@ import {
   Database
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
+
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { EffectCard } from "@/components/ui/effect-card";
 import { ProductFeedback } from "@/components/products/product-feedback";
@@ -55,7 +55,6 @@ export default function ProductDetailPage({ params }: Params) {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Particles */}
-      <FloatingParticlesBackground className="opacity-20" />
       
       <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12">
         {/* Breadcrumbs */}

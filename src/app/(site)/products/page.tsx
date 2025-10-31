@@ -6,7 +6,7 @@ import { Product, productsData, productCategories, productStatuses } from "@/dat
 import { Search, Filter, Grid, List, Star, Zap, Shield, Eye, Download, ArrowRight, ChevronDown, X } from "lucide-react";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { EffectCard } from "@/components/ui/effect-card";
-import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from "@/components/floating-particles-background.client";
+
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -18,10 +18,7 @@ import { ProductEcosystemMinimal } from "@/components/products/product-ecosystem
 import { ProductLifecycleTimeline } from "@/components/products/product-lifecycle-timeline";
 import { ProductFeedback } from "@/components/products/product-feedback";
 
-const ProductVisualization = dynamic(
-  () => import("@/components/products/product-visualization.client"),
-  { ssr: false }
-);
+import { ProductsBackgroundVisualization } from '@/components/products-background-visualization';
 
 // Interactive Product Card Component
 function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid" | "list" }) {
@@ -53,71 +50,103 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
       )} />
       <div className="relative z-10 h-full p-6">
         <div className={cn("flex", viewMode === "list" ? "flex-row gap-6" : "flex-col")}>
-          <div className={cn(
-            "relative overflow-hidden rounded-xl",
-            viewMode === "list" ? "h-32 w-48 flex-shrink-0" : "h-48 w-full"
-          )}>
+          <motion.div 
+            className={cn(
+              "relative overflow-hidden rounded-xl group/image",
+              viewMode === "list" ? "h-32 w-48 flex-shrink-0" : "h-48 w-full"
+            )}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             <img
               src={product.imageUrl || "https://picsum.photos/seed/ecx/800/600"}
               alt={product.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover/image:scale-110"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/20" />
-            <div className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2 py-1 text-xs font-medium backdrop-blur-sm">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/20 group-hover/image:from-primary/10 group-hover/image:via-primary/5 group-hover/image:to-black/20 transition-all duration-500" />
+            <motion.div 
+              className="absolute bottom-2 right-2 rounded-full bg-background/90 px-2 py-1 text-xs font-medium backdrop-blur-sm border border-primary/20"
+              whileHover={{ scale: 1.1 }}
+            >
               {product.version}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           
           <div className={cn("flex-1", viewMode === "list" ? "py-2" : "")}>
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="text-xl font-bold">{product.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{product.tagline}</p>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <motion.h3 
+                  className="text-xl font-bold group-hover:text-primary transition-colors duration-300"
+                  layout
+                >
+                  {product.name}
+                </motion.h3>
+                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{product.tagline}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <motion.div 
+                className="flex items-center gap-2 flex-shrink-0"
+                whileHover={{ scale: 1.05 }}
+              >
                 <span className={cn(
-                  "inline-flex items-center self-start mt-1.5 rounded-full px-2 py-1 text-xs font-medium",
-                  product.status === "active" && "bg-green-500/20 text-green-300",
-                  product.status === "beta" && "bg-yellow-500/20 text-yellow-300",
-                  product.status === "coming-soon" && "bg-blue-500/20 text-blue-300",
-                  product.status === "deprecated" && "bg-red-500/20 text-red-300"
+                  "inline-flex items-center self-start mt-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-300 border",
+                  product.status === "active" && "bg-green-500/20 text-green-300 border-green-500/30 group-hover:bg-green-500/30",
+                  product.status === "beta" && "bg-yellow-500/20 text-yellow-300 border-yellow-500/30 group-hover:bg-yellow-500/30",
+                  product.status === "coming-soon" && "bg-blue-500/20 text-blue-300 border-blue-500/30 group-hover:bg-blue-500/30",
+                  product.status === "deprecated" && "bg-red-500/20 text-red-300 border-red-500/30 group-hover:bg-red-500/30"
                 )}>
                   {product.status.replace("-", " ")}
                 </span>
-              </div>
+              </motion.div>
             </div>
             
-            <p className="mt-3 text-sm text-muted-foreground">{product.description}</p>
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed line-clamp-2">{product.description}</p>
             
             <div className="mt-4 flex flex-wrap gap-2">
               {product.highlights.slice(0, 3).map((highlight, index) => (
-                <span key={index} className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
+                <motion.span 
+                  key={index} 
+                  className="rounded-full bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
                   {highlight}
-                </span>
+                </motion.span>
               ))}
             </div>
             
-            <div className="mt-6 flex flex-wrap items-center justify-end gap-2">
-              <div className="mr-auto flex items-center gap-3">
-                <div className="flex items-center gap-1 text-sm">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-4">
+                <motion.div 
+                  className="flex items-center gap-1.5 text-sm"
+                  whileHover={{ scale: 1.1 }}
+                >
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span>4.8</span>
-                </div>
-                <div className="flex items-center gap-1 text-sm">
-                  <Zap className="h-4 w-4 text-primary" />
-                  <span>{product.performance?.latency || "N/A"}</span>
-                </div>
-                <Button variant="outline" size="sm" className="gap-2 rounded-xl ml-2">
-                  <Eye className="h-4 w-4" />
-                  Demo
-                </Button>
+                  <span className="font-semibold">4.8</span>
+                </motion.div>
+                <motion.div 
+                  className="flex items-center gap-1.5 text-sm text-primary"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <Zap className="h-4 w-4" />
+                  <span className="font-medium">{product.performance?.latency || "N/A"}</span>
+                </motion.div>
               </div>
               
               <div className="flex items-center gap-2">
-                <GradientButton size="sm" className="gap-2 rounded-2xl px-4">
-                  Visit
-                  <ArrowRight className="h-4 w-4" />
-                </GradientButton>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button variant="outline" size="sm" className="gap-2 rounded-xl border-primary/30 hover:bg-primary/10 transition-all duration-300">
+                    <Eye className="h-4 w-4" />
+                    Demo
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <GradientButton size="sm" className="gap-2 rounded-2xl px-4 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300">
+                    Visit
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </GradientButton>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -267,13 +296,8 @@ export default function ProductsHubPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background Particles */}
-      <FloatingParticlesBackground className="opacity-30" />
-      
-      {/* 3D Visualization Background */}
-      <div className="absolute right-0 top-0 h-96 w-96 opacity-20 will-change-transform">
-        <ProductVisualization />
-      </div>
+      {/* Unique Background Visualization */}
+      <ProductsBackgroundVisualization />
       
       <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12">
         {/* Breadcrumbs and Navigation */}
@@ -291,27 +315,43 @@ export default function ProductsHubPage() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           className="mb-12 sm:mb-16 text-center"
         >
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Our <span className="text-primary">Product</span> Universe
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground">
-            Explore our cutting-edge suite of security and privacy solutions, designed to protect your digital assets in an ever-evolving threat landscape.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl mb-4">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400 animate-gradient-x">Product</span> Universe
+            </h1>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground leading-relaxed"
+            >
+              Explore our cutting-edge suite of security and privacy solutions, designed to protect your digital assets in an ever-evolving threat landscape.
+            </motion.p>
+          </motion.div>
         </motion.div>
         
         {/* Search and Filters */}
-        <div className="mb-10 sm:mb-12">
-          <div className="relative mb-4 sm:mb-6">
-            <Search className="magnifiant pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white z-10" />
+        <motion.div 
+          className="mb-10 sm:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="relative mb-4 sm:mb-6 group">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors z-10" />
             <input
               type="text"
               placeholder="Search products, features, or use cases..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-white/10 bg-background/50 py-3 sm:py-4 pl-12 pr-4 text-base sm:text-lg backdrop-blur-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="w-full rounded-2xl border border-white/10 bg-background/60 py-3.5 sm:py-4 pl-12 pr-4 text-base sm:text-lg backdrop-blur-md placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-background/80 focus:scale-[1.01] transition-all duration-300 shadow-lg shadow-black/10"
             />
           </div>
           
@@ -409,7 +449,7 @@ export default function ProductsHubPage() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
         
         {/* Product Showcase */}
         <div className="mb-14 sm:mb-16">
@@ -516,57 +556,49 @@ export default function ProductsHubPage() {
         
         {/* CTA Section */}
         <motion.div 
-          className="rounded-3xl border border-white/10 bg-gradient-to-br from-surface-2/30 to-surface-1/30 p-8 backdrop-blur-sm transform-gpu"
+          className="relative rounded-3xl border border-primary/20 bg-gradient-to-br from-surface-2/40 via-surface-1/30 to-surface-2/40 p-8 sm:p-10 backdrop-blur-md transform-gpu overflow-hidden group"
           initial={useReducedMotion() ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div>
-              <h3 className="text-2xl font-bold">Ready to get started?</h3>
-              <p className="mt-2 text-muted-foreground">
+          {/* Animated background gradient */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
+          
+          <div className="relative z-10 flex flex-col items-center justify-between gap-6 md:flex-row">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-2xl sm:text-3xl font-bold mb-2">Ready to get started?</h3>
+              <p className="text-muted-foreground text-sm sm:text-base">
                 Contact our team for a personalized product demonstration
               </p>
-            </div>
-            <div className="flex gap-3">
-              <Button variant="outline">Download Brochure</Button>
-              <GradientButton>Contact Sales</GradientButton>
-            </div>
+            </motion.div>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="outline" className="w-full sm:w-auto border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300">
+                  Download Brochure
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <GradientButton className="w-full sm:w-auto shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300">
+                  Contact Sales
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </GradientButton>
+              </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
     </div>
   );
 }
-
-function StarAuroraBackground() {
-  return (
-    <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
-      {/* GPU-animated orbits/dots with CSS */}
-      <div className="absolute left-1/6 top-[12%] w-20 h-20 rounded-full bg-cyan-400/25 blur-xl will-change-transform animate-orbit-1" />
-      <div className="absolute right-[18%] top-[32%] w-28 h-28 rounded-full bg-sky-300/20 blur-2xl will-change-transform animate-orbit-2" />
-      <div className="absolute left-[10%] bottom-[18%] w-36 h-20 rounded-full bg-cyan-600/10 blur-3xl will-change-transform animate-orbit-3" />
-      <div className="absolute right-[9%] bottom-[24%] w-28 h-28 rounded-full bg-fuchsia-400/10 blur-3xl will-change-transform animate-orbit-4" />
-      {/* Aurora haze at top and bottom */}
-      <div className="absolute left-1/2 top-12 -translate-x-1/2 w-3/5 h-28 bg-gradient-to-r from-cyan-300/25 via-blue-400/30 to-fuchsia-300/10 blur-3xl opacity-65 will-change-transform animate-float-aurora" />
-      <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[78vw] h-32 bg-gradient-to-br from-cyan-200/20 via-blue-200/20 to-violet-400/20 blur-2xl opacity-50 will-change-transform animate-float-aurora-fast" />
-    </div>
-  );
-}
-
-// /* Add these to your global CSS for GPU keyframes: */
-// @layer utilities {
-//   .animate-orbit-1 { animation: orbit1 14s ease-in-out infinite alternate; }
-//   .animate-orbit-2 { animation: orbit2 21s ease-in-out infinite alternate; }
-//   .animate-orbit-3 { animation: orbit3 17s ease-in-out infinite alternate; }
-//   .animate-orbit-4 { animation: orbit4 24s linear infinite alternate; }
-//   .animate-float-aurora { animation: floatAurora 15s ease-in-out infinite alternate; }
-//   .animate-float-aurora-fast { animation: floatAurora 8s linear infinite alternate; }
-//   @keyframes orbit1 { from { transform: translateY(0) scale(1); } to { transform: translateY(-22px) scale(1.03); } }
-//   @keyframes orbit2 { from { transform: translate(0,0) scale(1.02); } to { transform: translate(-38px,22px) scale(.96); } }
-//   @keyframes orbit3 { from { transform: translate(-12px,0) scale(.98); } to { transform: translate(14px,-24px) scale(1.04); } }
-//   @keyframes orbit4 { from { transform: translateY(0) scale(1.03); } to { transform: translateY(-16px) scale(.976); } }
-//   @keyframes floatAurora { 0%,100% { transform: translateY(0); opacity:.71; } 46% { transform: translateY(-30px); opacity:.55; } }
-//   @keyframes floatAurora { from { opacity:.58; } 50% { opacity:.73; } to { opacity:.46; } }
-// }

@@ -1,29 +1,43 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
+import * as LucideIcons from "lucide-react";
 import { productsData } from "@/data/products-data";
-import { 
-  Lock, Shield, Database, Cpu, Globe, Zap, Key, Brain, Server, FileText, Users, BarChart3
-} from "lucide-react";
 import { cn } from "@/lib/utils";
+// @ts-ignore - framer-motion types are included in the package
 import { motion, useInView, useAnimation } from "framer-motion";
+
+// Define proper TypeScript interfaces
+interface Product {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  category: string;
+  status: string;
+  version: string;
+  compliance?: string[];
+  integrations: string[];
+  highlights?: string[];
+}
 
 // Enhanced Product Card Component with better hover effects
 function SimpleProductCard({ product, isSelected, onClick }: { 
-  product: any; 
+  product: Product; 
   isSelected: boolean;
   onClick: () => void;
 }) {
-  const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-    "quantum-encrypt": Lock,
-    "neural-shield": Shield,
-    "data-vault": Database,
-    "crypto-sandbox": Cpu,
-    "secure-api-gateway": Globe,
-    "compliance-assistant": Zap
+  // Map icon names to actual components
+  const iconComponents: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+    "quantum-encrypt": LucideIcons.Lock,
+    "neural-shield": LucideIcons.Shield,
+    "data-vault": LucideIcons.Database,
+    "crypto-sandbox": LucideIcons.Cpu,
+    "secure-api-gateway": LucideIcons.Globe,
+    "compliance-assistant": LucideIcons.Zap
   };
   
-  const Icon = iconMap[product.id] || Shield;
+  const Icon = iconComponents[product.id] || LucideIcons.Shield;
 
   // Completely different product names
   const productNames: Record<string, string> = {
@@ -49,7 +63,7 @@ function SimpleProductCard({ product, isSelected, onClick }: {
   const highlights = customHighlights[product.id] || ["Business Focused", "Operationally Efficient"];
   
   // Parallax effect
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const controls = useAnimation();
   
@@ -98,19 +112,20 @@ function SimpleProductCard({ product, isSelected, onClick }: {
 }
 
 // Enhanced Product Details Panel with custom content
-function SimpleProductDetails({ product, onClose }: { product: any; onClose: () => void }) {
+function SimpleProductDetails({ product, onClose }: { product: Product; onClose: () => void }) {
   if (!product) return null;
 
-  const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-    "quantum-encrypt": Lock,
-    "neural-shield": Shield,
-    "data-vault": Database,
-    "crypto-sandbox": Cpu,
-    "secure-api-gateway": Globe,
-    "compliance-assistant": Zap
+  // Map icon names to actual components
+  const iconComponents: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+    "quantum-encrypt": LucideIcons.Lock,
+    "neural-shield": LucideIcons.Shield,
+    "data-vault": LucideIcons.Database,
+    "crypto-sandbox": LucideIcons.Cpu,
+    "secure-api-gateway": LucideIcons.Globe,
+    "compliance-assistant": LucideIcons.Zap
   };
   
-  const Icon = iconMap[product.id] || Shield;
+  const Icon = iconComponents[product.id] || LucideIcons.Shield;
 
   // Completely different product names
   const productNames: Record<string, string> = {
@@ -124,7 +139,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
 
   // Get related products based on category
   const relatedProducts = productsData
-    .filter(p => p.category === product.category && p.id !== product.id)
+    .filter((p: Product) => p.category === product.category && p.id !== product.id)
     .slice(0, 2);
 
   // Completely different feature descriptions
@@ -221,7 +236,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
             <div>
               <h4 className="font-semibold text-lg mb-3">Key Benefits</h4>
               <div className="space-y-2">
-                {features.map((feature: any, i: number) => (
+                {features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></div>
                     <div>
@@ -246,7 +261,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
               
               <h4 className="font-semibold text-lg mt-4 mb-3">Regulatory Standards</h4>
               <div className="flex flex-wrap gap-2">
-                {product.compliance?.slice(0, 4).map((comp: string, i: number) => (
+                {product.compliance?.slice(0, 4).map((comp, i) => (
                   <span 
                     key={i} 
                     className="px-2 py-1 bg-surface-1/50 text-foreground text-xs rounded-full border border-white/10"
@@ -261,7 +276,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
           <div className="mt-6">
             <h4 className="font-semibold text-lg mb-3">Technology Ecosystem</h4>
             <div className="flex flex-wrap gap-2">
-              {product.integrations.slice(0, 6).map((integration: string, i: number) => (
+              {product.integrations.slice(0, 6).map((integration, i) => (
                 <span 
                   key={i} 
                   className="px-3 py-1.5 bg-surface-1/50 text-foreground text-sm rounded-full border border-white/10 hover:bg-primary/10 hover:border-primary/30 transition-colors"
@@ -279,7 +294,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
                 {relatedProducts.map((relatedProduct) => (
                   <div key={relatedProduct.id} className="flex items-center gap-2 p-3 rounded-lg bg-surface-1/30 border border-white/10">
                     <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
-                      <Shield className="h-4 w-4 text-primary" />
+                      <LucideIcons.Shield className="h-4 w-4 text-primary" />
                     </div>
                     <div>
                       <p className="font-medium text-sm">{productNames[relatedProduct.id] || relatedProduct.name}</p>
@@ -298,7 +313,7 @@ function SimpleProductDetails({ product, onClose }: { product: any; onClose: () 
 
 // Simplified Ecosystem Visualization
 export function ProductEcosystemMinimal() {
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
   // Define the product relationships in a simple linear way
   const ecosystemProducts = [
@@ -311,7 +326,7 @@ export function ProductEcosystemMinimal() {
   ];
   
   // Get product data for ecosystem products
-  const products = productsData.filter(p => ecosystemProducts.includes(p.id));
+  const products = productsData.filter((p: Product) => ecosystemProducts.includes(p.id));
 
   return (
     <div className="w-full rounded-2xl border border-white/20 bg-gradient-to-br from-surface-2/30 to-surface-1/30 backdrop-blur-sm p-6">

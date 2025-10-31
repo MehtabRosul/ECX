@@ -9,8 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { AnimatedTabs } from '@/components/ui/animated-tabs';
 import { Sparkles, Brain, Shield, Cloud, Code, BookOpen, Users, Zap, Globe, Lock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { FloatingParticlesBackgroundClient as FloatingParticlesBackground } from '@/components/floating-particles-background.client';
+
 import { EnhancedButton } from '@/components/enhanced-button';
+import { AboutShootingStars } from '@/components/about-shooting-stars';
+import { AboutParticlesBackground } from '@/components/about-particles-background';
 
 //
 
@@ -407,9 +409,13 @@ export default function AboutPage() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Floating Particles background */}
-        <FloatingParticlesBackground className="opacity-30" count={30000} />
-        
+        {/* Particle Background Animation */}
+        <AboutParticlesBackground />
+        {/* Shooting Stars */}
+        <div className="absolute inset-0 z-[5]">
+          <AboutShootingStars />
+        </div>
+
         {/* Light Rays Effect */}
         <div className="absolute inset-0 z-10">
           <LightRays 
@@ -471,10 +477,10 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-30" count={30000} />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background/0"></div>
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background/0 z-[1]"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -513,9 +519,9 @@ export default function AboutPage() {
       </section>
 
       {/* What We Do Section */}
-      <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" count={30000} />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -699,9 +705,9 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach Section */}
-      <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-25" count={30000} />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -778,9 +784,9 @@ export default function AboutPage() {
       
 
       {/* Signature Products Section */}
-      <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-20" count={30000} />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -833,9 +839,9 @@ export default function AboutPage() {
       </section>
 
       {/* Capabilities Matrix Section */}
-      <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-25" />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -979,9 +985,9 @@ export default function AboutPage() {
       </section>
 
       {/* Consultancy Section */}
-      <section className="py-20 relative">
-        <FloatingParticlesBackground className="opacity-20" />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1074,9 +1080,9 @@ export default function AboutPage() {
       </section>
 
       {/* Research Library Section */}
-      <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-30" count={30000} />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1243,9 +1249,9 @@ export default function AboutPage() {
       </section>
 
       {/* Team & Culture Section */}
-      <section className="py-24 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" count={30000} />
-        <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
+      <section className="py-24 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
           <div className="absolute -top-32 right-10 size-72 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 left-20 size-80 rounded-full bg-cyan-500/10 blur-3xl" />
         </div>
@@ -1255,9 +1261,9 @@ export default function AboutPage() {
       </section>
 
       {/* Security & Governance Section */}
-      <section className="py-20 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-20" count={30000} />
-        <div className="container mx-auto px-4 relative">
+      <section className="py-20 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1364,9 +1370,9 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-background/50 relative">
-        <FloatingParticlesBackground className="opacity-30" count={30000} />
-        <div className="absolute inset-0 -z-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
+      <section className="py-24 bg-background/50 relative overflow-hidden">
+        <AboutParticlesBackground />
+        <div className="absolute inset-0 z-0 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]">
           <div className="absolute left-1/2 top-8 -translate-x-1/2 h-44 w-[70%] rounded-full bg-primary/10 blur-3xl" />
         </div>
         <div className="container mx-auto px-4 relative">
