@@ -70,7 +70,6 @@ export function ProductFeedback() {
   const [newRating, setNewRating] = useState(0);
   const [newComment, setNewComment] = useState("");
   const [sortBy, setSortBy] = useState("helpful");
-  const [filterBy, setFilterBy] = useState("all");
   
   const overallRating = feedback.reduce((sum, item) => sum + item.rating, 0) / feedback.length;
   
@@ -115,9 +114,6 @@ export function ProductFeedback() {
     return 0;
   });
   
-  const filteredFeedback = filterBy === "all" 
-    ? sortedFeedback 
-    : sortedFeedback.filter(item => item.tags.includes(filterBy));
   
   return (
     <div className="space-y-8">
@@ -208,7 +204,7 @@ export function ProductFeedback() {
         </div>
       </div>
       
-      {/* Feedback Controls */}
+      {/* Feedback Controls (filters removed) */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <span className="text-sm font-medium">Sort by:</span>
@@ -224,33 +220,12 @@ export function ProductFeedback() {
             </Button>
           ))}
         </div>
-        
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="text-sm font-medium">Filter by:</span>
-          <Button
-            variant={filterBy === "all" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilterBy("all")}
-          >
-            All
-          </Button>
-          {["Performance", "Security", "API", "Documentation", "Setup", "Support"].map((tag) => (
-            <Button
-              key={tag}
-              variant={filterBy === tag ? "default" : "outline"}
-              size="sm"
-              onClick={() => setFilterBy(tag)}
-            >
-              {tag}
-            </Button>
-          ))}
-        </div>
       </div>
       
       {/* Feedback List */}
       <div className="space-y-6">
         <AnimatePresence>
-          {filteredFeedback.map((item, index) => {
+          {sortedFeedback.map((item, index) => {
             const ref = useRef(null);
             const isInView = useInView(ref, { once: true, margin: "-100px" });
             const controls = useAnimation();
