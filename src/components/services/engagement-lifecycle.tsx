@@ -5,6 +5,7 @@ import { engagementSteps } from '@/data/services-data';
 import { Search, Rocket, Settings, TrendingUp, RefreshCw, ArrowRight, CheckCircle2, Clock, Users, Target, Zap, TestTube, Monitor } from 'lucide-react';
 import { ShineBorder } from '@/components/ui/shine-border';
 import { useState, useEffect, useRef } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const icons = [Search, Rocket, Settings, TestTube, TrendingUp];
 const stepIcons = [Target, Clock, Users, Zap, CheckCircle2];
@@ -17,6 +18,7 @@ const colors = [
 ];
 
 export function EngagementLifecycle() {
+	const isMobile = useIsMobile();
 	const [activeStep, setActiveStep] = useState(0);
 	const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 	const [geometricShapes, setGeometricShapes] = useState<Array<{
@@ -32,12 +34,12 @@ export function EngagementLifecycle() {
 		offset: ["start end", "end start"]
 	});
 
-	const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+	const y = useTransform(scrollYProgress, [0, 1], isMobile ? [40, -40] : [100, -100]);
 	const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
 	useEffect(() => {
 		// Generate geometric shapes with fixed values to prevent hydration mismatch
-		const shapes = [
+		const baseShapes = [
 			{ size: 80, left: 10, top: 20, duration: 20, delay: 0 },
 			{ size: 100, left: 30, top: 60, duration: 25, delay: 1 },
 			{ size: 70, left: 60, top: 30, duration: 18, delay: 2 },
@@ -51,8 +53,8 @@ export function EngagementLifecycle() {
 			{ size: 82, left: 25, top: 10, duration: 26, delay: 10 },
 			{ size: 78, left: 85, top: 25, duration: 16, delay: 11 },
 		];
-		setGeometricShapes(shapes);
-	}, []);
+		setGeometricShapes(isMobile ? baseShapes.slice(0, 6) : baseShapes);
+	}, [isMobile]);
 
 	useEffect(() => {
 		if (!isAutoPlaying) return;
@@ -75,7 +77,7 @@ export function EngagementLifecycle() {
 			<div className="absolute inset-0">
 				{/* Animated gradient mesh */}
 				<motion.div 
-					className="absolute inset-0 opacity-30"
+					className="absolute inset-0 opacity-30 will-change-transform"
 					style={{ y }}
 				>
 					<div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
@@ -88,7 +90,7 @@ export function EngagementLifecycle() {
 					{geometricShapes.map((shape, i) => (
 						<motion.div
 							key={i}
-							className="absolute rounded-full border border-white/10"
+							className="absolute rounded-full border border-white/10 will-change-transform"
 							style={{
 								width: `${shape.size}px`,
 								height: `${shape.size}px`,

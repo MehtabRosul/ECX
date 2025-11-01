@@ -5,6 +5,7 @@ import { servicesData } from '@/data/services-data';
 import { useState, useEffect } from 'react';
 import { ChevronDown, CheckCircle2, Brain, Shield, Settings, Cloud } from 'lucide-react';
 import { ShineBorder } from '@/components/ui/shine-border';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const domainIcons = {
 	'ai-ml': Brain,
@@ -28,6 +29,7 @@ const domainGradients = {
 };
 
 export function DomainSections() {
+	const isMobile = useIsMobile();
 	const [expandedDomains, setExpandedDomains] = useState<Set<string>>(new Set(['cybersecurity']));
 	const [backgroundElements, setBackgroundElements] = useState<{
 		hexagons: Array<{
@@ -49,7 +51,8 @@ export function DomainSections() {
 
 	useEffect(() => {
 		// Generate hexagons
-		const hexagons = Array.from({ length: 15 }).map((_, i) => ({
+		const hexagonCount = isMobile ? 8 : 15;
+		const hexagons = Array.from({ length: hexagonCount }).map((_, i) => ({
 			delay: i * 0.5,
 			duration: 8 + Math.random() * 8,
 			size: 80 + Math.random() * 100,
@@ -63,7 +66,8 @@ export function DomainSections() {
 			'rgba(72, 150, 189, 0.6)',
 			'rgba(244, 164, 96, 0.6)',
 		];
-		const particles = Array.from({ length: 25 }).map((_, i) => ({
+		const particleCount = isMobile ? 12 : 25;
+		const particles = Array.from({ length: particleCount }).map((_, i) => ({
 			delay: i * 0.3,
 			duration: 6 + Math.random() * 6,
 			size: 4 + Math.random() * 6,
@@ -73,7 +77,7 @@ export function DomainSections() {
 		}));
 
 		setBackgroundElements({ hexagons, particles });
-	}, []);
+	}, [isMobile]);
 
 	const toggleDomain = (id: string) => {
 		const newSet = new Set(expandedDomains);
@@ -107,6 +111,7 @@ export function DomainSections() {
 							animationTimingFunction: 'ease-in-out',
 							animationIterationCount: 'infinite',
 							animationName: 'floatHex',
+							willChange: 'transform, opacity',
 						}}
 					/>
 				))}
@@ -128,6 +133,7 @@ export function DomainSections() {
 							animationTimingFunction: 'ease-in-out',
 							animationIterationCount: 'infinite',
 							animationName: 'glowPulse',
+							willChange: 'transform, opacity',
 						}}
 					/>
 				))}

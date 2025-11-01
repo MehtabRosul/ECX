@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { EnhancedButton } from '@/components/enhanced-button';
 import { AboutShootingStars } from '@/components/about-shooting-stars';
 import { AboutParticlesBackground } from '@/components/about-particles-background';
+import { useBackgroundImageWithFallback } from '@/hooks/useBackgroundImage';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 //
 
@@ -92,6 +94,7 @@ function ApproachStep({ title, description, deliverables, index }: { title: stri
 
 // Product Card Component
 function ProductCard({ title, description, cta, imageUrl }: { title: string; description: string; cta: string; imageUrl?: string }) {
+  const resolvedUrl = useBackgroundImageWithFallback(imageUrl);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -105,7 +108,7 @@ function ProductCard({ title, description, cta, imageUrl }: { title: string; des
         <div className="relative h-40 md:h-48 overflow-hidden">
           <div
             className="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-105"
-            style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
+            style={resolvedUrl ? { backgroundImage: `url(${resolvedUrl})` } : undefined}
           ></div>
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-background/10"></div>
           <div className="absolute inset-x-0 bottom-0 h-0.5 bg-primary/20 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></div>
@@ -283,6 +286,7 @@ function TeamAndCulture() {
   const [hoverCohort, setHoverCohort] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
 
+  const isMobile = useIsMobile();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
       <motion.div
@@ -380,15 +384,27 @@ function TeamAndCulture() {
         <div className="relative">
           <InnovationMatrix externalHover={hoverCohort ?? selected} onSelect={(id) => setSelected(id)} />
           {selected && (
-            <div className="absolute right-3 bottom-3 z-40 max-w-[280px] rounded-xl border border-white/10 bg-background/70 backdrop-blur-md p-4 shadow-lg">
-              <div className="text-xs uppercase tracking-wide text-primary mb-1">Cohort</div>
-              <div className="text-sm font-semibold mb-2">{selected}</div>
-              <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-                <li>Cross-cluster workstreams with measurable artifacts</li>
-                <li>Security and reproducibility checkpoints embedded</li>
-                <li>Reusable playbooks and runbooks maintained</li>
-              </ul>
-            </div>
+            isMobile ? (
+              <div className="mt-3 rounded-xl border border-white/10 bg-background/80 backdrop-blur-md p-4 shadow-lg">
+                <div className="text-xs uppercase tracking-wide text-primary mb-1">Cohort</div>
+                <div className="text-sm font-semibold mb-2">{selected}</div>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
+                  <li>Cross-cluster workstreams with measurable artifacts</li>
+                  <li>Security and reproducibility checkpoints embedded</li>
+                  <li>Reusable playbooks and runbooks maintained</li>
+                </ul>
+              </div>
+            ) : (
+              <div className="absolute right-3 bottom-3 z-40 max-w-[280px] rounded-xl border border-white/10 bg-background/70 backdrop-blur-md p-4 shadow-lg">
+                <div className="text-xs uppercase tracking-wide text-primary mb-1">Cohort</div>
+                <div className="text-sm font-semibold mb-2">{selected}</div>
+                <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
+                  <li>Cross-cluster workstreams with measurable artifacts</li>
+                  <li>Security and reproducibility checkpoints embedded</li>
+                  <li>Reusable playbooks and runbooks maintained</li>
+                </ul>
+              </div>
+            )
           )}
         </div>
       </motion.div>

@@ -4,9 +4,11 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { ArrowRight, Shield, Sparkles } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function ServicesHero() {
 	const dotsRef = useRef<HTMLDivElement>(null);
+	const isMobile = useIsMobile();
 
 	useEffect(() => {
 		if (!dotsRef.current) return;
@@ -15,8 +17,9 @@ export function ServicesHero() {
 		const container = document.getElementById('animated-dots');
 		if (!container) return;
 
-		// Create enhanced animated dot pattern with more dots
-		for (let i = 0; i < 200; i++) {
+		// Create enhanced animated dot pattern (reduced on mobile for performance)
+		const dotCount = isMobile ? 80 : 200;
+		for (let i = 0; i < dotCount; i++) {
 			const dot = document.createElement('div');
 			const size = Math.random() * 8 + 3;
 			const left = Math.random() * 100;
@@ -37,6 +40,7 @@ export function ServicesHero() {
 				opacity: 0.4;
 				animation: floatDot ${duration}s ease-in-out infinite;
 				animation-delay: ${delay}s;
+				will-change: transform, opacity;
 			`;
 
 			dots.appendChild(dot);
@@ -71,7 +75,7 @@ export function ServicesHero() {
 				dotsRef.current.innerHTML = '';
 			}
 		};
-	}, []);
+	}, [isMobile]);
 
 	return (
 		<section className="relative py-20 sm:py-32 md:py-40 overflow-hidden">
@@ -80,7 +84,7 @@ export function ServicesHero() {
 			
 			<div className="absolute inset-0 overflow-hidden">
 				<motion.div
-					className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]"
+					className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] will-change-transform"
 					animate={{
 						x: [0, 100, 0],
 						y: [0, -100, 0],
@@ -93,7 +97,7 @@ export function ServicesHero() {
 					}}
 				/>
 				<motion.div
-					className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px]"
+					className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px] will-change-transform"
 					animate={{
 						x: [0, -100, 0],
 						y: [0, 100, 0],
