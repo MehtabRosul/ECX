@@ -3,6 +3,60 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animated gradient utility for headline text */
+@keyframes ecx-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-ecx-gradient {
+  background-size: 300% 300%;
+  animation: ecx-gradient-shift 4s ease-in-out infinite;
+  will-change: background-position;
+}
+
+/* R&D card background effects */
+@keyframes ecx-scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+.ecx-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.06) 0px,
+    rgba(255,255,255,0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: ecx-scanlines 6s linear infinite;
+  opacity: 0.18;
+}
+
+@keyframes ecx-radar-sweep {
+  0% { transform: rotate(0deg); opacity: 0.35; }
+  70% { opacity: 0.35; }
+  100% { transform: rotate(360deg); opacity: 0.35; }
+}
+
+.ecx-radar {
+  background: conic-gradient(from 0deg, rgba(59,130,246,0.0) 0deg, rgba(59,130,246,0.35) 45deg, rgba(59,130,246,0.0) 60deg);
+  animation: ecx-radar-sweep 12s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes move-dots {
+  0% { background-position: 0 0; }
+  100% { background-position: 12px 12px; }
+}
+
 /* ScrambledText Performance Optimizations */
 .scrambled-text-char {
   will-change: contents;
