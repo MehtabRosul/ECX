@@ -1,21 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { Lock, ArrowRight } from "lucide-react";
+import React from "react";
 import { productsData } from "@/data/products-data";
 import { RevealPanel } from "@/components/rnd/tease-card";
 import { RndCursorParticlesBackground } from "@/components/rnd/cursor-particles-background";
 import { SignalCards } from "@/components/rnd/signal-cards";
 import { RndProductCardsGrid } from "@/components/rnd/rnd-product-cards";
 import { CollaborationCTA } from "@/components/rnd/collaboration-cta";
+import { collaborationProductsData } from "@/data/collaboration-products-data";
 
-export const metadata = {
-  title: "Research & Development",
-  description: "Deep-tech research, prototypes, and lab initiatives.",
-};
+// metadata moved to route layout to prevent client-navigation blank issues
 
 // Lightweight random noise with CSS only (no canvas/three)
 function BackgroundNoise() {
   return (
-    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <div 
+      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      style={{ willChange: 'contents', transform: 'translateZ(0)', contain: 'layout style paint' }}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.08),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(99,102,241,0.08),transparent_45%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.08),transparent_40%)]" />
       <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><filter id=\\'n\\'><feTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.8\\' numOctaves=\\'4\\' stitchTiles=\\'stitch\\'/></filter><rect width=\\'100%\\' height=\\'100%\\' filter=\\'url(%23n)\\' opacity=\\'0.5\\'/></svg>')" }} />
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.2))]" />
@@ -25,6 +29,17 @@ function BackgroundNoise() {
 
 export default function RndPage() {
   const launched = productsData.filter(p => p.status === "active").slice(0, 4);
+  
+  // Memoize products data to prevent unnecessary recalculations
+  const productsDataMemo = React.useMemo(() => 
+    launched.map((p) => ({
+      id: p.id,
+      name: p.name,
+      tagline: p.tagline,
+      imageUrl: p.imageUrl || `https://picsum.photos/seed/${encodeURIComponent(p.id)}-rnd/1200/800`,
+    })), 
+    [launched]
+  );
 
   return (
     <main className="relative w-full overflow-hidden min-h-screen">
@@ -92,19 +107,12 @@ export default function RndPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             Products developed from our R&D lab that have reached production readiness.
           </p>
-        </div>
-        <RndProductCardsGrid
-          products={launched.map((p) => ({
-            id: p.id,
-            name: p.name,
-            tagline: p.tagline,
-            imageUrl: p.imageUrl || `https://picsum.photos/seed/${encodeURIComponent(p.id)}-rnd/1200/800`,
-          }))}
-        />
+            </div>
+        <RndProductCardsGrid products={productsDataMemo} />
       </section>
 
       {/* Collaboration CTA */}
-      <CollaborationCTA />
+      <CollaborationCTA products={collaborationProductsData} />
     </main>
   );
 }

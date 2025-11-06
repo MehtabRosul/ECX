@@ -108,7 +108,7 @@ export function Footer() {
           <div className="lg:w-1/3 space-y-6">
             <Logo />
             <p className="text-foreground/80 text-base leading-relaxed max-w-md">
-              ECX is a dynamic technology firm specializing in comprehensive cybersecurity solutions and cutting-edge product development. We offer penetration testing, infrastructure hardening, and bespoke software development to secure and empower digital ecosystems.
+              ECX is a deep-tech company focused on cybersecurity and product development. We help businesses protect their digital systems through services like penetration testing, infrastructure hardening, and custom software development. Our goal is to make digital spaces safer and more reliable for everyone we work with.
             </p>
             
 

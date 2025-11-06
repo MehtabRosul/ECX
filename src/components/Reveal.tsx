@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 type RevealProps = {
@@ -11,6 +11,17 @@ type RevealProps = {
 
 export function Reveal({ className, children }: RevealProps) {
   const isMobile = useIsMobile();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Render immediately without animation on first mount to prevent blocking
+  if (!isMounted) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}

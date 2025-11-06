@@ -209,21 +209,6 @@ export function DeliverablesSection() {
 					})}
 				</motion.div>
 
-				{/* Bottom CTA */}
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.8, delay: 0.6 }}
-					className="text-center mt-12 sm:mt-16"
-				>
-					<div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300 cursor-pointer group">
-						<span className="text-xs sm:text-sm font-medium text-muted-foreground group-hover:text-white transition-colors">
-							View detailed specifications
-						</span>
-						<ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground group-hover:text-white transition-colors" />
-					</div>
-				</motion.div>
 			</div>
 		</section>
 	);

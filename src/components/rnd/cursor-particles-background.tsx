@@ -131,7 +131,7 @@ function RndCursorParticlesBackgroundComponent({ className = "" }: { className?:
     if (!ctx) return;
 
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+    ctx.imageSmoothingQuality = 'medium'; // Optimized for performance
 
     let resizeTimer: NodeJS.Timeout;
     const handleResize = () => {
@@ -250,13 +250,12 @@ function RndCursorParticlesBackgroundComponent({ className = "" }: { className?:
         ctx.fill();
       }
 
-      // Draw connections between nearby particles
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.15)';
+      // Draw connections between nearby particles (optimized batching)
       ctx.lineWidth = 0.8;
       
+      // Batch connection drawing for better performance
       for (let i = 0; i < particleCount; i++) {
         const p = particles[i];
-        
         for (let j = i + 1; j < particleCount; j++) {
           const p2 = particles[j];
           const dx = p2.x - p.x;
@@ -267,15 +266,11 @@ function RndCursorParticlesBackgroundComponent({ className = "" }: { className?:
             const distance = Math.sqrt(distSq);
             const opacity = (1 - distance / 125) * 0.15;
             
-            // Use gradient for connection lines
-            const gradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
-            gradient.addColorStop(0, p.color.replace('0.6', opacity.toString()).replace('0.5', opacity.toString()));
-            gradient.addColorStop(1, p2.color.replace('0.6', opacity.toString()).replace('0.5', opacity.toString()));
-            
+            // Use simple stroke for better performance (skip gradient)
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = gradient;
+            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
             ctx.stroke();
           }
         }
@@ -330,7 +325,14 @@ function RndCursorParticlesBackgroundComponent({ className = "" }: { className?:
     <canvas
       ref={canvasRef}
       className={`absolute inset-0 -z-10 ${className}`}
-      style={{ width: '100%', height: '100%', willChange: 'transform' }}
+      style={{ 
+        width: '100%', 
+        height: '100%', 
+        willChange: 'contents',
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        contain: 'layout style paint'
+      }}
     />
   );
 }

@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Reveal } from "@/components/Reveal";
 import { ServicesHero } from "@/components/services/hero-v2";
 import { DomainSections } from "@/components/services/domain-sections";
@@ -10,11 +11,6 @@ import { FAQSection } from "@/components/services/faq";
 import { ServicesCTA } from "@/components/services/cta-v2";
 import { ConsultancyAdvisorySection } from "@/components/services/consultancy-advisory";
 
-export const metadata: Metadata = {
-	title: "EncryptArx Services — Cybersecurity, AI/ML & Cloud Engineering",
-	description: "Research-driven security, AI, and cloud engineering — transforming threats into resilient advantage and prototypes into production-grade products.",
-};
-
 export default function ServicesPage() {
 	return (
 		<main className="relative w-full overflow-hidden">
@@ -23,7 +19,7 @@ export default function ServicesPage() {
 				<div className="absolute inset-0 bg-background" />
 				<div id="animated-dots" className="absolute inset-0" />
 				<div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-				</div>
+			</div>
 
 			{/* Hero Section */}
 			<Reveal className="transform-gpu">

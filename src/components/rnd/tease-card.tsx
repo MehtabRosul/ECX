@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Shield, ArrowRight, Eye } from "lucide-react";
+import { memo } from "react";
 
-function Redacted({ children }: { children: React.ReactNode }) {
+const Redacted = memo(({ children }: { children: React.ReactNode }) => {
   return (
     <span className="relative inline-block rounded px-2 py-0.5 bg-white/5 text-white/70 after:absolute after:inset-0 after:bg-gradient-to-r after:from-black/40 after:via-transparent after:to-black/40 after:[mask-image:repeating-linear-gradient(90deg,black_0_6px,transparent_6px_12px)]">
       <span className="opacity-80 mix-blend-luminosity">{children}</span>
     </span>
   );
-}
+});
 
 export function TeaseCard({
   id,

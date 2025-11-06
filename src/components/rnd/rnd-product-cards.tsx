@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Shield, ArrowRight, Eye } from "lucide-react";
+import { memo, useMemo } from "react";
 
 type ProductCardProps = {
   id: string;
@@ -12,8 +13,8 @@ type ProductCardProps = {
   imageUrl?: string;
 };
 
-export function RndProductCard({ id, name, tagline, index, imageUrl }: ProductCardProps) {
-  const bg = imageUrl || `https://picsum.photos/seed/${encodeURIComponent(id)}-rnd/1200/800`;
+const RndProductCardComponent = ({ id, name, tagline, index, imageUrl }: ProductCardProps) => {
+  const bg = useMemo(() => imageUrl || `https://picsum.photos/seed/${encodeURIComponent(id)}-rnd/1200/800`, [imageUrl, id]);
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -25,7 +26,12 @@ export function RndProductCard({ id, name, tagline, index, imageUrl }: ProductCa
       {/* Background image */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.05]"
-        style={{ backgroundImage: `url(${bg})` }}
+        style={{ 
+          backgroundImage: `url(${bg})`,
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
       />
       {/* Darkening overlay for legibility */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
@@ -34,8 +40,14 @@ export function RndProductCard({ id, name, tagline, index, imageUrl }: ProductCa
       <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       {/* Animated glow orb */}
-      <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/20 blur-2xl opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700" />
-      <div className="absolute -left-12 -bottom-12 h-32 w-32 rounded-full bg-emerald-500/20 blur-2xl opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700" />
+      <div 
+        className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/20 blur-2xl opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700" 
+        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
+      />
+      <div 
+        className="absolute -left-12 -bottom-12 h-32 w-32 rounded-full bg-emerald-500/20 blur-2xl opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700" 
+        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
+      />
 
       {/* Content */}
       <div className="relative z-10">
@@ -68,7 +80,9 @@ export function RndProductCard({ id, name, tagline, index, imageUrl }: ProductCa
       </div>
     </motion.article>
   );
-}
+};
+
+export const RndProductCard = memo(RndProductCardComponent);
 
 export function RndProductCardsGrid({ products }: { products: Array<{ id: string; name: string; tagline: string }> }) {
   return (

@@ -16,7 +16,7 @@ import dynamic from "next/dynamic";
 import { ProductsNav } from "@/components/products/products-nav";
 import { ProductEcosystemMinimal } from "@/components/products/product-ecosystem-minimal";
 import { ProductLifecycleTimeline } from "@/components/products/product-lifecycle-timeline";
-import { ProductFeedback } from "@/components/products/product-feedback";
+import { GithubOpenSourceSpotlight } from "@/components/products/github-open-source-spotlight";
 
 import { ProductsBackgroundVisualization } from '@/components/products-background-visualization';
 
@@ -526,7 +526,7 @@ export default function ProductsHubPage() {
           <ProductLifecycleTimeline />
         </motion.div>
         
-        {/* Product Feedback */}
+        {/* Open Source Spotlight (replaces reviews/feedback) */}
         <motion.div 
           className="mb-16 transform-gpu"
           initial={useReducedMotion() ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
@@ -534,13 +534,7 @@ export default function ProductsHubPage() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold">Customer Feedback</h2>
-            <p className="mt-2 text-muted-foreground">
-              See what our customers are saying about our products
-            </p>
-          </div>
-          <ProductFeedback />
+          <GithubOpenSourceSpotlight />
         </motion.div>
         
         {/* AI Recommendations */}

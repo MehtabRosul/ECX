@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useCallback, memo } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { Shield, Cpu, Share2 } from "lucide-react";
 
@@ -32,14 +32,14 @@ const CARDS: Card[] = [
   },
 ];
 
-function InteractiveCard({ card, index }: { card: Card; index: number }) {
+const InteractiveCard = memo(({ card, index }: { card: Card; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useTransform(y, [50, -50], [6, -6]);
   const rotateY = useTransform(x, [-50, 50], [-6, 6]);
 
-  const handleMove = (e: React.MouseEvent) => {
+  const handleMove = useCallback((e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -47,12 +47,12 @@ function InteractiveCard({ card, index }: { card: Card; index: number }) {
     const relY = e.clientY - rect.top - rect.height / 2;
     x.set(Math.max(-50, Math.min(50, relX / 4)));
     y.set(Math.max(-50, Math.min(50, relY / 4)));
-  };
+  }, [x, y]);
 
-  const handleLeave = () => {
+  const handleLeave = useCallback(() => {
     x.set(0);
     y.set(0);
-  };
+  }, [x, y]);
 
   const Icon = card.icon;
 
@@ -97,7 +97,7 @@ function InteractiveCard({ card, index }: { card: Card; index: number }) {
       </div>
     </motion.div>
   );
-}
+});
 
 export function SignalCards() {
   return (

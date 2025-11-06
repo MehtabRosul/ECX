@@ -466,7 +466,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-              We combine rigorous research, production-grade engineering and deep security expertise to build resilient digital systems, trustworthy AI, and transparent Web3 infrastructures.
+              We are a deep-tech company focused on cybersecurity and product development. We help businesses protect their digital systems through services like penetration testing, infrastructure hardening, and custom software development. Our goal is to make digital spaces safer and more reliable for everyone we work with.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -504,31 +504,37 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Our values, in practice</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Our Values, In Practice</h2>
             <div className="mx-auto h-0.5 w-24 rounded-full bg-primary/40 mb-4"></div>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               We live by these principles in everything we build and every partnership we forge.
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ValuePillar
-              title="Research-First"
-              description="We publish reproducible research and transform findings into production-ready solutions that scale."
-              icon={Brain}
+              title="Security-First"
+              description="Protection is the foundation of everything we design, develop, and deliver."
+              icon={Lock}
               index={0}
             />
             <ValuePillar
-              title="Security-by-Design"
-              description="Every recommendation, product and integration places security and data safety at the center."
-              icon={Lock}
+              title="Innovation with Purpose"
+              description="We turn research and emerging technologies into real, scalable solutions that create lasting impact."
+              icon={Sparkles}
               index={1}
             />
             <ValuePillar
-              title="Engineering with Ownership"
-              description="We build maintainable, testable systems and transfer knowledge to client teams for long-term resilience."
+              title="Engineering with Integrity"
+              description="We build reliable, maintainable systems and share our knowledge to strengthen every team we work with."
               icon={Code}
               index={2}
+            />
+            <ValuePillar
+              title="Collaboration that Scales"
+              description="We work alongside clients and partners to co-create secure, future-ready ecosystems."
+              icon={Users}
+              index={3}
             />
           </div>
         </div>

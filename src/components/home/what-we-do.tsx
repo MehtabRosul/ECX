@@ -14,21 +14,21 @@ const whatWeDoTabs = [
     id: 'services',
     title: 'Our Services',
     description:
-      "A complete suite of security and privacy services—from cryptography engineering and enclave deployments to security audits and architecture reviews. We help teams design, build, and operate trustworthy systems with hands‑on expertise and battle‑tested practices.",
+      "We offer end-to-end security and privacy services from cryptography and enclave setup to audits and architecture reviews. Our team helps you build and run secure, trustworthy systems with real world expertise.",
     href: '/services',
   },
   {
     id: 'products',
     title: 'Our Products',
     description:
-      'Explore ECX products born from our research: high‑assurance building blocks for encryption, confidential computing, key management, and analytics on private data. Designed for developers, ready for production.',
+      'We design AI-powered cybersecurity tools that make digital safety simple and proactive. From Defenza, your personal AI security companion, to our Deepfake Detection Tool for enterprises and media, our products protect users in real time and help prevent emerging threats before they strike.',
     href: '/products',
   },
   {
     id: 'consult',
-    title: 'Consult with us',
+    title: 'Consult with Us',
     description:
-      'Work directly with our researchers and engineers. We co‑design protocols, review implementations, and guide your roadmap to achieve measurable security outcomes—from threat modeling to production hardening.',
+      "Work with our team to identify risks, fix vulnerabilities, and build stronger digital defenses. We bring hands-on expertise and real-world solutions to help your business stay secure, resilient, and ready for what’s next",
     href: '/contact',
   },
 ];

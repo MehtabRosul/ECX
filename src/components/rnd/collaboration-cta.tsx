@@ -3,8 +3,14 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, FileText, Handshake, Sparkles } from "lucide-react";
+import { memo } from "react";
+import { CollaborationProductCards, type CollaborationProduct } from "./collaboration-product-cards";
 
-export function CollaborationCTA() {
+type CollaborationCTAProps = {
+  products?: CollaborationProduct[];
+};
+
+const CollaborationCTAComponent = ({ products = [] }: CollaborationCTAProps) => {
   return (
     <section className="container mx-auto max-w-6xl px-4 pb-24">
       <motion.div
@@ -205,7 +211,16 @@ export function CollaborationCTA() {
           />
         </div>
       </motion.div>
+
+      {/* Product Cards Section */}
+      {products.length > 0 && (
+        <div className="mt-12">
+          <CollaborationProductCards products={products} />
+        </div>
+      )}
     </section>
   );
-}
+};
+
+export const CollaborationCTA = memo(CollaborationCTAComponent);
 

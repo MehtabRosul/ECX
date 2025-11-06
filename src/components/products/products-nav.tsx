@@ -10,15 +10,15 @@ import {
   GitBranch, 
   BarChart3, 
   Settings, 
-  Star,
-  GitCompare
+  GitCompare,
+  Github
 } from "lucide-react";
 
 const navItems = [
   { id: "overview", name: "Overview", href: "/products", icon: Grid },
-  { id: "compare", name: "Compare", href: "/products/compare", icon: GitCompare },
-  { id: "analytics", name: "Analytics", href: "/products/analytics", icon: BarChart3 },
-  { id: "reviews", name: "Reviews", href: "/products/reviews", icon: Star },
+  // { id: "compare", name: "Compare", href: "/products/compare", icon: GitCompare },
+  // { id: "analytics", name: "Analytics", href: "/products/analytics", icon: BarChart3 },
+  { id: "open-source", name: "Open Source", href: "/products/reviews", icon: Github },
 ];
 
 export function ProductsNav() {
@@ -27,9 +27,9 @@ export function ProductsNav() {
   // Extract the current section from the pathname
   const getCurrentSection = () => {
     if (pathname === "/products") return "overview";
-    if (pathname.includes("/compare")) return "compare";
-    if (pathname.includes("/analytics")) return "analytics";
-    if (pathname.includes("/reviews")) return "reviews";
+    // if (pathname.includes("/compare")) return "compare";
+    // if (pathname.includes("/analytics")) return "analytics";
+    if (pathname.includes("/products/reviews")) return "open-source";
     return "overview";
   };
   

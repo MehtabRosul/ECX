@@ -11,11 +11,17 @@ export function ServicesHero() {
 	const isMobile = useIsMobile();
 
 	useEffect(() => {
-		if (!dotsRef.current) return;
+		// Wait for DOM to be ready
+		const initDots = () => {
+			const container = document.getElementById('animated-dots');
+			if (!container) {
+				// Retry if container not found yet
+				requestAnimationFrame(initDots);
+				return;
+			}
 
-		const dots = dotsRef.current;
-		const container = document.getElementById('animated-dots');
-		if (!container) return;
+			// Clear any existing dots
+			container.innerHTML = '';
 
 		// Create enhanced animated dot pattern (reduced on mobile for performance)
 		const dotCount = isMobile ? 80 : 200;
@@ -43,36 +49,47 @@ export function ServicesHero() {
 				will-change: transform, opacity;
 			`;
 
-			dots.appendChild(dot);
+			container.appendChild(dot);
 		}
 
-		// Add CSS for float animation
-		const style = document.createElement('style');
-		style.textContent = `
-			@keyframes floatDot {
-				0%, 100% {
-					transform: translate(0, 0) scale(1);
-					opacity: 0.4;
+		// Add CSS for float animation (only if not already added)
+		if (!document.getElementById('float-dot-animation-style')) {
+			const style = document.createElement('style');
+			style.id = 'float-dot-animation-style';
+			style.textContent = `
+				@keyframes floatDot {
+					0%, 100% {
+						transform: translate(0, 0) scale(1);
+						opacity: 0.4;
+					}
+					25% {
+						transform: translate(30px, -40px) scale(1.3);
+						opacity: 0.7;
+					}
+					50% {
+						transform: translate(-15px, -80px) scale(0.8);
+						opacity: 0.4;
+					}
+					75% {
+						transform: translate(-40px, -30px) scale(1.2);
+						opacity: 0.6;
+					}
 				}
-				25% {
-					transform: translate(30px, -40px) scale(1.3);
-					opacity: 0.7;
-				}
-				50% {
-					transform: translate(-15px, -80px) scale(0.8);
-					opacity: 0.4;
-				}
-				75% {
-					transform: translate(-40px, -30px) scale(1.2);
-					opacity: 0.6;
-				}
-			}
-		`;
-		document.head.appendChild(style);
+			`;
+			document.head.appendChild(style);
+		}
+		};
+
+		// Initialize with a small delay to ensure DOM is ready
+		const timeoutId = setTimeout(() => {
+			initDots();
+		}, 0);
 
 		return () => {
-			if (dotsRef.current) {
-				dotsRef.current.innerHTML = '';
+			clearTimeout(timeoutId);
+			const container = document.getElementById('animated-dots');
+			if (container) {
+				container.innerHTML = '';
 			}
 		};
 	}, [isMobile]);
