@@ -483,6 +483,15 @@ body {
     }
   }
 
+  @keyframes card-shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
   @keyframes gradient-x {
     0%, 100% {
       background-position: 0% 50%;
@@ -693,6 +702,11 @@ body {
   }
 
   /* Products page animations */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   @keyframes spin-slow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -747,6 +761,104 @@ body {
 
   .animate-pulse-slow {
     animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  /* Team page orb animations - optimized for performance */
+  @keyframes float-orb {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0) scale(1); 
+    }
+    33% { 
+      transform: translate3d(50px, -25px, 0) scale(1.1); 
+    }
+    66% { 
+      transform: translate3d(-25px, 25px, 0) scale(0.95); 
+    }
+  }
+
+  @keyframes float-orb-reverse {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0) scale(1); 
+    }
+    33% { 
+      transform: translate3d(-50px, 25px, 0) scale(1.15); 
+    }
+    66% { 
+      transform: translate3d(25px, -25px, 0) scale(0.9); 
+    }
+  }
+
+  /* Advanced performance optimizations for team page */
+  .team-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style paint;
+  }
+
+  .team-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    contain: layout style paint;
+  }
+
+  /* Optimized team card hover performance - 60+ fps */
+  article[class*="group"] {
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    contain: layout style paint;
+  }
+
+  /* Optimize hover transitions for 60+ fps */
+  article[class*="group"] * {
+    transform: translateZ(0);
+  }
+
+  /* Smooth scrolling with GPU acceleration */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: 80px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* GPU acceleration for team page */
+  [data-team-page] {
+    transform: translateZ(0);
+    will-change: scroll-position;
+    contain: layout style paint;
+  }
+
+  /* Optimize canvas rendering */
+  canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    transform: translateZ(0);
+    will-change: contents;
+    contain: strict;
+  }
+
+  /* Prevent layout shifts during scroll */
+  body {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Optimize scroll performance */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .animate-float-orb-1 {

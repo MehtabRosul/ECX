@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Brain } from 'lucide-react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import Link from 'next/link';
 
 export function InnovationMatrix() {
   return (
@@ -156,7 +157,8 @@ export function InnovationMatrix() {
                   
                   {/* CTA */}
                   <div className="flex justify-start">
-                    <motion.button 
+                    <Link href="/team" className="relative inline-block">
+                    <motion.div 
                       className="relative flex items-center text-blue-400 font-medium overflow-hidden group"
                       whileHover={{ 
                         scale: 1.02,
@@ -280,7 +282,8 @@ export function InnovationMatrix() {
                           delay: 1.2
                         }}
                       />
-                    </motion.button>
+                    </motion.div>
+                    </Link>
                   </div>
                 </div>
                 
