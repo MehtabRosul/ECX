@@ -39,7 +39,7 @@ const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
       <div className="relative w-full h-72 rounded-lg flex items-center justify-center p-6 overflow-hidden">
          {tab.id === 'services' ? (
            <video
-             src="/Videos/2340-157269921.mp4"
+             src="/Videos/service_video.mp4"
              autoPlay
              loop
              muted
@@ -48,7 +48,7 @@ const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
            />
          ) : tab.id === 'products' ? (
            <video
-             src="/Videos/299527_medium.mp4"
+             src="/Videos/product_video.mp4"
              autoPlay
              loop
              muted
@@ -57,7 +57,7 @@ const CardContent = ({ tab }: { tab: (typeof whatWeDoTabs)[0] }) => {
            />
          ) : tab.id === 'consult' ? (
           <video
-            src="/Videos/198890-909564521_medium.mp4"
+            src="/Videos/consult_video.mp4"
             autoPlay
             loop
             muted

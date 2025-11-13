@@ -9,11 +9,11 @@ type Star = {
 	r: number;
 	tx: number;
 	color: string;
-	speed: number; // Random speed variation
-	twinkleSpeed: number; // Random twinkle speed
-	twinklePhase: number; // Random twinkle phase
-	sizeVariation: number; // Random size variation
-	baseRadius: number; // Base radius for calculations
+	speed: number;
+	twinkleSpeed: number;
+	twinklePhase: number;
+	sizeVariation: number;
+	baseRadius: number;
 };
 
 type Connection = {
@@ -85,7 +85,7 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			desynchronized: true,
 			willReadFrequently: false,
 			powerPreference: 'low-power',
-			antialias: false // Disable antialiasing for better performance with many particles
+			antialias: false
 		}) as CanvasRenderingContext2D | null;
 		if (!ctx) return;
 
@@ -96,57 +96,39 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 		let frameTimeSum = 0;
 		let frameTimeCount = 0;
 
-		const CELL_SIZE = 140; // Optimized cell size for many particles
+		const CELL_SIZE = 140;
 
 		// Optimized particle count for 120fps+ performance
-		// Reduced count but with better distribution
 		function seed() {
-			// Optimized for high FPS - 600-1000 particles with smart distribution
-			const baseCount = Math.floor((w * h) / 3500); // Balanced density
-			const heroAreaHeight = Math.min(h * 0.85, 800); // Hero section height
-			const heroAreaParticles = Math.floor((w * heroAreaHeight) / 2000); // Higher density in hero
-			const count = Math.max(600, Math.min(1000, baseCount + heroAreaParticles)); // 600-1000 particles for 120fps+
+			const baseCount = Math.floor((w * h) / 3500);
+			const heroAreaHeight = Math.min(h * 0.85, 800);
+			const heroAreaParticles = Math.floor((w * heroAreaHeight) / 2000);
+			const count = Math.max(600, Math.min(1000, baseCount + heroAreaParticles));
 			const stars: Star[] = [];
 			
-			// Pre-allocate array for better performance
 			stars.length = count;
 			
-			// Random seed for consistent randomness
 			let randomSeed = Math.random() * 10000;
 			const random = () => {
 				randomSeed = (randomSeed * 9301 + 49297) % 233280;
 				return randomSeed / 233280;
 			};
 			
-			// Distribute particles with higher density in hero section
 			const heroYMax = Math.min(h * 0.85, 800);
 			let heroParticleCount = 0;
-			const targetHeroParticles = Math.floor(count * 0.45); // 45% in hero area for visual impact
+			const targetHeroParticles = Math.floor(count * 0.45);
 			
 			for (let i = 0; i < count; i++) {
-				// More random depth with extreme variation
 				const depth = 0.1 + random() * 1.4;
-				
-				// More random base radius with wider variation
 				const baseR = 0.5 + random() * 1.8;
-				
-				// More random speed variation
 				const speed = 0.6 + random() * 0.8;
-				
-				// More random twinkle properties with wider range
 				const twinkleSpeed = 0.0003 + random() * 0.003;
 				const twinklePhase = random() * Math.PI * 2;
-				
-				// More random size variation
 				const sizeVariation = 0.2 + random() * 0.7;
-				
-				// Random brightness multiplier for extra variation
 				const brightnessMultiplier = 0.8 + random() * 0.4;
 				
-				// Random position - bias towards hero section
 				let x: number, y: number;
 				if (heroParticleCount < targetHeroParticles && random() < 0.6) {
-					// Place in hero section with clustering
 					const clusterX = random() * w;
 					const clusterY = random() * heroYMax;
 					const spread = 100 + random() * 150;
@@ -154,7 +136,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 					y = Math.max(0, Math.min(heroYMax, clusterY + (random() - 0.5) * spread));
 					heroParticleCount++;
 				} else {
-					// Place in rest of page
 					const clusterX = random() * w;
 					const clusterY = heroYMax + random() * (h - heroYMax);
 					const spread = 150 + random() * 200;
@@ -162,17 +143,15 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 					y = Math.max(heroYMax * 0.5, Math.min(h, clusterY + (random() - 0.5) * spread));
 				}
 				
-				// Random color from expanded palette with brightness variation
 				const colorIndex = Math.floor(random() * PALETTE.length);
 				const baseColor = PALETTE[colorIndex];
 				
-				// Extract and enhance color brightness
 				const colorMatch = baseColor.match(/rgba?\((\d+),(\d+),(\d+),([\d.]+)\)/);
 				if (colorMatch) {
 					const r = Math.min(255, Math.floor(parseInt(colorMatch[1]) * brightnessMultiplier));
 					const g = Math.min(255, Math.floor(parseInt(colorMatch[2]) * brightnessMultiplier));
 					const b = Math.min(255, Math.floor(parseInt(colorMatch[3]) * brightnessMultiplier));
-					const a = Math.min(1, parseFloat(colorMatch[4]) * (0.9 + random() * 0.2)); // Vary opacity too
+					const a = Math.min(1, parseFloat(colorMatch[4]) * (0.9 + random() * 0.2));
 					
 					stars[i] = {
 						x: x,
@@ -188,7 +167,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 						sizeVariation: sizeVariation
 					};
 				} else {
-					// Fallback
 					stars[i] = {
 						x: x,
 						y: y,
@@ -205,11 +183,10 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				}
 			}
 
-			// Optimized spatial grid with better partitioning
+			// Optimized spatial grid
 			const grid = new Map<string, number[]>();
 			const keyFor = (x: number, y: number) => `${Math.floor(x / CELL_SIZE)}|${Math.floor(y / CELL_SIZE)}`;
 			
-			// Batch grid insertion
 			for (let i = 0; i < stars.length; i++) {
 				const s = stars[i];
 				const k = keyFor(s.x, s.y);
@@ -217,13 +194,11 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				grid.get(k)!.push(i);
 			}
 
-			const maxDist = CELL_SIZE * 0.9; // Slightly smaller for fewer connections
+			const maxDist = CELL_SIZE * 0.9;
 			const maxDist2 = maxDist * maxDist;
 			const connections: Connection[] = [];
-			const maxConnectionsPerStar = 2; // Reduced to 2 for performance with many particles
+			const maxConnectionsPerStar = 2;
 
-			// Optimized connection calculation - only for a subset of stars
-			// Sample every Nth star to reduce connection calculations
 			const connectionSampleRate = Math.max(1, Math.floor(stars.length / 400));
 			
 			for (let index = 0; index < stars.length; index += connectionSampleRate) {
@@ -231,7 +206,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				const cx = Math.floor(s.x / CELL_SIZE);
 				const cy = Math.floor(s.y / CELL_SIZE);
 				
-				// Only check immediate cell (not neighbors) for performance
 				const neighbors = grid.get(`${cx}|${cy}`);
 				if (!neighbors) continue;
 				
@@ -248,7 +222,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 					}
 				}
 
-				// Take only closest connection
 				if (connectionCandidates.length > 0) {
 					connectionCandidates.sort((a, b) => a.dist2 - b.dist2);
 					const candidate = connectionCandidates[0];
@@ -262,11 +235,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			starsRef.current = stars;
 			connectionsRef.current = connections;
 			performanceMetrics.current.particleCount = count;
-			
-			// Log particle count for debugging
-			if (typeof window !== 'undefined' && window.location.search.includes('debug')) {
-				console.log(`Constellation: ${count} particles initialized`);
-			}
 		}
 
 		function resize() {
@@ -281,11 +249,10 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			seed();
 		}
 
-		// Optimized draw function with advanced performance techniques
+		// Optimized draw function
 		function draw(ts: number) {
 			if (!ctx) return;
 			
-			// Pause animation when not visible
 			if (!isVisibleRef.current) {
 				raf.current = requestAnimationFrame(draw);
 				return;
@@ -296,9 +263,7 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			lastTs = ts;
 			frameCount++;
 
-			// Aggressive optimization for 120fps+ - only skip if really needed
 			const avgFrameTime = performanceMetrics.current.frameTime;
-			// Only skip frames if frame time exceeds 12ms (83fps threshold)
 			if (avgFrameTime > 12 && frameSkip.current % 3 === 0) {
 				frameSkip.current++;
 				raf.current = requestAnimationFrame(draw);
@@ -309,11 +274,11 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			const stars = starsRef.current;
 			const connections = connectionsRef.current;
 
-			// Clear with optimized method
+			// Clear
 			ctx.fillStyle = '#000';
 			ctx.fillRect(0, 0, w, h);
 
-			// Pre-calculate visible stars with LOD (Level of Detail) buckets
+			// Pre-calculate visible stars with LOD
 			const margin = 80;
 			visibleStarsRef.current = [];
 			lodBucketsRef.current = { near: [], mid: [], far: [] };
@@ -322,7 +287,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				const s = stars[i];
 				if (s.x >= -margin && s.x <= w + margin && s.y >= -margin && s.y <= h + margin) {
 					visibleStarsRef.current.push(i);
-					// LOD based on depth
 					if (s.z > 0.8) lodBucketsRef.current.near.push(i);
 					else if (s.z > 0.5) lodBucketsRef.current.mid.push(i);
 					else lodBucketsRef.current.far.push(i);
@@ -334,7 +298,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			const speedMultiplier = delta / 16.67;
 			const visibleIndices = visibleStarsRef.current;
 			
-			// Update positions with random speeds
 			for (let j = 0; j < visibleIndices.length; j++) {
 				const i = visibleIndices[j];
 				const s = stars[i];
@@ -343,21 +306,20 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				if (s.x < -20) s.x = w + 20;
 			}
 
-			// Ultra-optimized rendering for 120fps+ with brighter particles
-			// Far stars: batched single path for maximum performance, but brighter
+			// Far stars: batched
 			if (lodBucketsRef.current.far.length > 0) {
-				ctx.fillStyle = 'rgba(255,255,255,0.5)'; // Increased from 0.3 to 0.5
+				ctx.fillStyle = 'rgba(255,255,255,0.5)';
 				ctx.beginPath();
 				for (let j = 0; j < lodBucketsRef.current.far.length; j++) {
 					const i = lodBucketsRef.current.far[j];
 					const s = stars[i];
-					ctx.moveTo(s.x + s.baseRadius * 0.6, s.y); // Slightly larger for visibility
+					ctx.moveTo(s.x + s.baseRadius * 0.6, s.y);
 					ctx.arc(s.x, s.y, s.baseRadius * 0.6, 0, Math.PI * 2);
 				}
 				ctx.fill();
 			}
 
-			// Mid stars: batched by color for fewer context switches
+			// Mid stars: batched by color
 			const midStarsByColor = new Map<string, number[]>();
 			for (let j = 0; j < lodBucketsRef.current.mid.length; j++) {
 				const i = lodBucketsRef.current.mid[j];
@@ -374,17 +336,15 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				for (let j = 0; j < indices.length; j++) {
 					const i = indices[j];
 					const s = stars[i];
-					// Brighter twinkle with more variation
 					const tw = 0.75 + 0.3 * Math.abs(Math.sin((ts + s.tx) * s.twinkleSpeed + s.twinklePhase));
-					const radius = s.baseRadius * tw * 0.85; // Larger and brighter
+					const radius = s.baseRadius * tw * 0.85;
 					ctx.moveTo(s.x + radius, s.y);
 					ctx.arc(s.x, s.y, radius, 0, Math.PI * 2);
 				}
 				ctx.fill();
 			});
 
-			// Near stars: full detail with random variations
-			// Batch by color for near stars
+			// Near stars: full detail
 			const nearStarsByColor = new Map<string, number[]>();
 			for (let j = 0; j < lodBucketsRef.current.near.length; j++) {
 				const i = lodBucketsRef.current.near[j];
@@ -400,9 +360,8 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				for (let j = 0; j < indices.length; j++) {
 					const i = indices[j];
 					const s = stars[i];
-					// Brighter random twinkle with more variation
 					const tw = 0.6 + s.sizeVariation * Math.abs(Math.sin((ts + s.tx) * s.twinkleSpeed + s.twinklePhase));
-					const radius = Math.max(0.5, s.baseRadius * tw * 1.1); // Larger and brighter
+					const radius = Math.max(0.5, s.baseRadius * tw * 1.1);
 					ctx.beginPath();
 					ctx.arc(s.x, s.y, radius, 0, Math.PI * 2);
 					ctx.fill();
@@ -410,12 +369,11 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			});
 			ctx.restore();
 
-			// Optimized connection rendering with visibility check - brighter
+			// Connection rendering
 			ctx.save();
-			ctx.lineWidth = 0.6; // Slightly thicker
-			ctx.strokeStyle = 'rgba(255,255,255,0.65)'; // Increased from 0.5 to 0.65
+			ctx.lineWidth = 0.6;
+			ctx.strokeStyle = 'rgba(255,255,255,0.65)';
 			
-			// Only render connections between visible stars
 			const visibleSet = new Set(visibleStarsRef.current);
 			for (let i = 0; i < connections.length; i++) {
 				const conn = connections[i];
@@ -425,7 +383,6 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				const b = stars[conn.b];
 				if (!a || !b) continue;
 
-				// Skip if both stars are off-screen
 				if ((a.x < -margin || a.x > w + margin) && (b.x < -margin || b.x > w + margin)) continue;
 
 				ctx.globalAlpha = conn.alpha;
@@ -437,7 +394,7 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 			ctx.restore();
 			ctx.globalAlpha = 1;
 
-			// Shooting star with reduced frequency
+			// Shooting star
 			if (frameCount - lastShootingStar.current > 500 && Math.random() < 0.03) {
 				lastShootingStar.current = frameCount;
 				const y = Math.random() * h * 0.7;
@@ -457,11 +414,10 @@ export const TeamConstellationBackground: React.FC<{ className?: string }> = Rea
 				ctx.stroke();
 			}
 
-			// Performance monitoring - faster updates for responsiveness
+			// Performance monitoring
 			const frameTime = performance.now() - frameStart;
 			frameTimeSum += frameTime;
 			frameTimeCount++;
-			// Update every 30 frames for faster adaptation
 			if (frameTimeCount >= 30) {
 				performanceMetrics.current.frameTime = frameTimeSum / frameTimeCount;
 				frameTimeSum = 0;

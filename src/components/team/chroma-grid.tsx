@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useRef, useEffect } from 'react';
+import React, { memo, useCallback, useRef, useEffect, useMemo } from 'react';
 import { Facebook, Instagram, Twitter, Github, Mail, Linkedin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -423,7 +423,7 @@ const Card = memo<{ item: ChromaItem; index: number }>(({ item, index }) => {
 Card.displayName = 'Card';
 
 const ChromaGrid: React.FC<ChromaGridProps> = memo(({ items, className = '' }) => {
-	const data = items?.length ? items : fallbackItems;
+	const data = useMemo(() => items?.length ? items : fallbackItems, [items]);
 
 	return (
 		<div
@@ -436,14 +436,21 @@ const ChromaGrid: React.FC<ChromaGridProps> = memo(({ items, className = '' }) =
 				zIndex: 50,
 				display: 'grid',
 				opacity: 1,
-				visibility: 'visible'
+				visibility: 'visible',
+				backfaceVisibility: 'hidden',
+				WebkitBackfaceVisibility: 'hidden',
+				contentVisibility: 'auto',
+				containIntrinsicSize: 'auto 500px'
 			}}
 		>
-			{data.map((item, index) => (
+			{data.map((item: ChromaItem, index: number) => (
 				<Card key={`${item.title}-${index}`} item={item} index={index} />
 			))}
 		</div>
 	);
+}, (prevProps, nextProps) => {
+	// Custom comparison for better memoization
+	return prevProps.items === nextProps.items && prevProps.className === nextProps.className;
 });
 ChromaGrid.displayName = 'ChromaGrid';
 

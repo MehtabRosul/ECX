@@ -810,11 +810,23 @@ body {
     -webkit-backface-visibility: hidden;
     perspective: 1000px;
     contain: layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
   }
 
   /* Optimize hover transitions for 60+ fps */
   article[class*="group"] * {
     transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Optimize images in team cards */
+  article[class*="group"] img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   /* Smooth scrolling with GPU acceleration */
@@ -835,6 +847,25 @@ body {
     transform: translateZ(0);
     will-change: scroll-position;
     contain: layout style paint;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 2000px;
+  }
+
+  /* Optimize team page sections */
+  [data-team-page] section {
+    contain: layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+
+  /* Optimize social media buttons */
+  [data-team-page] button[aria-label] {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   /* Optimize canvas rendering */

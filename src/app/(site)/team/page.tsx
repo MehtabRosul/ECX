@@ -33,27 +33,34 @@ const sectionColors = {
 const StickyNav = React.memo(({ sections, activeSection }: { sections: Array<{ id: string; label: string; icon: any }>; activeSection: string }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const navRef = useRef<HTMLElement>(null);
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const rafIdRef = useRef<number | null>(null);
 
-	// Use IntersectionObserver to detect when hero section is scrolled past
+	// Use IntersectionObserver to detect when hero section is scrolled past - optimized
 	useEffect(() => {
 		const heroSentinel = document.getElementById('team-hero-sentinel');
 		if (!heroSentinel) return;
 
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				// Nav should be visible when hero is NOT intersecting (scrolled past)
-				setIsVisible(!entry.isIntersecting);
-			},
-			{ 
-				threshold: 0,
-				rootMargin: '-20% 0px 0px 0px' // Trigger when hero is 20% scrolled out
-			}
-		);
+		const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+			if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+			rafIdRef.current = requestAnimationFrame(() => {
+				const entry = entries[0];
+				if (entry) {
+					setIsVisible(!entry.isIntersecting);
+				}
+			});
+		};
 
-		observer.observe(heroSentinel);
+		observerRef.current = new IntersectionObserver(handleIntersection, { 
+			threshold: 0,
+			rootMargin: '-20% 0px 0px 0px'
+		});
+
+		observerRef.current.observe(heroSentinel);
 
 		return () => {
-			observer.disconnect();
+			if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+			observerRef.current?.disconnect();
 		};
 	}, []);
 
@@ -64,9 +71,15 @@ const StickyNav = React.memo(({ sections, activeSection }: { sections: Array<{ i
 				"fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden lg:block transition-opacity duration-300",
 				isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
 			)}
-			style={{ transform: 'translateZ(0)', willChange: 'opacity' }}
+			style={{ 
+				transform: 'translateZ(0)', 
+				willChange: 'opacity',
+				backfaceVisibility: 'hidden',
+				WebkitBackfaceVisibility: 'hidden',
+				contain: 'layout style paint'
+			}}
 		>
-			<div className="flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-black/90 shadow-2xl">
+			<div className="flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-black/90 shadow-2xl" style={{ contain: 'layout style paint', transform: 'translateZ(0)' }}>
 				{sections.map((section) => {
 					const Icon = section.icon;
 					const isActive = activeSection === section.id;
@@ -80,13 +93,20 @@ const StickyNav = React.memo(({ sections, activeSection }: { sections: Array<{ i
 									? 'text-white'
 									: 'text-muted-foreground hover:text-white'
 							)}
+							style={{ 
+								transform: 'translateZ(0)',
+								willChange: 'transform, color',
+								backfaceVisibility: 'hidden',
+								WebkitBackfaceVisibility: 'hidden'
+							}}
 						>
 							{isActive && (
 								<div
 									className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30"
+									style={{ transform: 'translateZ(0)', willChange: 'opacity' }}
 								/>
 							)}
-							<Icon className={cn('w-4 h-4 transition-transform duration-200', isActive && 'scale-110')} />
+							<Icon className={cn('w-4 h-4 transition-transform duration-200', isActive && 'scale-110')} style={{ transform: 'translateZ(0)', willChange: 'transform' }} />
 							<span className="relative z-10">{section.label}</span>
 						</a>
 					);
@@ -110,7 +130,10 @@ const HeroSection = React.memo(() => {
 				contain: 'layout style paint',
 				willChange: 'contents',
 				transform: 'translateZ(0)',
-				backfaceVisibility: 'hidden'
+				backfaceVisibility: 'hidden',
+				WebkitBackfaceVisibility: 'hidden',
+				contentVisibility: 'auto',
+				containIntrinsicSize: 'auto 85vh'
 			}}
 		>
 			{/* Enhanced gradient orbs - using CSS animations for performance */}
@@ -249,7 +272,9 @@ const Section = React.memo(({
 				willChange: 'scroll-position',
 				transform: 'translateZ(0)',
 				position: 'relative',
-				zIndex: 10
+				zIndex: 10,
+				backfaceVisibility: 'hidden',
+				WebkitBackfaceVisibility: 'hidden'
 			}}
 		>
 			<div className="container relative z-10">
@@ -347,20 +372,24 @@ export default function TeamPage() {
 		};
 
 		const updateActiveSection = () => {
-			// Find the most visible section using getBoundingClientRect (cached)
+			// Find the most visible section using getBoundingClientRect - optimized
 			let maxRatio = 0;
 			let activeId = lastActiveId;
-			const viewportMiddle = window.innerHeight * 0.3;
+			const viewportHeight = window.innerHeight;
+			const viewportMiddle = viewportHeight * 0.3;
+			const visibilityRange = viewportHeight * 0.6;
 
-			sectionElements.forEach((el) => {
-				const rect = el.getBoundingClientRect();
+			// Batch DOM reads for better performance
+			const rects = sectionElements.map(el => el.getBoundingClientRect());
+			
+			rects.forEach((rect, index) => {
 				const elementMiddle = rect.top + rect.height / 2;
 				const distance = Math.abs(elementMiddle - viewportMiddle);
-				const visibility = Math.max(0, 1 - distance / (window.innerHeight * 0.6));
+				const visibility = Math.max(0, 1 - distance / visibilityRange);
 				
 				if (visibility > maxRatio && rect.top < viewportMiddle + 200) {
 					maxRatio = visibility;
-					activeId = el.id;
+					activeId = sectionElements[index].id;
 				}
 			});
 
@@ -373,23 +402,27 @@ export default function TeamPage() {
 			ticking = false;
 		};
 
-		// Throttled scroll handler using RAF
+		// Optimized scroll handler with RAF throttling
 		const handleScroll = () => {
 			if (!ticking) {
 				ticking = true;
-				rafId = requestAnimationFrame(updateActiveSection);
+				rafId = requestAnimationFrame(() => {
+					updateActiveSection();
+				});
 			}
 		};
 
-		// Use IntersectionObserver as primary method
+		// Use IntersectionObserver as primary method with RAF batching
 		const observer = new IntersectionObserver((entries) => {
 			if (rafId) return;
-			rafId = requestAnimationFrame(updateActiveSection);
+			rafId = requestAnimationFrame(() => {
+				updateActiveSection();
+			});
 		}, observerOptions);
 
 		sectionElements.forEach(el => observer.observe(el));
 		
-		// Add passive scroll listener as fallback
+		// Add passive scroll listener as fallback - optimized
 		window.addEventListener('scroll', handleScroll, { passive: true, capture: false });
 		
 		return () => {
@@ -723,10 +756,13 @@ export default function TeamPage() {
 	return (
 		<div 
 			className="bg-surface-1 relative overflow-hidden min-h-screen"
+			data-team-page
 			style={{ 
 				contain: 'layout style paint',
 				willChange: 'scroll-position',
-				transform: 'translateZ(0)'
+				transform: 'translateZ(0)',
+				backfaceVisibility: 'hidden',
+				WebkitBackfaceVisibility: 'hidden'
 			}}
 		>
 			<div id="team-hero-sentinel" className="absolute top-[85vh] left-0 w-full h-1 z-0" />
