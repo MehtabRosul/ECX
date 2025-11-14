@@ -12,7 +12,7 @@ type CollaborationCTAProps = {
 
 const CollaborationCTAComponent = ({ products = [] }: CollaborationCTAProps) => {
   return (
-    <section className="container mx-auto max-w-6xl px-4 pb-24">
+    <section id="partner-with-ecx-lab" className="container mx-auto max-w-6xl px-4 pb-24">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

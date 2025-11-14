@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Lock, ArrowRight } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { productsData } from "@/data/products-data";
 import { RevealPanel } from "@/components/rnd/tease-card";
 import { RndCursorParticlesBackground } from "@/components/rnd/cursor-particles-background";
@@ -40,6 +40,27 @@ export default function RndPage() {
     })), 
     [launched]
   );
+
+  // Handle hash navigation to scroll to the "Partner with ECX Lab" section
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === '#partner-with-ecx-lab') {
+      // Wait for the page to fully render
+      setTimeout(() => {
+        const element = document.getElementById('partner-with-ecx-lab');
+        if (element) {
+          const headerOffset = 80; // Account for sticky header
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, []);
 
   return (
     <main className="relative w-full overflow-hidden min-h-screen">

@@ -388,6 +388,52 @@ body {
 
 /* Performance optimizations for smooth animations */
 @layer utilities {
+  /* EncryptArx logo gradient animation - Subtle smooth flow */
+  @keyframes encryptarx-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .encryptarx-gradient-text {
+    background: linear-gradient(
+      90deg,
+      #7dd3fc 0%,
+      #93c5fd 20%,
+      #a78bfa 40%,
+      #c4b5fd 60%,
+      #a5b4fc 80%,
+      #7dd3fc 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    animation: encryptarx-gradient 8s ease-in-out infinite !important;
+    will-change: background-position;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 900;
+    line-height: 1.2;
+    position: relative;
+  }
+
+  .group:hover .encryptarx-gradient-text {
+    animation-play-state: paused !important;
+    -webkit-text-fill-color: white !important;
+    color: white !important;
+    background: none !important;
+    background-clip: unset !important;
+    -webkit-background-clip: unset !important;
+  }
+
   .animate-smooth {
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     animation-fill-mode: both;

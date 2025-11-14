@@ -46,11 +46,16 @@ const Logo = ({ className }: { className?: string }) => {
 
       {/* Company name */}
       <div className="relative">
-        <span className={cn(
-          "text-xl font-semibold tracking-tight transition-colors duration-300",
-          "text-foreground",
-          isHovered && "text-primary"
-        )}>
+        <span 
+          className={cn(
+            "text-2xl tracking-tight transition-all duration-300",
+            "encryptarx-gradient-text"
+          )}
+          style={{ 
+            WebkitTextFillColor: 'transparent',
+            color: 'transparent'
+          }}
+        >
           EncryptArx
         </span>
         

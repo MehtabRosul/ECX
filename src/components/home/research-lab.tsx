@@ -8,6 +8,7 @@ import { useReducedMotion } from "framer-motion"
 import type React from "react"
 import FadeContent from "../ui/fade-content"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import Link from "next/link"
 
 
 // --- Automation: Lottie Animation ---
@@ -189,10 +190,13 @@ export function ResearchLab() {
                                         </p>
                                         <Button 
                                             variant="link" 
+                                            asChild
                                             className="p-0 h-auto text-primary hover:text-primary/80 group-hover:translate-x-1 transition-transform duration-200"
                                         >
-                                            Explore our R&D 
-                                            <ArrowRight className="w-4 h-4 ml-2" />
+                                            <Link href="/rnd">
+                                                Explore our R&D 
+                                                <ArrowRight className="w-4 h-4 ml-2" />
+                                            </Link>
                                         </Button>
                                     </div>
                                 </div>
@@ -215,10 +219,13 @@ export function ResearchLab() {
                                         </p>
                                         <Button 
                                             variant="link" 
+                                            asChild
                                             className="p-0 h-auto text-primary hover:text-primary/80 group-hover:translate-x-1 transition-transform duration-200"
                                         >
-                                            Join the discussion 
-                                            <ArrowRight className="w-4 h-4 ml-2" />
+                                            <Link href="/rnd#partner-with-ecx-lab">
+                                                Let's Collab 
+                                                <ArrowRight className="w-4 h-4 ml-2" />
+                                            </Link>
                                         </Button>
                                     </div>
                                 </div>

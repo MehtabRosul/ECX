@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Calendar, MapPin, ArrowRight, Sparkles, Zap, Shield, Star, Clock, Users } from 'lucide-react';
 
 const events = [
@@ -542,30 +543,32 @@ export function UpcomingEvents() {
                             viewport={{ once: true }}
                         >
                             {/* View All Events Button */}
-                            <motion.button
-                                className="group relative px-8 py-4 bg-transparent border-2 border-white/30 rounded-xl font-semibold text-white text-lg hover:border-white/60 transition-all duration-300"
-                                whileHover={{ 
-                                    scale: 1.05,
-                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                    boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
-                                }}
-                                whileTap={{ scale: 0.98 }}
-                                transition={{ 
-                                    type: "spring", 
-                                    stiffness: 300, 
-                                    damping: 20 
-                                }}
-                            >
-                                <div className="flex items-center gap-3">
-                                    <Calendar className="w-5 h-5" />
-                                    <span>View All Events</span>
-                                    <motion.div
-                                        className="group-hover:translate-x-1 transition-transform duration-200"
-                                    >
-                                        <ArrowRight className="w-5 h-5" />
-                                    </motion.div>
-                                </div>
-                            </motion.button>
+                            <Link href="/events">
+                                <motion.button
+                                    className="group relative px-8 py-4 bg-transparent border-2 border-white/30 rounded-xl font-semibold text-white text-lg hover:border-white/60 transition-all duration-300"
+                                    whileHover={{ 
+                                        scale: 1.05,
+                                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                        boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
+                                    }}
+                                    whileTap={{ scale: 0.98 }}
+                                    transition={{ 
+                                        type: "spring", 
+                                        stiffness: 300, 
+                                        damping: 20 
+                                    }}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <Calendar className="w-5 h-5" />
+                                        <span>View All Events</span>
+                                        <motion.div
+                                            className="group-hover:translate-x-1 transition-transform duration-200"
+                                        >
+                                            <ArrowRight className="w-5 h-5" />
+                                        </motion.div>
+                                    </div>
+                                </motion.button>
+                            </Link>
                         </motion.div>
                     </div>
                 </div>
