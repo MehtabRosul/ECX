@@ -389,12 +389,19 @@ export default function EventsPage() {
                     {/* Badge */}
                     <motion.div
                         className="inline-block mb-6"
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+                        initial={{ scale: 0, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 150 }}
                     >
                         <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 blur-xl rounded-full" />
+                            <motion.div 
+                                className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 blur-xl rounded-full"
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, delay: 0.3 }}
+                            />
                             <div className="relative px-6 py-3 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-blue-400/30 rounded-full">
                                 <span className="text-blue-300 font-semibold text-sm tracking-wide uppercase">
                                     Exclusive Events & Workshops
