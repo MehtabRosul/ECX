@@ -132,7 +132,7 @@ export function Chatbot() {
             </div>
             <Card className="w-full h-full flex flex-col bg-transparent border-0 shadow-none">
             <div ref={handleRef} className="p-4 border-b border-border/40 flex justify-between items-center cursor-move">
-                <h3 className="font-bold flex items-center gap-2"><Bot className="w-5 h-5 text-primary" /> AI Assistant</h3>
+                <h3 className="font-bold flex items-center gap-2"><Bot className="w-5 h-5 text-primary" /> Cyra</h3>
                 <Button variant="ghost" size="icon" onClick={toggleChat}>
                 <X className="w-4 h-4" />
                 </Button>

@@ -2,10 +2,12 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ChatProvider } from '@/context/chat-context';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { Chatbot } from '@/components/chatbot/chatbot';
 import { MobileChatbot } from '@/components/chatbot/mobile-chatbot';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'ECX',
@@ -40,19 +42,25 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
-        <ChatProvider>
-          <Header />
-          {children}
-          <Footer />
-          {/* Desktop Chatbot - Only shows on screens 1280px and above */}
-          <div className="hidden xl:block">
-            <Chatbot />
-          </div>
-          {/* Mobile Chatbot - Only shows on screens below 1280px */}
-          <div className="xl:hidden">
-            <MobileChatbot />
-          </div>
-        </ChatProvider>
+        <Script
+          src="https://www.google.com/recaptcha/enterprise.js?render=6LePWw4sAAAAAC1uN1p2WdvuYR8APIg13cyGFrya"
+          strategy="afterInteractive"
+        />
+        <AuthProvider>
+          <ChatProvider>
+            <Header />
+            {children}
+            <Footer />
+            {/* Desktop Chatbot - Only shows on screens 1280px and above */}
+            <div className="hidden xl:block">
+              <Chatbot />
+            </div>
+            {/* Mobile Chatbot - Only shows on screens below 1280px */}
+            <div className="xl:hidden">
+              <MobileChatbot />
+            </div>
+          </ChatProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>

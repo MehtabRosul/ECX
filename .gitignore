@@ -43,3 +43,8 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Google Cloud service account keys (security)
+*-*.json
+!package*.json
+!tsconfig*.json

@@ -2,15 +2,24 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Briefcase, BookOpen, UserCheck, Mail, Bot } from 'lucide-react';
+import { Menu, X, Home, Briefcase, BookOpen, UserCheck, Mail, User, LogOut } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ChatbotToggle } from '@/components/chatbot/chatbot-toggle';
-import { MobileChatbotToggle } from '@/components/chatbot/mobile-chatbot-toggle';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const navLinks = [
   { href: '/about', label: 'About', icon: BookOpen },
@@ -68,6 +77,8 @@ function NavLink({ href, label, icon: Icon, isMobile = false, onClick }: NavLink
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, profile, signOutUser, loading: authLoading } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,6 +91,25 @@ export function Header() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      router.push('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
+
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return 'U';
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   return (
@@ -134,16 +164,104 @@ export function Header() {
                     </div>
                   </nav>
                   
-                  {/* AI Assistant Button */}
-                  <div className="p-6 border-t border-border/20 bg-gradient-to-r from-primary/5 to-accent/5">
-                    <div className="flex items-center space-x-3 p-4 bg-background/80 backdrop-blur-sm border border-primary/20 rounded-xl hover:border-primary/40 transition-all duration-200">
-                      <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-lg">
-                        <Bot className="h-5 w-5 text-primary" />
+                  {/* Cyra Button - Mobile Only */}
+                  <div className="px-6 pb-6 border-t border-border/20 pt-6">
+                    <ChatbotToggle
+                      className="w-full"
+                      enabled={!authLoading && !!user}
+                      onClick={() => {
+                        router.push('/chatbot');
+                        closeMobileMenu();
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Mobile Auth Buttons */}
+                  <div className="p-6 border-t border-border/20 space-y-3">
+                    {authLoading ? (
+                      <div className="flex items-center space-x-3 p-4 bg-background/80 backdrop-blur-sm border border-border/20 rounded-xl">
+                        <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
+                        <div className="flex-1 space-y-2">
+                          <div className="h-4 w-24 bg-muted animate-pulse rounded" />
+                          <div className="h-3 w-32 bg-muted animate-pulse rounded" />
+                        </div>
                       </div>
+                    ) : user ? (
+                      <>
+                        <Link href="/account" onClick={closeMobileMenu}>
+                          <div className="flex items-center space-x-3 p-4 bg-background/80 backdrop-blur-sm border border-border/20 rounded-xl hover:border-primary/40 transition-all duration-200">
+                            <Avatar className="h-10 w-10 border-2 border-background">
+                              {(() => {
+                                const gender = profile?.gender;
+                                let avatarUrl: string | null = null;
+                                if (gender) {
+                                  switch (gender.toLowerCase()) {
+                                    case 'male':
+                                      avatarUrl = 'https://drive.google.com/thumbnail?id=1ccMwtE9lfhMZbViXsdS-f3-xryhI_Z5w&sz=w1000';
+                                      break;
+                                    case 'female':
+                                      avatarUrl = 'https://drive.google.com/thumbnail?id=1ri7CpG9ktmtOG3dBDywbFLmCxXJEPn9x&sz=w1000';
+                                      break;
+                                    default:
+                                      avatarUrl = null;
+                                  }
+                                }
+                                return avatarUrl ? (
+                                  <AvatarImage 
+                                    src={avatarUrl}
+                                    alt={profile?.displayName || user.displayName || 'User'}
+                                    key={`mobile-avatar-${profile?.gender || 'default'}`}
+                                    className="object-cover"
+                                  />
+                                ) : null;
+                              })()}
+                              <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                                {getInitials(profile?.displayName || user.displayName || user.email)}
+                              </AvatarFallback>
+                            </Avatar>
                       <div className="flex-1">
-                        <MobileChatbotToggle />
+                              <p className="font-medium">{profile?.displayName || user.displayName || 'User'}</p>
+                              <p className="text-sm text-muted-foreground">{profile?.email || user.email || ''}</p>
                       </div>
                     </div>
+                        </Link>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => {
+                            handleSignOut();
+                            closeMobileMenu();
+                          }}
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Logout
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/auth/register" onClick={closeMobileMenu} className="w-full">
+                          <button className="group relative w-full px-3 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-purple-600 to-indigo-500 text-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/50">
+                            {/* Shimmer effect on hover */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                            {/* Glow effect */}
+                            <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-400 to-indigo-400 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 -z-10" />
+                            <span className="relative z-10">Create account</span>
+                          </button>
+                        </Link>
+                        <Link href="/auth/login" onClick={closeMobileMenu} className="w-full">
+                          <button className="group relative w-full px-4 py-2 text-sm font-medium rounded-lg border-2 border-border bg-transparent text-foreground overflow-hidden transition-all duration-300 hover:border-primary hover:text-primary">
+                            {/* Animated border glow */}
+                            <span className="absolute inset-0 rounded-lg border-2 border-primary opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 -z-10" />
+                            {/* Ripple effect from center */}
+                            <span className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-150 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out origin-center" />
+                            {/* Fill effect from bottom */}
+                            <span className="absolute bottom-0 left-0 right-0 h-0 bg-primary/10 group-hover:h-full transition-all duration-300 ease-out rounded-lg" />
+                            {/* Text with subtle lift */}
+                            <span className="relative z-10 inline-block group-hover:-translate-y-0.5 transition-transform duration-300">Login</span>
+                          </button>
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>
@@ -164,9 +282,111 @@ export function Header() {
             </nav>
           </div>
 
-          {/* Desktop AI Assistant - Right side (absolute positioned) */}
-          <div className="hidden xl:flex absolute right-4 items-center">
-            <ChatbotToggle />
+          {/* Desktop Auth + Cyra - Right side (absolute positioned) */}
+          <div className="hidden xl:flex absolute right-4 items-center gap-4">
+            {/* Auth area */}
+            {authLoading ? (
+              <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
+            ) : user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button 
+                    type="button"
+                    className="rounded-full overflow-hidden ring-2 ring-offset-2 ring-offset-background ring-primary/20 hover:ring-primary/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    aria-label="User menu"
+                  >
+                    <Avatar className="h-10 w-10 border-2 border-background">
+                      {(() => {
+                        const gender = profile?.gender;
+                        let avatarUrl: string | null = null;
+                        if (gender) {
+                          switch (gender.toLowerCase()) {
+                            case 'male':
+                              avatarUrl = 'https://drive.google.com/thumbnail?id=1ccMwtE9lfhMZbViXsdS-f3-xryhI_Z5w&sz=w1000';
+                              break;
+                            case 'female':
+                              avatarUrl = 'https://drive.google.com/thumbnail?id=1ri7CpG9ktmtOG3dBDywbFLmCxXJEPn9x&sz=w1000';
+                              break;
+                            default:
+                              avatarUrl = null;
+                          }
+                        }
+                        return avatarUrl ? (
+                          <AvatarImage 
+                            src={avatarUrl}
+                            alt={profile?.displayName || user.displayName || 'User'}
+                            key={`header-avatar-${profile?.gender || 'default'}`}
+                            className="object-cover"
+                          />
+                        ) : null;
+                      })()}
+                      <AvatarFallback className="bg-primary/10 text-primary font-semibold text-sm">
+                        {getInitials(profile?.displayName || user.displayName || user.email)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {profile?.displayName || user.displayName || 'User'}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {profile?.email || user.email || ''}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/account" className="cursor-pointer group relative flex items-center">
+                      <User className="mr-2 h-4 w-4 transition-all duration-200 group-hover:scale-110 group-hover:text-primary" />
+                      <span className="relative z-10 transition-colors duration-200 group-hover:text-primary">View Profile</span>
+                      <span className="absolute inset-0 bg-primary/20 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 -z-0" />
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={handleSignOut} 
+                    className="cursor-pointer text-destructive focus:text-destructive group relative flex items-center"
+                  >
+                    <LogOut className="mr-2 h-4 w-4 transition-all duration-200 group-hover:translate-x-1" />
+                    <span className="relative z-10">Logout</span>
+                    <span className="absolute inset-0 bg-destructive/20 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 -z-0" />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link href="/auth/register">
+                  <button className="group relative px-3 py-1.5 text-sm font-medium rounded-lg bg-gradient-to-r from-purple-600 to-indigo-500 text-white overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
+                    {/* Shimmer effect on hover */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                    {/* Glow effect */}
+                    <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-400 to-indigo-400 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 -z-10" />
+                    <span className="relative z-10">Create account</span>
+                  </button>
+                </Link>
+                <Link href="/auth/login">
+                  <button className="group relative px-4 py-1.5 text-sm font-medium rounded-lg border-2 border-border bg-transparent text-foreground overflow-hidden transition-all duration-300 hover:border-primary hover:text-primary">
+                    {/* Animated border glow */}
+                    <span className="absolute inset-0 rounded-lg border-2 border-primary opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 -z-10" />
+                    {/* Ripple effect from center */}
+                    <span className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-150 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out origin-center" />
+                    {/* Fill effect from bottom */}
+                    <span className="absolute bottom-0 left-0 right-0 h-0 bg-primary/10 group-hover:h-full transition-all duration-300 ease-out rounded-lg" />
+                    {/* Text with subtle lift */}
+                    <span className="relative z-10 inline-block group-hover:-translate-y-0.5 transition-transform duration-300">Login</span>
+                  </button>
+                </Link>
+              </div>
+            )}
+            
+            {/* Gap between Auth buttons and Cyra */}
+            <div className="w-4" />
+            
+            {/* Cyra button - Rightmost position */}
+            <ChatbotToggle enabled={!authLoading && !!user} />
           </div>
         </div>
       </div>

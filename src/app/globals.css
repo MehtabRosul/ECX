@@ -16,6 +16,23 @@
   }
 }
 
+@keyframes cyra-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-cyra-gradient {
+  background-size: 200% 100%;
+  animation: cyra-gradient 3s ease infinite;
+}
+
 .animate-ecx-gradient {
   background-size: 300% 300%;
   animation: ecx-gradient-shift 4s ease-in-out infinite;
@@ -990,4 +1007,38 @@ body {
       background: radial-gradient(circle, var(--tw-gradient-stops));
     }
   }
+}
+
+/* Hide reCAPTCHA badge completely */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide reCAPTCHA badge iframe */
+iframe[src*="recaptcha"],
+iframe[title*="reCAPTCHA"],
+iframe[name*="recaptcha"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  border: none !important;
+}
+
+/* Hide reCAPTCHA privacy/terms badge - fixed position at bottom right */
+div[style*="position: fixed"][style*="bottom"][style*="right"],
+div[style*="position:fixed"][style*="bottom"][style*="right"],
+.grecaptcha-badge,
+body > div[style*="position: fixed"][style*="bottom"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
 }

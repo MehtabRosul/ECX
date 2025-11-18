@@ -39,7 +39,7 @@ export function MobileChatbotToggle() {
       
       {/* Text */}
       <span className="relative">
-        AI Assistant
+        Cyra
       </span>
       
       {/* Subtle underline */}

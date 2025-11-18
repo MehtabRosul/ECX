@@ -303,7 +303,7 @@ export default function ChatbotPage() {
                   <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
                     <Bot className="w-5 h-5 text-blue-400" />
                   </div>
-                    AI Assistant
+                    Cyra
                   </h3>
                 </div>
                 
@@ -315,7 +315,7 @@ export default function ChatbotPage() {
                       <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-500/20 flex items-center justify-center">
                         <Bot className="w-8 h-8 text-blue-400" />
                       </div>
-                      <p className="text-gray-400 text-sm">Hello! I'm your AI assistant. How can I help you today?</p>
+                      <p className="text-gray-400 text-sm">Hello! I'm Cyra, your AI assistant. How can I help you today?</p>
                     </div>
                   </div>
                 )}

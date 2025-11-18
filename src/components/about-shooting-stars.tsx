@@ -58,24 +58,25 @@ export function AboutShootingStars({ className = "" }: { className?: string }) {
       const dx = tx - x;
       const dy = ty - y;
       const dist = Math.hypot(dx, dy) || 1;
-      const speed = 4 + Math.random() * 3; // 4-7 px/frame
+      const speed = 3 + Math.random() * 5; // 3-8 px/frame for more variation
       const vx = (dx / dist) * speed;
       const vy = (dy / dist) * speed;
 
-      const len = 60 + Math.random() * 80;
-      const width = 1 + Math.random() * 1.5;
+      const len = 40 + Math.random() * 100; // More variation in trail length
+      const width = 0.8 + Math.random() * 2; // More variation in width
       const life = 0;
-      const maxLife = 60 + Math.floor(Math.random() * 40);
-      const hue = 200 + Math.floor(Math.random() * 50);
+      const maxLife = 50 + Math.floor(Math.random() * 50); // More variation in lifespan
+      // More varied color range: cyan, blue, purple, pink
+      const hue = 180 + Math.floor(Math.random() * 80);
       stars.push({ x, y, vx, vy, len, life, maxLife, width, hue });
     };
 
-    // Spawn every 1.5–3.5s randomly, max 3 simultaneous
+    // Spawn every 0.5–2s randomly, max 7 simultaneous for more activity
     let spawnTimeout: number;
     const scheduleSpawn = () => {
-      const delay = 1500 + Math.random() * 2000;
+      const delay = 500 + Math.random() * 1500;
       spawnTimeout = window.setTimeout(() => {
-        if (stars.length < 3) spawnStar();
+        if (stars.length < 7) spawnStar();
         scheduleSpawn();
       }, delay) as unknown as number;
     };

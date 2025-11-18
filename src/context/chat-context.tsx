@@ -21,7 +21,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [history, setHistory] = useState<Message[]>([
     {
         role: 'bot',
-        content: "Hello! I'm your AI assistant. How can I help you today?"
+        content: "Hello! I'm Cyra, your AI assistant. How can I help you today?"
     }
   ]);
 
