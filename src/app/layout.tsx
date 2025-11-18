@@ -8,6 +8,7 @@ import { MobileChatbot } from '@/components/chatbot/mobile-chatbot';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Script from 'next/script';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: 'ECX',
@@ -62,6 +63,7 @@ export default function RootLayout({
           </ChatProvider>
         </AuthProvider>
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
