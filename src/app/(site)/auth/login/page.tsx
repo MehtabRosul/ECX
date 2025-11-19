@@ -59,7 +59,7 @@ const HeroPanel = memo(({
           key={animationKey}
           autoplay
           loop
-          src="/lottie/login.lottie"
+          src="/lottie/Login.lottie"
           className="absolute inset-0 h-full w-full"
         />
       </div>

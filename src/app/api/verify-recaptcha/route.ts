@@ -1,6 +1,28 @@
 // src/app/api/verify-recaptcha/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
+import { Buffer } from 'buffer';
+
+function getGoogleCredentials() {
+  const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+  const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+
+  try {
+    if (credentialsJson) {
+      return JSON.parse(credentialsJson);
+    }
+
+    if (credentialsBase64) {
+      const decoded = Buffer.from(credentialsBase64, 'base64').toString('utf-8');
+      return JSON.parse(decoded);
+    }
+  } catch (error) {
+    console.error('Failed to parse Google credentials:', error);
+    throw new Error('Invalid Google Cloud credentials format');
+  }
+
+  return null;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,11 +42,11 @@ export async function POST(request: NextRequest) {
     const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LePWw4sAAAAAC1uN1p2WdvuYR8APIg13cyGFrya';
 
     // Initialize the reCAPTCHA Enterprise client
-    // The client will automatically look for credentials in this order:
-    // 1. GOOGLE_APPLICATION_CREDENTIALS environment variable (path to service account key)
-    // 2. Application Default Credentials (if gcloud CLI is configured)
-    // 3. Service account attached to the resource (in GCP environments)
-    const client = new RecaptchaEnterpriseServiceClient();
+    // Support JSON/base64 credentials to work on serverless platforms like Vercel
+    const credentials = getGoogleCredentials();
+    const client = credentials
+      ? new RecaptchaEnterpriseServiceClient({ credentials })
+      : new RecaptchaEnterpriseServiceClient();
     
     const projectPath = client.projectPath(projectID);
 

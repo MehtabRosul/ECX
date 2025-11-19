@@ -44,7 +44,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
         <Script
-          src="https://www.google.com/recaptcha/enterprise.js?render=6LePWw4sAAAAAC1uN1p2WdvuYR8APIg13cyGFrya"
+          src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LePWw4sAAAAAC1uN1p2WdvuYR8APIg13cyGFrya'}`}
           strategy="afterInteractive"
         />
         <AuthProvider>
