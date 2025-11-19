@@ -177,16 +177,46 @@ export default function LoginPage() {
       await signInWithEmail(email, password);
 
       toast({
-        title: "Success",
-        description: "Signed in successfully!",
+        title: "Access Granted!",
+        description: "Welcome back! You've been successfully authenticated.",
+        variant: "success",
       });
 
       router.push("/account");
     } catch (error: any) {
+      console.error("Login error:", error);
+      
+      // Handle specific Firebase authentication errors with creative messages
+      let title = "Authentication Failed";
+      let description = error.message || "Failed to sign in. Please check your credentials and try again.";
+      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      
+      if (error.code === "auth/user-not-found") {
+        title = "Account Not Found 🔍";
+        description = "No account exists with this email address. Would you like to create one?";
+        // Keep this as default variant, not info, to avoid confusion with "email already in use"
+      } else if (error.code === "auth/wrong-password") {
+        title = "Incorrect Credentials";
+        description = "The password you entered is incorrect. Please try again or reset your password.";
+      } else if (error.code === "auth/invalid-email") {
+        title = "Invalid Email Format";
+        description = "Please enter a valid email address.";
+      } else if (error.code === "auth/user-disabled") {
+        title = "Account Suspended";
+        description = "This account has been disabled. Please contact support for assistance.";
+      } else if (error.code === "auth/too-many-requests") {
+        title = "Too Many Attempts";
+        description = "Access temporarily disabled due to too many failed attempts. Please try again later.";
+      } else if (error.message?.includes("reCAPTCHA")) {
+        title = "Verification Failed";
+        description = "reCAPTCHA verification failed. Please try again.";
+      }
+      
       toast({
-        title: "Error",
-        description: error.message || "Failed to sign in",
-        variant: "destructive",
+        title,
+        description,
+        variant,
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -198,15 +228,40 @@ export default function LoginPage() {
     try {
       await signInWithGoogle();
       toast({
-        title: "Success",
-        description: "Signed in with Google!",
+        title: "Google Authentication Success",
+        description: "You've been successfully signed in with your Google account!",
+        variant: "success",
       });
       router.push("/account");
     } catch (error: any) {
+      console.error("Google sign-in error:", error);
+      
+      // Handle specific Google authentication errors with creative messages
+      let title = "Google Sign-In Failed";
+      let description = error.message || "Failed to sign in with Google. Please try again.";
+      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      
+      if (error.code === "auth/popup-closed-by-user") {
+        title = "Sign-In Cancelled";
+        description = "The sign-in popup was closed. Please try again and complete the sign-in process.";
+      } else if (error.code === "auth/account-exists-with-different-credential") {
+        title = "Credential Conflict 🔄";
+        description = "An account already exists with this email. Try signing in with your existing credentials.";
+        // Keep this as default variant, not info, to avoid confusion with "email already in use"
+      } else if (error.code === "auth/popup-blocked") {
+        title = "Popup Blocked";
+        description = "The sign-in popup was blocked by your browser. Please allow popups and try again.";
+      } else if (error.code === "auth/user-not-found") {
+        title = "Account Not Found 🔍";
+        description = "No account exists with this Google account. Would you like to create one?";
+        // Keep this as default variant, not info, to avoid confusion with "email already in use"
+      }
+      
       toast({
-        title: "Error",
-        description: error.message || "Failed to sign in with Google",
-        variant: "destructive",
+        title,
+        description,
+        variant,
+        duration: 5000,
       });
     } finally {
       setLoading(false);

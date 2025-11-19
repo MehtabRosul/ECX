@@ -130,28 +130,29 @@ export function InnovationMatrix() {
                   {/* First paragraph */}
                   <div className="space-y-3 mb-6 text-gray-300">
                     <p className="text-sm leading-relaxed">
-                      Cryptographic minds developing post-quantum algorithms and zero-knowledge proof systems.
+                      At EncryptArx, we combine deep technical intelligence with real-world
+                      cybersecurity expertise to protect people, products, and businesses from modern
+                      digital threats.
                     </p>
                     
                     <p className="text-sm leading-relaxed">
-                      AI security specialists creating adversarial-resistant models and privacy-preserving techniques.
-                    </p>
-                    
-                    <p className="text-sm leading-relaxed">
-                      Systems architects building zero-trust architectures and secure DevOps practices.
+                      Our team brings together specialists in AI security, advanced threat detection, cloud
+                      security, and enterprise protection. We don't just react to cyber risks, we predict,
+                      prevent, and neutralize them before they cause harm.
                     </p>
                   </div>
                   
                   {/* Second paragraph */}
                   <div className="space-y-3 mb-8 text-gray-300">
                     <p className="text-sm leading-relaxed">
-                      Our interdisciplinary approach combines cutting-edge research with practical implementation, 
-                      ensuring that theoretical breakthroughs translate into real-world security solutions.
+                      Every solution we create is backed by research, engineering, and hands-on expertise,
+                      ensuring your organization is protected with technology that actually works in real
+                      life scenarios.
                     </p>
                     
                     <p className="text-sm leading-relaxed">
-                      From quantum-resistant cryptography to AI-powered threat detection, we're building the 
-                      security infrastructure that will protect tomorrow's digital world.
+                      From intelligent threat detection to bulletproof cloud security, we're building the
+                      protective layer that keeps tomorrow's digital world safe.
                     </p>
                   </div>
                   

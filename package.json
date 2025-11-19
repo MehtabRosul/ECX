@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 9002",
+    "dev": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next dev --turbopack -p 9002",
+    "dev:inspect": "cross-env NODE_OPTIONS=--inspect --max-old-space-size=4096 next dev --turbopack -p 9002",
+    "dev:monitor": "node scripts/performance-monitor.js && cross-env NODE_OPTIONS=--max-old-space-size=4096 next dev --turbopack -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "build": "cross-env NODE_ENV=production next build",
-    "start": "next start",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=4096 next build",
+    "build:analyze": "cross-env ANALYZE=true NODE_OPTIONS=--max-old-space-size=4096 next build",
+    "start": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "clean": "npx rimraf .next node_modules/.cache",
+    "clean:deps": "npx rimraf node_modules package-lock.json && npm install",
+    "perf": "node scripts/performance-check.js",
+    "mem:optimize": "node scripts/memory-optimizer.js",
+    "perf:monitor": "node scripts/performance-monitor.js"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.20.0",
@@ -70,6 +78,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

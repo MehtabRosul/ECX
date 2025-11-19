@@ -4,14 +4,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Memory-optimized config options */
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Performance optimizations for memory usage
+  // Memory optimization settings
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
     cpus: Math.min(2, require('os').cpus().length - 1), // Limit CPU usage
     memoryBasedWorkersCount: true, // Adjust worker count based on available memory
   },
+  // Limit concurrent requests to reduce memory usage
+  concurrentFeatures: 2,
   // Image optimization
   images: {
     remotePatterns: [
@@ -58,7 +60,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Enable compression
   compress: true,
-  // Configure webpack for better performance
+  // Configure webpack for memory optimization
   webpack: (config, { dev, isServer }) => {
     // Improve build performance and reduce memory usage
     config.cache = {
@@ -69,7 +71,10 @@ const nextConfig: NextConfig = {
       },
     };
     
-    // Reduce memory usage
+    // Reduce memory usage by limiting parallelism
+    config.parallelism = 2;
+    
+    // Optimize for memory usage
     if (!dev) {
       config.optimization = {
         ...config.optimization,
@@ -82,6 +87,7 @@ const nextConfig: NextConfig = {
               name: 'vendors',
               priority: 10,
               chunks: 'all',
+              maxSize: 244000, // 244 KB
             },
             three: {
               test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
@@ -89,6 +95,7 @@ const nextConfig: NextConfig = {
               chunks: 'all',
               priority: 20,
               enforce: true,
+              maxSize: 244000, // 244 KB
             },
             firebase: {
               test: /[\\/]node_modules[\\/](firebase)[\\/]/,
@@ -96,6 +103,7 @@ const nextConfig: NextConfig = {
               chunks: 'all',
               priority: 15,
               enforce: true,
+              maxSize: 244000, // 244 KB
             },
           },
         },
@@ -104,6 +112,16 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  // Optimize for memory usage
+  swcMinify: true,
+  // Server components optimization
+  serverComponents: {
+    externalPackages: [
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei'
+    ]
+  }
 };
 
 export default withBundleAnalyzer(nextConfig);

@@ -1,17 +1,20 @@
-import type {NextConfig} from 'next';
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+import type { NextConfig } from 'next';
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzerConfig = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Production config options here */
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Performance optimizations for memory usage
+  
+  // Production performance optimizations
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -22,10 +25,28 @@ const nextConfig: NextConfig = {
       'three'
     ],
     webpackBuildWorker: true,
-    cpus: Math.min(2, require('os').cpus().length - 1), // Limit CPU usage
+    serverComponentsExternalPackages: [
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei'
+    ],
+    cpus: Math.min(4, require('os').cpus().length - 1), // Limit CPU usage
     memoryBasedWorkersCount: true, // Adjust worker count based on available memory
   },
-  // Image optimization
+  
+  // Bundle optimization
+  modularizeImports: {
+    '@radix-ui/react-*': {
+      transform: '@radix-ui/react-{{member}}',
+      preventFullImport: true,
+    },
+    'lucide-react': {
+      transform: 'lucide-react/dist/esm/icons/{{member}}',
+      skipDefaultConversion: true,
+    },
+  },
+  
+  // Image optimization for production
   images: {
     remotePatterns: [
       {
@@ -53,14 +74,27 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    minimumCacheTTL: 86400, // 24 hours
+    formats: ['image/avif', 'image/webp'],
   },
-  // Enable React strict mode for better performance in development
+  
+  // Enable React strict mode
   reactStrictMode: true,
+  
   // Enable compression
   compress: true,
-  // Configure webpack for better performance
+  
+  // Optimize fonts
+  optimizeFonts: true,
+  
+  // Enable server actions
+  serverActions: {
+    bodySizeLimit: '2mb',
+  },
+  
+  // Production webpack configuration
   webpack: (config, { dev, isServer }) => {
-    // Improve build performance and reduce memory usage
+    // Improve build performance
     config.cache = {
       type: 'filesystem',
       version: '1.0',
@@ -69,8 +103,15 @@ const nextConfig: NextConfig = {
       },
     };
     
-    // Reduce memory usage
+    // Production-specific optimizations
     if (!dev) {
+      // Reduce bundle size by excluding unnecessary modules
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        three: 'three/src/Three.js',
+      };
+      
+      // Optimize build for production
       config.optimization = {
         ...config.optimization,
         splitChunks: {
@@ -104,6 +145,11 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  
+  // Production-specific settings
+  poweredByHeader: false,
+  generateEtags: true,
+  swcMinify: true,
 };
 
-export default withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzerConfig(nextConfig);

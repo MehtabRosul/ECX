@@ -1,17 +1,15 @@
-import type {NextConfig} from 'next';
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Development config options here */
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Performance optimizations for memory usage
+  
+  // Development performance optimizations
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -22,10 +20,16 @@ const nextConfig: NextConfig = {
       'three'
     ],
     webpackBuildWorker: true,
-    cpus: Math.min(2, require('os').cpus().length - 1), // Limit CPU usage
-    memoryBasedWorkersCount: true, // Adjust worker count based on available memory
+    serverComponentsExternalPackages: [
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei'
+    ],
+    cpus: Math.min(2, require('os').cpus().length - 1), // Limit CPU usage in dev
+    memoryBasedWorkersCount: true,
   },
-  // Image optimization
+  
+  // Development image optimization
   images: {
     remotePatterns: [
       {
@@ -53,26 +57,39 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    minimumCacheTTL: 60,
   },
-  // Enable React strict mode for better performance in development
+  
+  // Enable React strict mode
   reactStrictMode: true,
+  
   // Enable compression
   compress: true,
-  // Configure webpack for better performance
+  
+  // Development webpack configuration
   webpack: (config, { dev, isServer }) => {
-    // Improve build performance and reduce memory usage
+    // Improve build performance in development
     config.cache = {
       type: 'filesystem',
-      version: '1.0',
+      version: '1.0-dev',
       buildDependencies: {
         config: [__filename],
       },
     };
     
-    // Reduce memory usage
-    if (!dev) {
+    // Development-specific optimizations
+    if (dev) {
+      // Optimize for faster hot reloading
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        three: 'three/src/Three.js',
+      };
+      
+      // Reduce build time in development
       config.optimization = {
         ...config.optimization,
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
         splitChunks: {
           chunks: 'all',
           cacheGroups: {
@@ -90,13 +107,6 @@ const nextConfig: NextConfig = {
               priority: 20,
               enforce: true,
             },
-            firebase: {
-              test: /[\\/]node_modules[\\/](firebase)[\\/]/,
-              name: 'firebase',
-              chunks: 'all',
-              priority: 15,
-              enforce: true,
-            },
           },
         },
       };
@@ -104,6 +114,16 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  
+  // Development-specific settings
+  devIndicators: {
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
+  },
+  onDemandEntries: {
+    maxInactiveAge: 60 * 1000,
+    pagesBufferLength: 2,
+  },
 };
 
-export default withBundleAnalyzer(nextConfig);
+export default nextConfig;

@@ -297,8 +297,10 @@ function TeamAndCulture() {
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-4">The collective behind EncryptArx</h2>
         <p className="text-muted-foreground mb-6">
-          Not portraits — a living network. Our clusters span Cryptography, ML, Systems, Cloud and Product. Teams assemble across clusters to own outcomes, with traceable artifacts for every decision.
-        </p>
+        Not a list of faces, but a dynamic network. Our clusters work across AI,
+        Cybersecurity, Cloud, Systems, and Product. Teams form fluidly across these
+        domains to drive outcomes end to end, supported by clear documentation and
+        traceable decision artifacts.</p>
 
         {/* Cohorts marquee: continuously loops left → right */}
         <div className="mb-4 relative overflow-hidden" style={{ maskImage: 'linear-gradient(90deg, transparent, black 6%, black 94%, transparent)' as any }}>
@@ -551,7 +553,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">What we do: Services, Products & Consultancy</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">What we do?</h2>
             <div className="mx-auto h-0.5 w-28 rounded-full bg-primary/40 mb-6"></div>
             <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
               EncryptArx combines four integrated competencies like Cybersecurity, AI & Machine Learning, Product & Platform Engineering, and Cloud Architecture — complemented by a dedicated consultancy arm and studio-grade product teams. We research, prototype, and deliver solutions that are auditable, resilient and designed for enterprise readiness.
@@ -737,7 +739,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">How we partner: method, deliverables, and ownership</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">How we partner?</h2>
             <div className="mx-auto h-0.5 w-28 rounded-full bg-gradient-to-r from-primary/50 via-primary/30 to-primary/50 mb-6"></div>
             <p className="text-muted-foreground max-w-3xl mx-auto">
               We work in measurable, repeatable phases: discovery, prototype, validation, delivery and operation. Each engagement produces artifacts and acceptance criteria, and is designed to ensure your team can maintain and evolve the solution.
@@ -1020,7 +1022,7 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Consultancy & strategic advisory</h2>
               <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
-                Our consultancy service helps leaders make technically sound, secure decisions. We provide technical due diligence, compliance readiness, enterprise roadmaps, and board-level briefings — all underpinned by engineering-level artifacts.
+                "Our consultancy service helps leaders make technically sound, secure decisions. We provide technical due diligence, compliance readiness, enterprise roadmaps, and board-level briefings — all underpinned by engineering-level artifacts."
               </p>
             </motion.div>
             
@@ -1112,7 +1114,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Library: papers, notebooks & datasets</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Library</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
               Browse our curated archive of whitepapers, reproducible notebooks and experiment artifacts. Each item includes the methodology, artifacts necessary to reproduce the results, and references to projects or products that use the research.
             </p>
@@ -1294,9 +1296,13 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Security & governance — what we commit to</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Security & governance</h2>
               <p className="text-muted-foreground max-w-3xl mx-auto">
-                Security is central: we encrypt data in transit and at rest, keep audit trails for sensitive actions, and operate a vulnerability disclosure policy for responsible reporting. We map engagements to compliance frameworks on request and produce audit-friendly artifacts for validation.
+              Security is at our core. We protect data in transit and at rest, maintain detailed
+              activity trails for sensitive operations, and follow a responsible vulnerability
+              disclosure process. On request, we align projects with relevant compliance
+              frameworks and provide clear documentation that supports verification and
+              transparency.
               </p>
             </motion.div>
             

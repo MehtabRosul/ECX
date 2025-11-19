@@ -73,14 +73,35 @@ export default function ForgotPasswordPage() {
       await sendPasswordReset(email);
       setSent(true);
       toast({
-        title: "Email Sent",
-        description: "Please check your email for password reset instructions",
+        title: "Reset Link Sent 📧",
+        description: "Please check your email for password reset instructions. The link will expire in 1 hour.",
+        variant: "success",
       });
     } catch (error: any) {
+      console.error("Password reset error:", error);
+      
+      // Handle specific Firebase authentication errors with creative messages
+      let title = "Reset Failed";
+      let description = error.message || "Failed to send password reset email. Please try again.";
+      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      
+      if (error.code === "auth/user-not-found") {
+        title = "Email Not Registered 🔍";
+        description = "No account exists with this email address. Would you like to create one?";
+        // Keep this as default variant, not info, to avoid confusion with "email already in use"
+      } else if (error.code === "auth/invalid-email") {
+        title = "Invalid Email Format";
+        description = "Please enter a valid email address.";
+      } else if (error.code === "auth/too-many-requests") {
+        title = "Too Many Requests";
+        description = "Access temporarily disabled due to too many requests. Please try again later.";
+      }
+      
       toast({
-        title: "Error",
-        description: error.message || "Failed to send password reset email",
-        variant: "destructive",
+        title,
+        description,
+        variant,
+        duration: 5000,
       });
     } finally {
       setLoading(false);

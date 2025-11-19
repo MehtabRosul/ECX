@@ -154,8 +154,8 @@ export default function RegisterPage() {
     
     if (formData.password !== formData.confirmPassword) {
       toast({
-        title: "Error",
-        description: "Passwords do not match",
+        title: "Password Mismatch",
+        description: "The passwords you entered don't match. Please try again.",
         variant: "destructive",
       });
       return;
@@ -164,8 +164,8 @@ export default function RegisterPage() {
     // Check password requirements
     if (!allRequirementsMet) {
       toast({
-        title: "Error",
-        description: "Password does not meet all requirements",
+        title: "Password Requirements",
+        description: "Your password must meet all the security requirements listed above.",
         variant: "destructive",
       });
       return;
@@ -173,8 +173,8 @@ export default function RegisterPage() {
 
     if (!recaptchaVerified) {
       toast({
-        title: "Error",
-        description: "Please complete the reCAPTCHA verification",
+        title: "Verification Required",
+        description: "Please complete the reCAPTCHA verification to prove you're human.",
         variant: "destructive",
       });
       return;
@@ -204,16 +204,42 @@ export default function RegisterPage() {
       });
 
       toast({
-        title: "Success",
-        description: "Account created successfully!",
+        title: "Account Created!",
+        description: "Welcome to EncryptArx! Your account has been successfully created.",
+        variant: "success",
       });
 
       router.push("/account");
     } catch (error: any) {
+      // Handle specific Firebase authentication errors with creative messages
+      let title = "Registration Failed";
+      let description = error.message || "Failed to create account. Please try again.";
+      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      
+      // Check for email already in use
+      if (error.code === "auth/email-already-in-use") {
+        title = "Email Already Claimed 🚀";
+        description = "This email address is already associated with an account. Would you like to sign in instead?";
+        variant = "info";
+      } else if (error.code === "auth/invalid-email") {
+        title = "Invalid Email";
+        description = "Please enter a valid email address.";
+      } else if (error.code === "auth/weak-password") {
+        title = "Password Too Weak";
+        description = "Please choose a stronger password with at least 6 characters.";
+      } else if (error.code === "auth/operation-not-allowed") {
+        title = "Registration Disabled";
+        description = "Email/password registration is currently disabled. Please try another method.";
+      } else if (error.message?.includes("reCAPTCHA")) {
+        title = "Verification Failed";
+        description = "reCAPTCHA verification failed. Please try again.";
+      }
+      
       toast({
-        title: "Error",
-        description: error.message || "Failed to create account",
-        variant: "destructive",
+        title,
+        description,
+        variant,
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -225,15 +251,36 @@ export default function RegisterPage() {
     try {
       await signInWithGoogle();
       toast({
-        title: "Success",
-        description: "Signed in with Google!",
+        title: "Google Sign-In Success",
+        description: "You've been successfully signed in with your Google account!",
+        variant: "success",
       });
       router.push("/account");
     } catch (error: any) {
+      console.error("Google sign-in error:", error);
+      
+      // Handle specific Google authentication errors with creative messages
+      let title = "Google Sign-In Failed";
+      let description = error.message || "Failed to sign in with Google. Please try again.";
+      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      
+      if (error.code === "auth/popup-closed-by-user") {
+        title = "Sign-In Cancelled";
+        description = "The sign-in popup was closed. Please try again and complete the sign-in process.";
+      } else if (error.code === "auth/account-exists-with-different-credential") {
+        title = "Account Already Exists 🔄";
+        description = "An account already exists with this email. Try signing in with your existing credentials.";
+        variant = "info";
+      } else if (error.code === "auth/popup-blocked") {
+        title = "Popup Blocked";
+        description = "The sign-in popup was blocked by your browser. Please allow popups and try again.";
+      }
+      
       toast({
-        title: "Error",
-        description: error.message || "Failed to sign in with Google",
-        variant: "destructive",
+        title,
+        description,
+        variant,
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -340,7 +387,6 @@ export default function RegisterPage() {
     "United States", "Canada", "United Kingdom", "India", "China", "Japan",
     "Germany", "France", "Australia", "Brazil", "Mexico", "Spain", "Italy",
   ], []);
-
 
 	return (
     <div className="relative min-h-screen overflow-hidden bg-[#05050b] text-white">
