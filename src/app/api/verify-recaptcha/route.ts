@@ -3,6 +3,29 @@ import { NextRequest, NextResponse } from 'next/server';
 import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
 import { Buffer } from 'buffer';
 
+function buildCredentialsFromSplitVars() {
+  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  const projectID = process.env.GOOGLE_CLOUD_PROJECT_ID || 'ecx-website';
+
+  if (!clientEmail || !privateKey) {
+    return null;
+  }
+
+  return {
+    type: 'service_account',
+    project_id: projectID,
+    private_key_id: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_ID,
+    private_key: privateKey.replace(/\\n/g, '\n'),
+    client_email: clientEmail,
+    client_id: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_ID,
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+    token_uri: 'https://oauth2.googleapis.com/token',
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+    client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(clientEmail)}`,
+  };
+}
+
 function getGoogleCredentials() {
   const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
   const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
@@ -19,6 +42,11 @@ function getGoogleCredentials() {
   } catch (error) {
     console.error('Failed to parse Google credentials:', error);
     throw new Error('Invalid Google Cloud credentials format');
+  }
+
+  const splitCredentials = buildCredentialsFromSplitVars();
+  if (splitCredentials) {
+    return splitCredentials;
   }
 
   return null;
