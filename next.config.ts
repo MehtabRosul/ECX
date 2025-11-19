@@ -1,4 +1,5 @@
 import type {NextConfig} from 'next';
+import fs from 'fs';
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -60,14 +61,16 @@ const nextConfig: NextConfig = {
   compress: true,
   // Configure webpack for better performance
   webpack: (config, { dev, isServer }) => {
-    // Improve build performance and reduce memory usage
-    config.cache = {
-      type: 'filesystem',
-      version: '1.0',
-      buildDependencies: {
-        config: [__filename],
-      },
-    };
+    // Improve build performance and reduce memory usage (only when config file is resolvable)
+    if (fs.existsSync(__filename)) {
+      config.cache = {
+        type: 'filesystem',
+        version: '1.0',
+        buildDependencies: {
+          config: [__filename],
+        },
+      };
+    }
     
     // Reduce memory usage
     if (!dev) {
