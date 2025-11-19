@@ -1022,7 +1022,9 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Consultancy & strategic advisory</h2>
               <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
-                "Our consultancy service helps leaders make technically sound, secure decisions. We provide technical due diligence, compliance readiness, enterprise roadmaps, and board-level briefings — all underpinned by engineering-level artifacts."
+              We help organizations make secure and future ready technology decisions through
+              technical due diligence, compliance readiness, transformation roadmaps, and
+              executive level strategic guidance, all backed by clear engineering driven insights.
               </p>
             </motion.div>
             

@@ -167,7 +167,7 @@ export function Header() {
                   {/* Cyra Button - Mobile Only */}
                   <div className="px-6 pb-6 border-t border-border/20 pt-6">
                     <ChatbotToggle
-                      className="w-full"
+                      className="w-auto mx-auto [&>div]:rounded-3xl [&>div>button]:rounded-3xl [&>div>button]:px-3"
                       enabled={!authLoading && !!user}
                       onClick={() => {
                         router.push('/chatbot');
@@ -177,7 +177,7 @@ export function Header() {
                   </div>
                   
                   {/* Mobile Auth Buttons */}
-                  <div className="p-6 border-t border-border/20 space-y-3">
+                  <div className="p-6 border-t border-border/20">
                     {authLoading ? (
                       <div className="flex items-center space-x-3 p-4 bg-background/80 backdrop-blur-sm border border-border/20 rounded-xl">
                         <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
@@ -227,7 +227,7 @@ export function Header() {
                         </Link>
                         <Button
                           variant="outline"
-                          className="w-full"
+                          className="w-full mt-6"
                           onClick={() => {
                             handleSignOut();
                             closeMobileMenu();
@@ -239,7 +239,7 @@ export function Header() {
                       </>
                     ) : (
                       <>
-                        <Link href="/auth/register" onClick={closeMobileMenu} className="w-full">
+                        <Link href="/auth/register" onClick={closeMobileMenu} className="w-full block">
                           <button className="group relative w-full px-3 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-purple-600 to-indigo-500 text-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/50">
                             {/* Shimmer effect on hover */}
                             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
@@ -248,7 +248,7 @@ export function Header() {
                             <span className="relative z-10">Create account</span>
                           </button>
                         </Link>
-                        <Link href="/auth/login" onClick={closeMobileMenu} className="w-full">
+                        <Link href="/auth/login" onClick={closeMobileMenu} className="w-full block mt-6">
                           <button className="group relative w-full px-4 py-2 text-sm font-medium rounded-lg border-2 border-border bg-transparent text-foreground overflow-hidden transition-all duration-300 hover:border-primary hover:text-primary">
                             {/* Animated border glow */}
                             <span className="absolute inset-0 rounded-lg border-2 border-primary opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 -z-10" />
@@ -271,7 +271,7 @@ export function Header() {
           {/* DESKTOP NAVBAR - Shows ONLY on screens 1280px and above (true desktop) */}
           <div className="hidden xl:flex items-center space-x-8">
             {/* Desktop Navigation Links - Centered */}
-            <nav className="flex items-center space-x-1">
+            <nav className="flex items-center space-x-1 mr-12">
               {navLinks.map((link) => (
                 <NavLink
                   key={`desktop-${link.href}-${link.label}`}

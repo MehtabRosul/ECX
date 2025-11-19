@@ -1339,15 +1339,10 @@ export function LibraryPageClient() {
                   <div className="relative flex items-center justify-between flex-wrap gap-6 p-8 rounded-2xl border-2 border-primary/10 bg-gradient-to-br from-card/80 via-card/60 to-card/80 backdrop-blur-xl">
 
                     <div className="flex items-center gap-6">
-
                       <motion.div
-
                         whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-
                         transition={{ duration: 0.5 }}
-
-                        className={`relative w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-2xl group/icon`}
-
+                        className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-2xl group/icon flex-shrink-0`}
                       >
 
                         {/* Pulsing glow */}
@@ -1362,8 +1357,7 @@ export function LibraryPageClient() {
 
                         />
 
-                        <Icon className="w-10 h-10 md:w-12 md:h-12 text-white relative z-10" />
-
+                        <Icon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white relative z-10" />
                       </motion.div>
 
                       <div>

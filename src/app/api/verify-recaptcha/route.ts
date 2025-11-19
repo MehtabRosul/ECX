@@ -2,6 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
 import { Buffer } from 'buffer';
+import fs from 'fs';
+import path from 'path';
 
 function buildCredentialsFromSplitVars() {
   const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL;
@@ -29,6 +31,7 @@ function buildCredentialsFromSplitVars() {
 function getGoogleCredentials() {
   const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
   const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+  const credentialsFile = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
   try {
     if (credentialsJson) {
@@ -38,6 +41,19 @@ function getGoogleCredentials() {
     if (credentialsBase64) {
       const decoded = Buffer.from(credentialsBase64, 'base64').toString('utf-8');
       return JSON.parse(decoded);
+    }
+
+    if (credentialsFile) {
+      const resolvedPath = path.isAbsolute(credentialsFile)
+        ? credentialsFile
+        : path.join(process.cwd(), credentialsFile);
+
+      if (fs.existsSync(resolvedPath)) {
+        const fileContent = fs.readFileSync(resolvedPath, 'utf-8');
+        return JSON.parse(fileContent);
+      } else {
+        console.warn('Google credentials file not found at path:', resolvedPath);
+      }
     }
   } catch (error) {
     console.error('Failed to parse Google credentials:', error);

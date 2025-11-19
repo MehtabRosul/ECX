@@ -102,9 +102,9 @@ export const ContributionCard = memo(function ContributionCard({ type }: Contrib
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                   transition={{ duration: 0.5 }}
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-lg`}
+                  className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-lg flex-shrink-0`}
                 >
-                  <Icon className="w-8 h-8 text-white" />
+                  <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </motion.div>
                 <div>
                   <h3 className="text-2xl font-bold mb-1">Want to Contribute?</h3>
@@ -172,8 +172,8 @@ export const ContributionCard = memo(function ContributionCard({ type }: Contrib
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${config.color} flex items-center justify-center`}>
-                        <Icon className="w-6 h-6 text-white" />
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${config.color} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div>
                         <CardTitle>Contribute {config.label}</CardTitle>
