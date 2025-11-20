@@ -1336,7 +1336,7 @@ export function LibraryPageClient() {
 
                   
 
-                  <div className="relative flex items-center justify-between flex-wrap gap-6 p-8 rounded-2xl border-2 border-primary/10 bg-gradient-to-br from-card/80 via-card/60 to-card/80 backdrop-blur-xl">
+                  <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between flex-wrap gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border-2 border-primary/10 bg-gradient-to-br from-card/80 via-card/60 to-card/80 backdrop-blur-xl">
 
                     <div className="flex items-center gap-6">
                       <motion.div
@@ -1480,7 +1480,7 @@ export function LibraryPageClient() {
 
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
 
                       {featuredItems.map((item, index) => (
 
@@ -1540,7 +1540,7 @@ export function LibraryPageClient() {
 
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
 
                       {regularItems.map((item, index) => (
 

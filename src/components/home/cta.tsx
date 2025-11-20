@@ -7,9 +7,9 @@ export function Cta() {
     return (
         <section className="py-12 sm:py-24">
             <div className="container">
-                <div className="relative isolate overflow-hidden bg-surface-2 px-6 py-24 text-center shadow-soft sm:rounded-3xl sm:px-16">
-                    {/* Hyperspeed Background Effect */}
-                    <div className="absolute inset-0 -z-20">
+                <div className="relative isolate overflow-hidden bg-surface-2 px-4 py-24 text-center shadow-soft sm:rounded-3xl sm:px-16">
+                    {/* Hyperspeed Background Effect - Desktop Only (PC screens) */}
+                    <div className="absolute inset-0 -z-20 hidden md:block overflow-hidden">
                         <Hyperspeed
                             effectOptions={{
                                 distortion: 'turbulentDistortion',
@@ -48,11 +48,11 @@ export function Cta() {
                         <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
                             Book a free assessment with our security team.
                         </p>
-                        <div className="mt-10 flex items-center justify-center gap-x-6">
-                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-x-6 px-4 sm:px-0">
+                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto px-4 sm:px-6 text-sm sm:text-base">
                                 <Link href="/contact">Request Assessment</Link>
                             </Button>
-                            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto px-4 sm:px-6 text-sm sm:text-base">
                                 <Link href="/contact">Request Trial</Link>
                             </Button>
                         </div>

@@ -204,8 +204,8 @@ export default function RegisterPage() {
       });
 
       toast({
-        title: "Account Created!",
-        description: "Welcome to EncryptArx! Your account has been successfully created.",
+        title: "Account Created Successfully",
+        description: "Your account has been created. Redirecting to your account page...",
         variant: "success",
       });
 
@@ -218,8 +218,8 @@ export default function RegisterPage() {
       
       // Check for email already in use
       if (error.code === "auth/email-already-in-use") {
-        title = "Email Already Claimed 🚀";
-        description = "This email address is already associated with an account. Would you like to sign in instead?";
+        title = "Email Already Registered";
+        description = "This email address is already associated with an account. Please sign in instead.";
         variant = "info";
       } else if (error.code === "auth/invalid-email") {
         title = "Invalid Email";
@@ -247,12 +247,22 @@ export default function RegisterPage() {
   }, [formData, allRequirementsMet, recaptchaVerified, recaptchaToken, signUpWithEmail, toast, router]);
 
   const handleGoogleSignUp = useCallback(async () => {
+    // Check if reCAPTCHA is verified before proceeding
+    if (!recaptchaVerified || !recaptchaToken) {
+      toast({
+        title: "Security Check Required",
+        description: "Please verify the reCAPTCHA challenge before signing up with Google.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       await signInWithGoogle();
       toast({
-        title: "Google Sign-In Success",
-        description: "You've been successfully signed in with your Google account!",
+        title: "Account Created Successfully",
+        description: "Your account has been created with Google. Redirecting to your account page...",
         variant: "success",
       });
       router.push("/account");
@@ -268,8 +278,8 @@ export default function RegisterPage() {
         title = "Sign-In Cancelled";
         description = "The sign-in popup was closed. Please try again and complete the sign-in process.";
       } else if (error.code === "auth/account-exists-with-different-credential") {
-        title = "Account Already Exists 🔄";
-        description = "An account already exists with this email. Try signing in with your existing credentials.";
+        title = "Account Already Exists";
+        description = "An account already exists with this email. Please sign in with your existing credentials.";
         variant = "info";
       } else if (error.code === "auth/popup-blocked") {
         title = "Popup Blocked";
@@ -285,7 +295,7 @@ export default function RegisterPage() {
     } finally {
       setLoading(false);
     }
-  }, [signInWithGoogle, toast, router]);
+  }, [recaptchaVerified, recaptchaToken, signInWithGoogle, toast, router]);
 
   const updateFormField = useCallback((field: 'displayName' | 'email' | 'password' | 'confirmPassword' | 'phone' | 'countryCode' | 'gender', value: any) => {
     setFormData((prev: FormData) => ({ ...prev, [field]: value }));
@@ -699,7 +709,7 @@ export default function RegisterPage() {
             variant="outline"
             className="w-full rounded-xl border-white/20 bg-white/5 py-3 text-white hover:bg-white/10"
             onClick={handleGoogleSignUp}
-            disabled={loading}
+            disabled={loading || !recaptchaVerified}
           >
             <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
               <path

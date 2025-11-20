@@ -171,47 +171,110 @@ export default function LoginPage() {
       return;
     }
 
+    // Trim email and password to remove any whitespace
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    // Validate that email and password are not empty after trimming
+    if (!trimmedEmail || !trimmedPassword) {
+      toast({
+        title: "Invalid Input",
+        description: "Please enter both email and password.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await signInWithEmail(email, password);
+      await signInWithEmail(trimmedEmail, trimmedPassword);
 
       toast({
-        title: "Access Granted!",
-        description: "Welcome back! You've been successfully authenticated.",
+        title: "Login Successful",
+        description: "You have been successfully signed in. Redirecting to your account...",
         variant: "success",
       });
 
       router.push("/account");
     } catch (error: any) {
-      console.error("Login error:", error);
+      // Extract error code from various possible locations (Firebase v9+ structure)
+      let errorCode: string | null = null;
+      let errorMessage: string = "Failed to sign in. Please check your credentials and try again.";
+      
+      // Try different ways to extract the error code
+      if (error?.code) {
+        errorCode = error.code;
+      } else if (error?.error?.code) {
+        errorCode = error.error.code;
+      } else if (error?.message) {
+        // Try to extract from error message
+        const match = error.message.match(/auth\/[a-z-]+/);
+        if (match) {
+          errorCode = match[0];
+        }
+      }
+      
+      // Extract error message
+      if (error?.message) {
+        errorMessage = error.message;
+      } else if (error?.error?.message) {
+        errorMessage = error.error.message;
+      }
       
       // Handle specific Firebase authentication errors with creative messages
       let title = "Authentication Failed";
-      let description = error.message || "Failed to sign in. Please check your credentials and try again.";
-      let variant: "destructive" | "success" | "info" | "default" = "destructive";
+      let description = errorMessage;
+      let variant: "destructive" | "success" | "info" | "default" = "info";
       
-      if (error.code === "auth/user-not-found") {
-        title = "Account Not Found 🔍";
-        description = "No account exists with this email address. Would you like to create one?";
-        // Keep this as default variant, not info, to avoid confusion with "email already in use"
-      } else if (error.code === "auth/wrong-password") {
-        title = "Incorrect Credentials";
+      // Check for invalid-credential (this is the new unified error code in Firebase v9+)
+      // This error occurs when user doesn't exist OR password is wrong
+      // We'll show a friendly message suggesting to create an account or use Google login
+      if (errorCode === "auth/invalid-credential") {
+        // Suppress console error for this case - show user-friendly message instead
+        // Firebase will still log internally, but we won't add our own console.error
+        title = "Account Not Found";
+        description = "No account found with these credentials. Please create an account first or sign in with Google.";
+        variant = "info";
+      } else if (errorCode === "auth/user-not-found") {
+        title = "Account Not Found";
+        description = "No account exists with this email address. Please create an account first or sign in with Google.";
+        variant = "info";
+      } else if (errorCode === "auth/wrong-password") {
+        title = "Incorrect Password";
         description = "The password you entered is incorrect. Please try again or reset your password.";
-      } else if (error.code === "auth/invalid-email") {
+        variant = "destructive";
+      } else if (errorCode === "auth/invalid-email") {
         title = "Invalid Email Format";
         description = "Please enter a valid email address.";
-      } else if (error.code === "auth/user-disabled") {
+        variant = "destructive";
+      } else if (errorCode === "auth/user-disabled") {
         title = "Account Suspended";
         description = "This account has been disabled. Please contact support for assistance.";
-      } else if (error.code === "auth/too-many-requests") {
+        variant = "destructive";
+      } else if (errorCode === "auth/too-many-requests") {
         title = "Too Many Attempts";
         description = "Access temporarily disabled due to too many failed attempts. Please try again later.";
-      } else if (error.message?.includes("reCAPTCHA")) {
+        variant = "destructive";
+      } else if (errorCode === "auth/network-request-failed") {
+        title = "Network Error";
+        description = "Unable to connect to the authentication server. Please check your internet connection and try again.";
+        variant = "destructive";
+      } else if (errorMessage?.toLowerCase().includes("recaptcha") || errorMessage?.toLowerCase().includes("captcha")) {
         title = "Verification Failed";
         description = "reCAPTCHA verification failed. Please try again.";
+        variant = "destructive";
+      } else if (errorMessage?.toLowerCase().includes("invalid-credential") || errorMessage?.toLowerCase().includes("invalid credential")) {
+        // Fallback: check message content if code extraction failed
+        title = "Account Not Found";
+        description = "No account found with these credentials. Please create an account first or sign in with Google.";
+        variant = "info";
+      } else {
+        // For other errors, log for debugging but don't show technical details to user
+        console.error("Login error (suppressed from user):", errorCode || errorMessage);
       }
       
+      // Always show toast notification
       toast({
         title,
         description,
@@ -224,12 +287,22 @@ export default function LoginPage() {
   }, [email, password, ensureRecaptcha, signInWithEmail, toast, router]);
 
   const handleGoogleSignIn = useCallback(async () => {
+    // Check if reCAPTCHA is verified before proceeding
+    if (!recaptchaVerified || !recaptchaToken) {
+      toast({
+        title: "Security Check Required",
+        description: "Please verify the reCAPTCHA challenge before signing in with Google.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       await signInWithGoogle();
       toast({
-        title: "Google Authentication Success",
-        description: "You've been successfully signed in with your Google account!",
+        title: "Login Successful",
+        description: "You have been successfully signed in with Google. Redirecting to your account...",
         variant: "success",
       });
       router.push("/account");
@@ -245,15 +318,15 @@ export default function LoginPage() {
         title = "Sign-In Cancelled";
         description = "The sign-in popup was closed. Please try again and complete the sign-in process.";
       } else if (error.code === "auth/account-exists-with-different-credential") {
-        title = "Credential Conflict 🔄";
+        title = "Credential Conflict";
         description = "An account already exists with this email. Try signing in with your existing credentials.";
         // Keep this as default variant, not info, to avoid confusion with "email already in use"
       } else if (error.code === "auth/popup-blocked") {
         title = "Popup Blocked";
         description = "The sign-in popup was blocked by your browser. Please allow popups and try again.";
       } else if (error.code === "auth/user-not-found") {
-        title = "Account Not Found 🔍";
-        description = "No account exists with this Google account. Would you like to create one?";
+        title = "Account Not Found";
+        description = "No account exists with this Google account. Please create an account first.";
         // Keep this as default variant, not info, to avoid confusion with "email already in use"
       }
       
@@ -266,7 +339,7 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  }, [signInWithGoogle, toast, router]);
+  }, [recaptchaVerified, recaptchaToken, signInWithGoogle, toast, router]);
 
   const renderRecaptchaBlock = useCallback(() => (
     <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-center backdrop-blur">
@@ -445,7 +518,7 @@ export default function LoginPage() {
               variant="outline"
               className="w-full rounded-2xl border-white/20 bg-white/5 py-3 text-white hover:bg-white/10"
               onClick={handleGoogleSignIn}
-              disabled={loading}
+              disabled={loading || !recaptchaVerified}
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path

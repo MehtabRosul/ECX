@@ -61,7 +61,7 @@ const ResearchPaperCard = memo(function ResearchPaperCard({ item, index, feature
       <div className="absolute -inset-2 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
       <div className="absolute -inset-1 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-blue-500/30 bg-gradient-to-br from-card/95 via-blue-500/5 to-card/95 backdrop-blur-xl hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[400px] sm:min-h-[480px] border-2 border-blue-500/30 bg-gradient-to-br from-card/95 via-blue-500/5 to-card/95 backdrop-blur-xl hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Academic pattern overlay */}
         <div className="absolute inset-0 opacity-[0.03] group-hover/card:opacity-[0.06] transition-opacity duration-500">
           <div className="absolute inset-0" style={{
@@ -83,39 +83,39 @@ const ResearchPaperCard = memo(function ResearchPaperCard({ item, index, feature
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
           {/* Academic badge with graduation cap */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg">
-                <GraduationCap className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg">
+                <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <Badge className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-0 px-3 py-1 text-xs font-semibold">
+              <Badge className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-0 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-semibold">
                 Research Paper
               </Badge>
             </div>
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-              <span className="text-sm font-bold text-foreground">{item.rating.toFixed(1)}</span>
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 fill-yellow-500" />
+              <span className="text-xs sm:text-sm font-bold text-foreground">{item.rating.toFixed(1)}</span>
             </div>
           </div>
 
           {/* Title with academic styling */}
-          <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground leading-tight line-clamp-2 group-hover/card:text-blue-600 transition-colors duration-300">
+          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 text-foreground leading-tight line-clamp-2 group-hover/card:text-blue-600 transition-colors duration-300">
             {item.title}
           </h3>
 
           {/* Abstract/Description */}
           <div className="relative">
-            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 group-hover/card:text-foreground/80 transition-colors duration-300">
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-3 group-hover/card:text-foreground/80 transition-colors duration-300">
               {item.description}
             </p>
             {/* Academic quote marks effect */}
-            <div className="absolute -top-2 -left-2 text-blue-500/20 text-4xl font-serif">"</div>
+            <div className="absolute -top-2 -left-2 text-blue-500/20 text-2xl sm:text-4xl font-serif hidden sm:block">"</div>
           </div>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Research tags with academic styling */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -208,7 +208,7 @@ const CaseStudyCard = memo(function CaseStudyCard({ item, index, featured }: Sec
       {/* Professional business glow */}
       <div className="absolute -inset-2 bg-gradient-to-br from-purple-600 via-pink-500 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-purple-500/30 bg-gradient-to-br from-card/95 via-purple-500/5 to-card/95 backdrop-blur-xl hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[480px] border-2 border-purple-500/30 bg-gradient-to-br from-card/95 via-purple-500/5 to-card/95 backdrop-blur-xl hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Business chart pattern */}
         <div className="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -231,7 +231,7 @@ const CaseStudyCard = memo(function CaseStudyCard({ item, index, featured }: Sec
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
           {/* Business badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -257,7 +257,7 @@ const CaseStudyCard = memo(function CaseStudyCard({ item, index, featured }: Sec
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Business tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -346,7 +346,7 @@ const BlogCard = memo(function BlogCard({ item, index, featured }: SectionSpecif
       {/* Vibrant blog glow */}
       <div className="absolute -inset-2 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-green-500/30 bg-gradient-to-br from-card/95 via-green-500/5 to-card/95 backdrop-blur-xl hover:border-green-500/60 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[480px] border-2 border-green-500/30 bg-gradient-to-br from-card/95 via-green-500/5 to-card/95 backdrop-blur-xl hover:border-green-500/60 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Blog pattern - modern dots */}
         <div className="absolute inset-0 opacity-[0.03] group-hover/card:opacity-[0.06] transition-opacity duration-500">
           <div className="absolute inset-0" style={{
@@ -369,7 +369,7 @@ const BlogCard = memo(function BlogCard({ item, index, featured }: SectionSpecif
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
           {/* Blog badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -395,7 +395,7 @@ const BlogCard = memo(function BlogCard({ item, index, featured }: SectionSpecif
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Blog tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -486,7 +486,7 @@ const ArticleCard = memo(function ArticleCard({ item, index, featured }: Section
       {/* Technical glow */}
       <div className="absolute -inset-2 bg-gradient-to-br from-orange-500 via-red-500 to-orange-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-orange-500/30 bg-gradient-to-br from-card/95 via-orange-500/5 to-card/95 backdrop-blur-xl hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[480px] border-2 border-orange-500/30 bg-gradient-to-br from-card/95 via-orange-500/5 to-card/95 backdrop-blur-xl hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Code pattern overlay */}
         <div className="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500 font-mono text-xs">
           <div className="absolute top-4 left-4">const</div>
@@ -510,7 +510,7 @@ const ArticleCard = memo(function ArticleCard({ item, index, featured }: Section
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
           {/* Technical badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -536,7 +536,7 @@ const ArticleCard = memo(function ArticleCard({ item, index, featured }: Section
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Technical tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -625,7 +625,7 @@ const BookCard = memo(function BookCard({ item, index, featured }: SectionSpecif
       {/* Elegant book glow */}
       <div className="absolute -inset-2 bg-gradient-to-br from-indigo-600 via-purple-500 to-indigo-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-indigo-500/30 bg-gradient-to-br from-card/95 via-indigo-500/5 to-card/95 backdrop-blur-xl hover:border-indigo-500/60 hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[480px] border-2 border-indigo-500/30 bg-gradient-to-br from-card/95 via-indigo-500/5 to-card/95 backdrop-blur-xl hover:border-indigo-500/60 hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Book pages pattern */}
         <div className="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500">
           <div className="absolute inset-0" style={{
@@ -648,7 +648,7 @@ const BookCard = memo(function BookCard({ item, index, featured }: SectionSpecif
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0 pl-10">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0 pl-6 sm:pl-10">
           {/* Book badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -674,7 +674,7 @@ const BookCard = memo(function BookCard({ item, index, featured }: SectionSpecif
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Book tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -763,7 +763,7 @@ const IndustrySolutionCard = memo(function IndustrySolutionCard({ item, index, f
       {/* Enterprise glow */}
       <div className="absolute -inset-2 bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-700 -z-10" />
 
-      <Card className="relative h-full min-h-[480px] border-2 border-teal-500/30 bg-gradient-to-br from-card/95 via-teal-500/5 to-card/95 backdrop-blur-xl hover:border-teal-500/60 hover:shadow-2xl hover:shadow-teal-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
+      <Card className="relative h-full min-h-[400px] sm:min-h-[480px] border-2 border-teal-500/30 bg-gradient-to-br from-card/95 via-teal-500/5 to-card/95 backdrop-blur-xl hover:border-teal-500/60 hover:shadow-2xl hover:shadow-teal-500/30 transition-all duration-700 overflow-hidden group/card flex flex-col">
         {/* Enterprise grid pattern */}
         <div className="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500">
           <div className="absolute inset-0" style={{
@@ -789,7 +789,7 @@ const IndustrySolutionCard = memo(function IndustrySolutionCard({ item, index, f
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -z-0"
         />
 
-        <CardHeader className="relative z-10 p-6 pb-4 flex-shrink-0">
+        <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
           {/* Enterprise badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -815,7 +815,7 @@ const IndustrySolutionCard = memo(function IndustrySolutionCard({ item, index, f
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-6 pt-4 flex-1 flex flex-col justify-between">
+        <CardContent className="relative z-10 p-4 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
           {/* Solution tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {item.tags.slice(0, 3).map((tag, tagIndex) => (

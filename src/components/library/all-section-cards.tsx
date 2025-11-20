@@ -108,7 +108,7 @@ const AllResearchPaperCard = memo(function AllResearchPaperCard({ item, index }:
         {/* Minimalist top accent */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent opacity-50" />
 
-        <CardHeader className="relative z-10 p-5 pb-3">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -128,16 +128,16 @@ const AllResearchPaperCard = memo(function AllResearchPaperCard({ item, index }:
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-blue-400 transition-colors duration-300 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-blue-400 transition-colors duration-300 mb-2">
             {item.title}
           </h3>
 
-          <p className="text-xs text-muted-foreground/80 leading-relaxed line-clamp-2">
+          <p className="text-[11px] sm:text-xs text-muted-foreground/80 leading-relaxed line-clamp-2">
             {item.description}
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-5 pt-3 space-y-4">
+        <CardContent className="relative z-10 p-3 sm:p-4 md:p-5 pt-2 sm:pt-3 space-y-3 sm:space-y-4">
           {/* Compact tags */}
           <div className="flex flex-wrap gap-1.5">
             {item.tags.slice(0, 2).map((tag) => (
@@ -222,7 +222,7 @@ const AllCaseStudyCard = memo(function AllCaseStudyCard({ item, index }: AllSect
           </svg>
         </div>
 
-        <CardHeader className="relative z-10 p-5 pb-3">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -241,7 +241,7 @@ const AllCaseStudyCard = memo(function AllCaseStudyCard({ item, index }: AllSect
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-purple-400 transition-colors duration-300 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-purple-400 transition-colors duration-300 mb-2">
             {item.title}
           </h3>
 
@@ -250,7 +250,7 @@ const AllCaseStudyCard = memo(function AllCaseStudyCard({ item, index }: AllSect
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-5 pt-3 space-y-4">
+        <CardContent className="relative z-10 p-3 sm:p-4 md:p-5 pt-2 sm:pt-3 space-y-3 sm:space-y-4">
           <div className="flex flex-wrap gap-1.5">
             {item.tags.slice(0, 2).map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-purple-500/20 text-purple-400/70 bg-purple-500/5">
@@ -318,7 +318,7 @@ const AllBlogCard = memo(function AllBlogCard({ item, index }: AllSectionCardPro
         {/* Top vibrant stripe */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500/30 to-transparent opacity-50" />
 
-        <CardHeader className="relative z-10 p-5 pb-3">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -338,7 +338,7 @@ const AllBlogCard = memo(function AllBlogCard({ item, index }: AllSectionCardPro
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-green-400 transition-colors duration-300 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-green-400 transition-colors duration-300 mb-2">
             {item.title}
           </h3>
 
@@ -347,7 +347,7 @@ const AllBlogCard = memo(function AllBlogCard({ item, index }: AllSectionCardPro
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-5 pt-3 space-y-4">
+        <CardContent className="relative z-10 p-3 sm:p-4 md:p-5 pt-2 sm:pt-3 space-y-3 sm:space-y-4">
           <div className="flex flex-wrap gap-1.5">
             {item.tags.slice(0, 2).map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-green-500/20 text-green-400/70 bg-green-500/5 rounded-full">
@@ -422,7 +422,7 @@ const AllArticleCard = memo(function AllArticleCard({ item, index }: AllSectionC
           {'}'}
         </div>
 
-        <CardHeader className="relative z-10 p-5 pb-3">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -442,7 +442,7 @@ const AllArticleCard = memo(function AllArticleCard({ item, index }: AllSectionC
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-orange-400 transition-colors duration-300 mb-2 font-mono">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-orange-400 transition-colors duration-300 mb-2 font-mono">
             {item.title}
           </h3>
 
@@ -451,7 +451,7 @@ const AllArticleCard = memo(function AllArticleCard({ item, index }: AllSectionC
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-5 pt-3 space-y-4">
+        <CardContent className="relative z-10 p-3 sm:p-4 md:p-5 pt-2 sm:pt-3 space-y-3 sm:space-y-4">
           <div className="flex flex-wrap gap-1.5">
             {item.tags.slice(0, 2).map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-orange-500/20 text-orange-400/70 bg-orange-500/5 font-mono">
@@ -530,7 +530,7 @@ const AllBookCard = memo(function AllBookCard({ item, index }: AllSectionCardPro
           ))}
         </div>
 
-        <CardHeader className="relative z-10 p-5 pb-3 pl-6">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3 pl-4 sm:pl-6">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -550,7 +550,7 @@ const AllBookCard = memo(function AllBookCard({ item, index }: AllSectionCardPro
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-indigo-400 transition-colors duration-300 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-indigo-400 transition-colors duration-300 mb-2">
             {item.title}
           </h3>
 
@@ -638,7 +638,7 @@ const AllIndustrySolutionCard = memo(function AllIndustrySolutionCard({ item, in
         {/* Top enterprise bar */}
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-teal-500/30 to-transparent opacity-50" />
 
-        <CardHeader className="relative z-10 p-5 pb-3">
+        <CardHeader className="relative z-10 p-3 sm:p-4 md:p-5 pb-2 sm:pb-3">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5">
               <motion.div
@@ -658,7 +658,7 @@ const AllIndustrySolutionCard = memo(function AllIndustrySolutionCard({ item, in
             </div>
           </div>
 
-          <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-teal-400 transition-colors duration-300 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground leading-tight line-clamp-2 group-hover/card:text-teal-400 transition-colors duration-300 mb-2">
             {item.title}
           </h3>
 
@@ -667,7 +667,7 @@ const AllIndustrySolutionCard = memo(function AllIndustrySolutionCard({ item, in
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10 p-5 pt-3 space-y-4">
+        <CardContent className="relative z-10 p-3 sm:p-4 md:p-5 pt-2 sm:pt-3 space-y-3 sm:space-y-4">
           <div className="flex flex-wrap gap-1.5">
             {item.tags.slice(0, 2).map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-teal-500/20 text-teal-400/70 bg-teal-500/5">

@@ -558,11 +558,11 @@ export function UpcomingEvents() {
                                         damping: 20 
                                     }}
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <Calendar className="w-5 h-5" />
-                                        <span>View All Events</span>
+                                    <div className="flex items-center gap-3 whitespace-nowrap">
+                                        <Calendar className="w-5 h-5 flex-shrink-0" />
+                                        <span className="whitespace-nowrap">View All Events</span>
                                         <motion.div
-                                            className="group-hover:translate-x-1 transition-transform duration-200"
+                                            className="group-hover:translate-x-1 transition-transform duration-200 flex-shrink-0"
                                         >
                                             <ArrowRight className="w-5 h-5" />
                                         </motion.div>

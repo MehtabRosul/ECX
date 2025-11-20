@@ -159,11 +159,11 @@ export function Faq() {
                         }}
                         viewport={{ once: true }}
                     >
-                        <span className="bg-gradient-to-r from-white via-blue-200 to-violet-200 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-violet-300 sm:from-white sm:via-blue-200 sm:to-violet-200 bg-clip-text text-transparent">
                             Frequently Asked
                         </span>
                         <br />
-                        <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 sm:from-blue-400 sm:via-violet-400 sm:to-purple-400 bg-clip-text text-transparent">
                             Questions
                         </span>
                     </motion.h2>

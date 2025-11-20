@@ -90,7 +90,7 @@ export function ConsultancyAdvisorySection() {
 						<span className="text-sm font-medium text-muted-foreground">Strategic Excellence</span>
 					</div>
 					
-					<h2 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
+					<h2 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 sm:from-white sm:via-white sm:to-white/80 bg-clip-text text-transparent">
 						Consultancy & Strategic Advisory
 					</h2>
 					

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function LibraryParticlesBackground({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -8,8 +8,21 @@ export function LibraryParticlesBackground({ className = "" }: { className?: str
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const particlesRef = useRef<any[]>([]);
   const flowFieldRef = useRef<number[][]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Disable particles on mobile to prevent glitching
+    if (isMobile) return;
+    
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -210,8 +223,9 @@ export function LibraryParticlesBackground({ className = "" }: { className?: str
       particlesRef.current = [];
       const isMobile = window.innerWidth < 768;
       const isTablet = window.innerWidth < 1024;
-      const baseCount = isMobile ? 120 : isTablet ? 250 : 400;
-      const particleCount = Math.min(baseCount, Math.floor((canvasWidth * canvasHeight) / (isMobile ? 6000 : 3500)));
+      // Significantly reduce particles on mobile to prevent glitching
+      const baseCount = isMobile ? 30 : isTablet ? 150 : 400;
+      const particleCount = Math.min(baseCount, Math.floor((canvasWidth * canvasHeight) / (isMobile ? 12000 : 3500)));
       
       for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push(new Particle(canvasWidth, canvasHeight));
@@ -264,7 +278,8 @@ export function LibraryParticlesBackground({ className = "" }: { className?: str
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      if (frameCount % 2 === 0) {
+      // Update flow field less frequently for better performance
+      if (frameCount % 4 === 0) {
         updateFlowField();
       }
 
@@ -298,7 +313,12 @@ export function LibraryParticlesBackground({ className = "" }: { className?: str
         clearTimeout(mouseMoveTimeout);
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  // Don't render canvas on mobile to prevent glitching
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <div className={`absolute inset-0 z-0 overflow-hidden pointer-events-none ${className}`}>
@@ -307,8 +327,6 @@ export function LibraryParticlesBackground({ className = "" }: { className?: str
         className="absolute inset-0 w-full h-full"
         style={{ 
           background: 'transparent',
-          willChange: 'contents',
-          transform: 'translateZ(0)'
         }}
       />
     </div>

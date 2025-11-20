@@ -51,7 +51,6 @@ const StatCard = memo(({
         damping: 20
       }}
       className="relative"
-      style={{ willChange: 'transform, opacity' }}
     >
       {/* Card container */}
       <div className="relative h-[130px] md:h-[140px] w-full rounded-xl md:rounded-2xl border border-white/10 bg-gradient-to-br from-card/40 via-card/30 to-card/40 backdrop-blur-xl overflow-hidden shadow-lg shadow-black/5">
@@ -93,7 +92,18 @@ StatCard.displayName = 'StatCard';
 
 export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBannerProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Check if mobile on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Calculate impressive stats
   const stats = useMemo(() => {
@@ -174,10 +184,10 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
       {/* Sophisticated background layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       
-      {/* Animated mesh gradient background */}
+      {/* Animated mesh gradient background - Static on mobile */}
       <motion.div
         animate={{
-          backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+          backgroundPosition: isMobile ? undefined : ['0% 0%', '100% 100%', '0% 0%'],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-0 opacity-30"
@@ -191,8 +201,8 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
         }}
       />
 
-      {/* Floating orbs with unique movement */}
-      {[...Array(6)].map((_, i) => (
+      {/* Floating orbs with unique movement - Reduced on mobile */}
+      {[...Array(isMobile ? 2 : 6)].map((_, i) => (
         <motion.div
           key={i}
           animate={{
@@ -215,7 +225,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
             ease: 'easeInOut',
             delay: i * 0.8,
           }}
-          className="absolute w-64 h-64 rounded-full blur-3xl pointer-events-none"
+          className="absolute w-64 h-64 rounded-full blur-3xl pointer-events-none hidden md:block"
           style={{
             background: `radial-gradient(circle, ${
               ['rgba(59, 130, 246, 0.3)', 'rgba(139, 92, 246, 0.3)', 'rgba(34, 211, 238, 0.3)', 'rgba(16, 185, 129, 0.3)', 'rgba(245, 158, 11, 0.3)', 'rgba(236, 72, 153, 0.3)'][i]
@@ -231,22 +241,23 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
-          style={{ willChange: 'transform, opacity' }}
         >
           {/* Main card with glassmorphism */}
           <div className="relative rounded-2xl md:rounded-3xl border border-white/10 bg-gradient-to-br from-card/50 via-card/30 to-card/50 backdrop-blur-2xl overflow-hidden p-4 md:p-5 lg:p-6 shadow-2xl">
-            {/* Animated border glow */}
+            {/* Animated border glow - Static on mobile */}
               <motion.div
               animate={{
                 opacity: [0.2, 0.4, 0.2],
                 scale: [1, 1.02, 1],
               }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 via-cyan-500/20 via-purple-500/20 to-primary/20 pointer-events-none"
-              style={{ willChange: 'transform, opacity' }}
+              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 via-cyan-500/20 via-purple-500/20 to-primary/20 pointer-events-none md:opacity-30"
+              style={{ 
+                opacity: isMobile ? 0.2 : undefined
+              }}
             />
 
-            {/* Rotating radial light from center */}
+            {/* Rotating radial light from center - Disabled on mobile */}
             <motion.div
                 animate={{
                 rotate: [0, 360],
@@ -256,15 +267,14 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 repeat: Infinity,
                 ease: 'linear',
               }}
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none hidden md:block"
                 style={{
                 background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(59, 130, 246, 0.15) 60deg, rgba(139, 92, 246, 0.2) 120deg, rgba(34, 211, 238, 0.15) 180deg, transparent 240deg, rgba(16, 185, 129, 0.12) 300deg, transparent 360deg)',
                 transformOrigin: 'center center',
-                willChange: 'transform',
               }}
             />
 
-            {/* Expanding radial pulse from center */}
+            {/* Expanding radial pulse from center - Disabled on mobile */}
             <motion.div
               animate={{
                 scale: [0.8, 1.5, 0.8],
@@ -275,15 +285,14 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none hidden md:block"
               style={{
                 background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.15), transparent 70%)',
                 transformOrigin: 'center center',
-                willChange: 'transform, opacity',
               }}
             />
 
-            {/* Secondary expanding pulse */}
+            {/* Secondary expanding pulse - Disabled on mobile */}
             <motion.div
               animate={{
                 scale: [1, 1.8, 1],
@@ -295,15 +304,14 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 ease: 'easeInOut',
                 delay: 2,
               }}
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none hidden md:block"
               style={{
                 background: 'radial-gradient(circle at center, rgba(34, 211, 238, 0.18), rgba(16, 185, 129, 0.12), transparent 65%)',
                 transformOrigin: 'center center',
-                willChange: 'transform, opacity',
               }}
             />
 
-            {/* Diagonal light sweeps from corners */}
+            {/* Diagonal light sweeps from corners - Disabled on mobile */}
                 <motion.div
                   animate={{
                 rotate: [0, 360],
@@ -314,7 +322,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 repeat: Infinity,
                 ease: 'linear',
               }}
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none hidden md:block"
               style={{
                 background: 'linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.12) 50%, transparent 70%)',
                 width: '150%',
@@ -322,11 +330,10 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 left: '-25%',
                 top: '-25%',
                 transformOrigin: 'center center',
-                willChange: 'transform',
               }}
             />
 
-            {/* Counter-rotating diagonal light */}
+            {/* Counter-rotating diagonal light - Disabled on mobile */}
                   <motion.div
                     animate={{
                 rotate: [360, 0],
@@ -338,7 +345,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 ease: 'linear',
                 delay: 1,
               }}
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none hidden md:block"
               style={{
                 background: 'linear-gradient(-45deg, transparent 30%, rgba(59, 130, 246, 0.1) 50%, transparent 70%)',
                 width: '150%',
@@ -346,11 +353,10 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 left: '-25%',
                 top: '-25%',
                 transformOrigin: 'center center',
-                willChange: 'transform',
               }}
             />
 
-            {/* Pulsing corner lights */}
+            {/* Pulsing corner lights - Disabled on mobile */}
             {[
               { position: 'top-0 left-0', color: 'rgba(59, 130, 246, 0.25)', delay: 0, borderRadius: '0 0 100% 0' },
               { position: 'top-0 right-0', color: 'rgba(139, 92, 246, 0.25)', delay: 1, borderRadius: '0 0 0 100%' },
@@ -369,11 +375,10 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                   ease: 'easeInOut',
                   delay: corner.delay,
                 }}
-                className={`absolute ${corner.position} w-40 h-40 pointer-events-none`}
+                className={`absolute ${corner.position} w-40 h-40 pointer-events-none hidden md:block`}
                 style={{
                   background: `radial-gradient(circle, ${corner.color}, transparent)`,
                   borderRadius: corner.borderRadius,
-                  willChange: 'transform, opacity',
                 }}
               />
             ))}
@@ -408,7 +413,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                   transition={{ duration: 0.8, delay: 0.3 }}
                   className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
                 >
-                  <span className="bg-gradient-to-r from-primary via-cyan-400 via-purple-400 to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[shimmer_3s_ease-in-out_infinite]">
+                  <span className="bg-gradient-to-r from-primary via-cyan-400 via-purple-400 to-primary bg-clip-text text-transparent bg-[length:200%_auto] md:animate-[shimmer_3s_ease-in-out_infinite]">
                   A Universe of Knowledge Awaits
                   </span>
                 </motion.h2>
@@ -423,7 +428,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                   <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                     Explore{' '}
                     <motion.span
-                      animate={isVisible ? {
+                      animate={isVisible && !isMobile ? {
                         color: ['rgb(59, 130, 246)', 'rgb(34, 211, 238)', 'rgb(59, 130, 246)'],
                       } : {}}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -433,7 +438,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                     </motion.span>{' '}
                     curated resources ·{' '}
                     <motion.span
-                      animate={isVisible ? {
+                      animate={isVisible && !isMobile ? {
                         color: ['rgb(16, 185, 129)', 'rgb(34, 211, 238)', 'rgb(16, 185, 129)'],
                       } : {}}
                       transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
@@ -443,7 +448,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                     </motion.span>{' '}
                     insights ·{' '}
                     <motion.span
-                      animate={isVisible ? {
+                      animate={isVisible && !isMobile ? {
                         color: ['rgb(139, 92, 246)', 'rgb(236, 72, 153)', 'rgb(139, 92, 246)'],
                       } : {}}
                       transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
@@ -489,7 +494,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 className="text-center space-y-2 pt-1"
               >
                 <motion.div
-                  animate={isVisible ? {
+                  animate={isVisible && !isMobile ? {
                     opacity: [0.8, 1, 0.8],
                   } : {}}
                   transition={{ duration: 3, repeat: Infinity }}
@@ -503,7 +508,7 @@ export function LibraryPromotionalBanner({ libraryItems }: LibraryPromotionalBan
                 </motion.div>
                 
                 <motion.p
-                  animate={isVisible ? {
+                  animate={isVisible && !isMobile ? {
                     opacity: [0.6, 0.9, 0.6],
                   } : {}}
                   transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}

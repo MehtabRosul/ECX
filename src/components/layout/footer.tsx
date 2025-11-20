@@ -98,9 +98,11 @@ export function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
 
   return (
-    <footer className="border-t border-border/40">
+    <footer className="border-t border-border/40 relative z-20">
+      {/* Background overlay to cover page animations */}
+      <div className="absolute inset-0 bg-gray-900 -z-0" />
       {/* Top Section - Light Gray */}
-      <div className="bg-gray-900/50">
+      <div className="bg-gray-900 relative z-10">
         <div className="container mx-auto px-4 py-24">
           {/* Main Footer Content */}
           <div className="flex flex-col lg:flex-row items-start justify-center gap-12 max-w-7xl mx-auto">
@@ -188,7 +190,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Section - Dark Black */}
-      <div className="bg-black">
+      <div className="bg-black relative z-10">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-center gap-6 text-sm text-foreground/60 max-w-4xl mx-auto">
             <p className="text-center">&copy; {new Date().getFullYear()} ECX, LLP. All rights reserved. | Empowering secure digital futures through advanced cryptography.</p>

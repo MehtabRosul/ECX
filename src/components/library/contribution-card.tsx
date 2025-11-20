@@ -96,19 +96,19 @@ export const ContributionCard = memo(function ContributionCard({ type }: Contrib
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/5 to-transparent rounded-tr-full" />
 
         {!isExpanded ? (
-          <CardContent className="relative z-10 p-8">
-            <div className="flex items-center justify-between gap-6 flex-wrap">
-              <div className="flex items-center gap-4 flex-1 min-w-[250px]">
+          <CardContent className="relative z-10 p-4 sm:p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1 w-full sm:w-auto min-w-0">
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                   transition={{ duration: 0.5 }}
-                  className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-lg flex-shrink-0`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${config.color} flex items-center justify-center shadow-lg flex-shrink-0`}
                 >
-                  <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
                 </motion.div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-1">Want to Contribute?</h3>
-                  <p className="text-muted-foreground">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 break-words">Want to Contribute?</h3>
+                  <p className="text-muted-foreground text-sm sm:text-base">
                     Share your {config.label.toLowerCase()} with our community
                   </p>
                 </div>
@@ -116,14 +116,15 @@ export const ContributionCard = memo(function ContributionCard({ type }: Contrib
               <motion.div
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Button
                   onClick={() => setIsExpanded(true)}
-                  className={`bg-gradient-to-r ${config.color} text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 px-8`}
+                  className={`w-full sm:w-auto bg-gradient-to-r ${config.color} text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 px-6 sm:px-8 text-sm sm:text-base`}
                 >
-                  <Sparkles className="w-4 h-4 mr-2" />
+                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                   Get Started
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
                 </Button>
               </motion.div>
             </div>

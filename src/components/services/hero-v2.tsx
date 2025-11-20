@@ -11,12 +11,16 @@ export function ServicesHero() {
 	const isMobile = useIsMobile();
 
 	useEffect(() => {
-		// Wait for DOM to be ready
+		// Wait for DOM to be ready - use requestIdleCallback for better performance
 		const initDots = () => {
 			const container = document.getElementById('animated-dots');
 			if (!container) {
-				// Retry if container not found yet
-				requestAnimationFrame(initDots);
+				// Retry if container not found yet, but limit retries
+				if (typeof window !== 'undefined' && window.requestIdleCallback) {
+					window.requestIdleCallback(initDots, { timeout: 1000 });
+				} else {
+					setTimeout(initDots, 50);
+				}
 				return;
 			}
 
@@ -25,6 +29,9 @@ export function ServicesHero() {
 
 		// Create enhanced animated dot pattern (reduced on mobile for performance)
 		const dotCount = isMobile ? 80 : 200;
+		
+		// Use DocumentFragment for better performance
+		const fragment = document.createDocumentFragment();
 		for (let i = 0; i < dotCount; i++) {
 			const dot = document.createElement('div');
 			const size = Math.random() * 8 + 3;
@@ -46,11 +53,11 @@ export function ServicesHero() {
 				opacity: 0.4;
 				animation: floatDot ${duration}s ease-in-out infinite;
 				animation-delay: ${delay}s;
-				will-change: transform, opacity;
 			`;
 
-			container.appendChild(dot);
+			fragment.appendChild(dot);
 		}
+		container.appendChild(fragment);
 
 		// Add CSS for float animation (only if not already added)
 		if (!document.getElementById('float-dot-animation-style')) {
@@ -80,13 +87,27 @@ export function ServicesHero() {
 		}
 		};
 
-		// Initialize with a small delay to ensure DOM is ready
-		const timeoutId = setTimeout(() => {
-			initDots();
-		}, 0);
+		// Initialize dots after page is interactive, but don't block rendering
+		if (typeof window !== 'undefined') {
+			if (document.readyState === 'complete') {
+				// Use requestIdleCallback if available for non-blocking initialization
+				if (window.requestIdleCallback) {
+					window.requestIdleCallback(initDots, { timeout: 2000 });
+				} else {
+					setTimeout(initDots, 100);
+				}
+			} else {
+				window.addEventListener('load', () => {
+					if (window.requestIdleCallback) {
+						window.requestIdleCallback(initDots, { timeout: 2000 });
+					} else {
+						setTimeout(initDots, 100);
+					}
+				}, { once: true });
+			}
+		}
 
 		return () => {
-			clearTimeout(timeoutId);
 			const container = document.getElementById('animated-dots');
 			if (container) {
 				container.innerHTML = '';
@@ -95,13 +116,13 @@ export function ServicesHero() {
 	}, [isMobile]);
 
 	return (
-		<section className="relative py-20 sm:py-32 md:py-40 overflow-hidden">
+		<section className="relative py-20 sm:py-32 md:py-40 overflow-hidden min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
 			{/* Background Effects */}
 			<div ref={dotsRef} />
 			
 			<div className="absolute inset-0 overflow-hidden">
 				<motion.div
-					className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] will-change-transform"
+					className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]"
 					animate={{
 						x: [0, 100, 0],
 						y: [0, -100, 0],
@@ -114,7 +135,7 @@ export function ServicesHero() {
 					}}
 				/>
 				<motion.div
-					className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px] will-change-transform"
+					className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px]"
 					animate={{
 						x: [0, -100, 0],
 						y: [0, 100, 0],
@@ -131,9 +152,9 @@ export function ServicesHero() {
 			<div className="container relative z-10">
 				<div className="max-w-4xl mx-auto text-center">
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 1, y: 0 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						transition={{ duration: 0.3 }}
 						className="mb-6 inline-flex items-center gap-2"
 					>
 						<Sparkles className="w-5 h-5 text-primary" />
@@ -141,9 +162,9 @@ export function ServicesHero() {
 					</motion.div>
 
 					<motion.h1
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 1, y: 0 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.1 }}
+						transition={{ duration: 0.3 }}
 						className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
 					>
 						Enterprise Security
@@ -154,18 +175,18 @@ export function ServicesHero() {
 					</motion.h1>
 
 					<motion.p
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 1, y: 0 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.2 }}
+						transition={{ duration: 0.3 }}
 						className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
 					>
 						EncryptArx delivers end-to-end engineering, research-backed solutions, and operationalized security. We assess, design, deliver, and operationalize your infrastructure.
 					</motion.p>
 
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 1, y: 0 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.3 }}
+						transition={{ duration: 0.3 }}
 						className="flex flex-col sm:flex-row items-center justify-center gap-4"
 					>
 						<GradientButton asChild size="lg">

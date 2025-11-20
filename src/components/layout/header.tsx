@@ -136,20 +136,20 @@ export function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-xl border-l border-border/50 shadow-2xl">
+              <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-xl border-l border-border/50 shadow-2xl overflow-y-auto">
                 <SheetHeader className="sr-only">
                   <SheetTitle>Site navigation</SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col min-h-full">
                   {/* Header with Logo */}
-                  <div className="flex items-center justify-between p-6 border-b border-border/20">
+                  <div className="flex items-center justify-between p-6 border-b border-border/20 flex-shrink-0">
                     <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
                       <Logo />
                     </Link>
                   </div>
                   
                   {/* Navigation Links */}
-                  <nav className="flex-1 px-6 py-8 bg-gradient-to-b from-transparent via-background/30 to-transparent">
+                  <nav className="flex-1 px-6 py-8 bg-gradient-to-b from-transparent via-background/30 to-transparent min-h-0">
                     <div className="space-y-1">
                       {navLinks.map((link) => (
                         <NavLink
@@ -165,7 +165,7 @@ export function Header() {
                   </nav>
                   
                   {/* Cyra Button - Mobile Only */}
-                  <div className="px-6 pb-6 border-t border-border/20 pt-6">
+                  <div className="px-6 pb-6 border-t border-border/20 pt-6 flex-shrink-0">
                     <ChatbotToggle
                       className="w-auto mx-auto [&>div]:rounded-3xl [&>div>button]:rounded-3xl [&>div>button]:px-3"
                       enabled={!authLoading && !!user}
@@ -177,7 +177,7 @@ export function Header() {
                   </div>
                   
                   {/* Mobile Auth Buttons */}
-                  <div className="p-6 border-t border-border/20">
+                  <div className="p-6 border-t border-border/20 pb-8 flex-shrink-0">
                     {authLoading ? (
                       <div className="flex items-center space-x-3 p-4 bg-background/80 backdrop-blur-sm border border-border/20 rounded-xl">
                         <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
