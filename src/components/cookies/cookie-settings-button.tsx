@@ -23,7 +23,7 @@ export function CookieSettingsButton() {
     // Wait for auth to finish loading
     if (authLoading) return;
 
-    // If user is logged in, fade out after 10 seconds
+    // If user is logged in and consent is given, fade out after 10 seconds
     if (user && consentGiven) {
       if (!hasFadedOut) {
         const timer = setTimeout(() => {
@@ -35,8 +35,9 @@ export function CookieSettingsButton() {
       }
     }
 
-    // If user is not logged in, always show the button (no fade out)
-    if (!user && consentGiven) {
+    // If user is not logged in, always show the button (whether consent is given or not)
+    // This allows non-logged-in users to manage cookies even if they haven't given consent
+    if (!user) {
       setVisible(true);
       setHasFadedOut(false);
     }
@@ -44,14 +45,16 @@ export function CookieSettingsButton() {
 
   // Reset fade-out state when auth state changes or page refreshes
   useEffect(() => {
-    if (consentGiven) {
-      // Reset visibility when user state changes
+    if (consentGiven || !user) {
+      // Reset visibility when user state changes or for non-logged-in users
       setHasFadedOut(false);
       setVisible(true);
     }
   }, [user, consentGiven]);
 
-  if (!consentGiven) return null;
+  // For logged-in users, only show if consent is given
+  // For non-logged-in users, always show (so they can manage cookies)
+  if (user && !consentGiven) return null;
 
   // If auth is still loading, don't show yet
   if (authLoading) return null;

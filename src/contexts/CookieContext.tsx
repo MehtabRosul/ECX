@@ -184,7 +184,16 @@ export function CookieProvider({ children }: { children: ReactNode }) {
 
   const closePreferences = useCallback(() => {
     setShowPreferences(false);
-  }, []);
+    
+    // If consent hasn't been given, show the banner again after a short delay
+    // This ensures users can still manage their cookie preferences
+    if (!consentGiven) {
+      // Show banner again after 1 second delay to allow modal to close smoothly
+      setTimeout(() => {
+        setShowBanner(true);
+      }, 1000);
+    }
+  }, [consentGiven]);
 
   const resetConsent = useCallback(() => {
     Cookies.remove(COOKIE_CONSENT_KEY);
