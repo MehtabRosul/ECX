@@ -7,11 +7,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Loader2, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Eye, EyeOff } from "lucide-react";
 import dynamic from "next/dynamic";
 import { AboutShootingStars } from "@/components/about-shooting-stars";
+import { setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then(mod => ({ default: mod.DotLottieReact })), {
   ssr: false,
@@ -89,6 +92,13 @@ export default function LoginPage() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [recaptchaLoading, setRecaptchaLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('rememberMe') === 'true';
+    }
+    return false;
+  });
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
   const [lottieKey] = useState(() => Math.random());
 
   useEffect(() => {
@@ -167,6 +177,15 @@ export default function LoginPage() {
   const handleEmailLogin = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!privacyPolicyAccepted) {
+      toast({
+        title: "Privacy Policy Required",
+        description: "You must accept the Privacy Policy to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!ensureRecaptcha()) {
       return;
     }
@@ -188,6 +207,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Set persistence based on Remember Me checkbox
+      if (rememberMe) {
+        await setPersistence(auth, browserLocalPersistence);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        await setPersistence(auth, browserSessionPersistence);
+        localStorage.setItem('rememberMe', 'false');
+      }
+      
       await signInWithEmail(trimmedEmail, trimmedPassword);
 
       toast({
@@ -284,9 +312,18 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  }, [email, password, ensureRecaptcha, signInWithEmail, toast, router]);
+  }, [email, password, rememberMe, privacyPolicyAccepted, ensureRecaptcha, signInWithEmail, toast, router]);
 
   const handleGoogleSignIn = useCallback(async () => {
+    if (!privacyPolicyAccepted) {
+      toast({
+        title: "Privacy Policy Required",
+        description: "You must accept the Privacy Policy to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Check if reCAPTCHA is verified before proceeding
     if (!recaptchaVerified || !recaptchaToken) {
       toast({
@@ -299,6 +336,15 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
+      // Set persistence based on Remember Me checkbox
+      if (rememberMe) {
+        await setPersistence(auth, browserLocalPersistence);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        await setPersistence(auth, browserSessionPersistence);
+        localStorage.setItem('rememberMe', 'false');
+      }
+      
       await signInWithGoogle();
       toast({
         title: "Login Successful",
@@ -339,7 +385,7 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  }, [recaptchaVerified, recaptchaToken, signInWithGoogle, toast, router]);
+  }, [recaptchaVerified, recaptchaToken, rememberMe, privacyPolicyAccepted, signInWithGoogle, toast, router]);
 
   const renderRecaptchaBlock = useCallback(() => (
     <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-center backdrop-blur">
@@ -475,6 +521,25 @@ export default function LoginPage() {
               </div>
 
               <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="rememberMe"
+                    checked={rememberMe}
+                    onCheckedChange={(checked) => {
+                      setRememberMe(checked === true);
+                      if (typeof window !== 'undefined') {
+                        localStorage.setItem('rememberMe', checked === true ? 'true' : 'false');
+                      }
+                    }}
+                    className="border-white/30 data-[state=checked]:bg-indigo-500 data-[state=checked]:border-indigo-500"
+                  />
+                  <Label
+                    htmlFor="rememberMe"
+                    className="text-sm font-normal text-white/80 cursor-pointer hover:text-white transition-colors"
+                  >
+                    Remember me
+                  </Label>
+                </div>
                 <Link
                   href="/auth/forgot-password"
                   className="text-indigo-300 underline-offset-4 hover:underline"
@@ -488,7 +553,7 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 className="w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-blue-600 to-purple-500 py-3 text-base font-semibold text-white shadow-[0_10px_30px_rgba(79,70,229,0.45)] transition hover:brightness-110"
-                disabled={loading || !recaptchaVerified}
+                disabled={loading || !recaptchaVerified || !privacyPolicyAccepted}
               >
                 {loading ? (
                   <>
@@ -502,6 +567,31 @@ export default function LoginPage() {
                   </>
                 )}
               </Button>
+
+              {/* Privacy Policy Acceptance */}
+              <div className="flex items-start space-x-2 pt-2">
+                <Checkbox
+                  id="privacyPolicy"
+                  checked={privacyPolicyAccepted}
+                  onCheckedChange={(checked) => setPrivacyPolicyAccepted(checked === true)}
+                  className="mt-1 border-white/30 data-[state=checked]:bg-indigo-500 data-[state=checked]:border-indigo-500"
+                  required
+                />
+                <Label
+                  htmlFor="privacyPolicy"
+                  className="text-sm font-normal text-white/80 cursor-pointer hover:text-white transition-colors leading-relaxed"
+                >
+                  I accept the{" "}
+                  <Link
+                    href="/legal#privacy"
+                    target="_blank"
+                    className="text-indigo-300 underline-offset-4 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  {" "}and agree to the terms and conditions
+                </Label>
+              </div>
             </motion.form>
 
             <div className="relative my-8">
@@ -518,7 +608,7 @@ export default function LoginPage() {
               variant="outline"
               className="w-full rounded-2xl border-white/20 bg-white/5 py-3 text-white hover:bg-white/10"
               onClick={handleGoogleSignIn}
-              disabled={loading || !recaptchaVerified}
+              disabled={loading || !recaptchaVerified || !privacyPolicyAccepted}
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path

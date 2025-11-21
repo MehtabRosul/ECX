@@ -37,7 +37,8 @@ export function Faq() {
 
     return (
         <motion.section 
-            className="relative py-32 bg-gradient-to-br from-slate-900 via-black to-slate-900 overflow-hidden"
+            id="faq"
+            className="relative py-32 bg-gradient-to-br from-slate-900 via-black to-slate-900 overflow-hidden scroll-mt-20"
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ 

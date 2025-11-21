@@ -7,11 +7,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Loader2, Mail, Lock, User, Phone, MapPin, ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AboutShootingStars } from "@/components/about-shooting-stars";
+import { setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 type Particle = {
   id: number;
@@ -99,6 +102,13 @@ export default function RegisterPage() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('rememberMe') === 'true';
+    }
+    return false;
+  });
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     displayName: "",
     email: "",
@@ -152,6 +162,15 @@ export default function RegisterPage() {
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!privacyPolicyAccepted) {
+      toast({
+        title: "Privacy Policy Required",
+        description: "You must accept the Privacy Policy to create an account.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (formData.password !== formData.confirmPassword) {
       toast({
         title: "Password Mismatch",
@@ -190,6 +209,15 @@ export default function RegisterPage() {
       // But double-check it exists
       if (!recaptchaToken || !recaptchaVerified) {
         throw new Error("Please complete the reCAPTCHA verification");
+      }
+
+      // Set persistence based on Remember Me checkbox
+      if (rememberMe) {
+        await setPersistence(auth, browserLocalPersistence);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        await setPersistence(auth, browserSessionPersistence);
+        localStorage.setItem('rememberMe', 'false');
       }
 
       // Create account
@@ -244,9 +272,18 @@ export default function RegisterPage() {
     } finally {
       setLoading(false);
     }
-  }, [formData, allRequirementsMet, recaptchaVerified, recaptchaToken, signUpWithEmail, toast, router]);
+  }, [formData, allRequirementsMet, recaptchaVerified, recaptchaToken, rememberMe, privacyPolicyAccepted, signUpWithEmail, toast, router]);
 
   const handleGoogleSignUp = useCallback(async () => {
+    if (!privacyPolicyAccepted) {
+      toast({
+        title: "Privacy Policy Required",
+        description: "You must accept the Privacy Policy to create an account.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Check if reCAPTCHA is verified before proceeding
     if (!recaptchaVerified || !recaptchaToken) {
       toast({
@@ -259,6 +296,15 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
+      // Set persistence based on Remember Me checkbox
+      if (rememberMe) {
+        await setPersistence(auth, browserLocalPersistence);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        await setPersistence(auth, browserSessionPersistence);
+        localStorage.setItem('rememberMe', 'false');
+      }
+      
       await signInWithGoogle();
       toast({
         title: "Account Created Successfully",
@@ -295,7 +341,7 @@ export default function RegisterPage() {
     } finally {
       setLoading(false);
     }
-  }, [recaptchaVerified, recaptchaToken, signInWithGoogle, toast, router]);
+  }, [recaptchaVerified, recaptchaToken, rememberMe, privacyPolicyAccepted, signInWithGoogle, toast, router]);
 
   const updateFormField = useCallback((field: 'displayName' | 'email' | 'password' | 'confirmPassword' | 'phone' | 'countryCode' | 'gender', value: any) => {
     setFormData((prev: FormData) => ({ ...prev, [field]: value }));
@@ -633,6 +679,27 @@ export default function RegisterPage() {
               )}
             </div>
 
+            {/* Remember Me Checkbox */}
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="rememberMe"
+                checked={rememberMe}
+                onCheckedChange={(checked) => {
+                  setRememberMe(checked === true);
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('rememberMe', checked === true ? 'true' : 'false');
+                  }
+                }}
+                className="border-white/30 data-[state=checked]:bg-indigo-500 data-[state=checked]:border-indigo-500"
+              />
+              <Label
+                htmlFor="rememberMe"
+                className="text-sm font-normal text-white/80 cursor-pointer hover:text-white transition-colors"
+              >
+                Remember me
+              </Label>
+            </div>
+
             {/* reCAPTCHA Checkbox */}
             <div className="flex flex-col items-center py-4">
               <div className="flex justify-center min-h-[78px] items-center" id="recaptcha-container">
@@ -679,7 +746,7 @@ export default function RegisterPage() {
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={loading || !recaptchaVerified || !allRequirementsMet}
+              disabled={loading || !recaptchaVerified || !allRequirementsMet || !privacyPolicyAccepted}
             >
               {loading ? (
                 <>
@@ -693,6 +760,31 @@ export default function RegisterPage() {
                 </>
               )}
             </Button>
+
+            {/* Privacy Policy Acceptance */}
+            <div className="flex items-start space-x-2 pt-2">
+              <Checkbox
+                id="privacyPolicy"
+                checked={privacyPolicyAccepted}
+                onCheckedChange={(checked) => setPrivacyPolicyAccepted(checked === true)}
+                className="mt-1 border-white/30 data-[state=checked]:bg-indigo-500 data-[state=checked]:border-indigo-500"
+                required
+              />
+              <Label
+                htmlFor="privacyPolicy"
+                className="text-sm font-normal text-white/80 cursor-pointer hover:text-white transition-colors leading-relaxed"
+              >
+                I accept the{" "}
+                <Link
+                  href="/legal#privacy"
+                  target="_blank"
+                  className="text-indigo-300 underline-offset-4 hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+                {" "}and agree to the terms and conditions
+              </Label>
+            </div>
 			</form>
 
           <div className="relative my-8">
@@ -709,7 +801,7 @@ export default function RegisterPage() {
             variant="outline"
             className="w-full rounded-xl border-white/20 bg-white/5 py-3 text-white hover:bg-white/10"
             onClick={handleGoogleSignUp}
-            disabled={loading || !recaptchaVerified}
+            disabled={loading || !recaptchaVerified || !privacyPolicyAccepted}
           >
             <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
               <path

@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { CookieContext } from "@/contexts/CookieContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
-import { Loader2, User, Mail, Phone, MapPin, Save, LogOut, Pencil, X } from "lucide-react";
+import { Loader2, User, Mail, Phone, MapPin, Save, LogOut, Pencil, X, Cookie, Settings2, Shield } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserProfile } from "@/lib/dbHelpers";
@@ -16,7 +17,11 @@ import { UserProfile } from "@/lib/dbHelpers";
 export default function AccountPage() {
   const router = useRouter();
   const { user, profile, updateProfile, signOutUser, loading: authLoading } = useAuth();
+  const cookieContext = useContext(CookieContext);
   const { toast } = useToast();
+  
+  // Safely get openPreferences function, return null if context is not available (SSR)
+  const openPreferences = cookieContext?.openPreferences || (() => {});
   const [saving, setSaving] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -268,10 +273,46 @@ export default function AccountPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">Account Settings</h1>
-          <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
-            Manage your profile information and preferences
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">Account Settings</h1>
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Manage your profile information and preferences
+              </p>
+            </div>
+            
+            {/* Cookie Preferences Button - Creative Design */}
+            {cookieContext && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  onClick={openPreferences}
+                  className="group relative w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-3.5 bg-gradient-to-r from-primary via-cyan-500 to-purple-500 hover:from-primary/90 hover:via-cyan-500/90 hover:to-purple-500/90 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 overflow-hidden"
+                >
+                {/* Animated background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Content */}
+                <div className="relative z-10 flex items-center gap-2 sm:gap-3">
+                  <div className="relative">
+                    <Cookie className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-12 transition-transform duration-300" />
+                    <Shield className="absolute -top-1 -right-1 w-2.5 h-2.5 sm:w-3 sm:h-3 text-cyan-300 opacity-80" />
+                  </div>
+                  <span className="text-sm sm:text-base">Cookie Preferences</span>
+                  <Settings2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-90 transition-transform duration-300" />
+                </div>
+                
+                {/* Shine effect on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              </Button>
+            </motion.div>
+            )}
+          </div>
 
           <div className="bg-card border rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
             {/* Profile Picture Section - Gender Based Avatar */}

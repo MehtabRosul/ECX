@@ -3,10 +3,15 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ChatProvider } from '@/context/chat-context';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CookieProvider } from '@/contexts/CookieContext';
 import { Chatbot } from '@/components/chatbot/chatbot';
 import { MobileChatbot } from '@/components/chatbot/mobile-chatbot';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { CookieConsentBanner } from '@/components/cookies/cookie-consent-banner';
+import { CookiePreferencesModal } from '@/components/cookies/cookie-preferences-modal';
+import { CookieSettingsButton } from '@/components/cookies/cookie-settings-button';
+import { LoginPromptNotification } from '@/components/auth/login-prompt-notification';
 import Script from 'next/script';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -48,19 +53,27 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <AuthProvider>
-          <ChatProvider>
-            <Header />
-            {children}
-            <Footer />
-            {/* Desktop Chatbot - Only shows on screens 1280px and above */}
-            <div className="hidden xl:block">
-              <Chatbot />
-            </div>
-            {/* Mobile Chatbot - Only shows on screens below 1280px */}
-            <div className="xl:hidden">
-              <MobileChatbot />
-            </div>
-          </ChatProvider>
+          <CookieProvider>
+            <ChatProvider>
+              <Header />
+              {children}
+              <Footer />
+              {/* Cookie Consent System */}
+              <CookieConsentBanner />
+              <CookiePreferencesModal />
+              <CookieSettingsButton />
+              {/* Login Prompt Notification */}
+              <LoginPromptNotification />
+              {/* Desktop Chatbot - Only shows on screens 1280px and above */}
+              <div className="hidden xl:block">
+                <Chatbot />
+              </div>
+              {/* Mobile Chatbot - Only shows on screens below 1280px */}
+              <div className="xl:hidden">
+                <MobileChatbot />
+              </div>
+            </ChatProvider>
+          </CookieProvider>
         </AuthProvider>
         <Toaster />
         <SpeedInsights />

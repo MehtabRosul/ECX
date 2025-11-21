@@ -4,7 +4,7 @@
 import Logo from '@/components/logo';
 import { Github, Linkedin, Twitter, Instagram } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 const socialLinks = [
@@ -47,22 +47,22 @@ const footerSections = [
       { label: 'Terms & Conditions', href: '/legal#terms' },
       { label: 'Cookie Policy', href: '/legal#cookies' },
       { label: 'Compliance', href: '/security' },
-      { label: 'Our Team', href: '/about' },
-      { label: 'Leadership', href: '/about#leadership' },
-      { label: 'Investors', href: '/about' },
+      { label: 'Our Team', href: '/team' },
+      { label: 'Library', href: '/library' },
+      { label: 'R&D', href: '/rnd' },
     ],
   },
   {
     title: 'Features',
     links: [
-      { label: 'Cybersecurity', href: '/services' },
-      { label: 'Secure Development', href: '/services' },
-      { label: 'AI & ML Consultancy', href: '/services' },
-      { label: 'Tech Stack as a Service', href: '/services' },
-      { label: 'IT Consulting', href: '/services' },
-      { label: 'Blockchain', href: '/services' },
-      { label: 'Cloud Security', href: '/services' },
-      { label: 'Penetration Testing', href: '/services' },
+      { label: 'Cybersecurity', href: '/features/cybersecurity' },
+      { label: 'Secure Development', href: '/features/secure-development' },
+      { label: 'AI & ML Consultancy', href: '/features/ai-ml-consultancy' },
+      { label: 'Tech Stack as a Service', href: '/features/tech-stack-as-a-service' },
+      { label: 'IT Consulting', href: '/features/it-consulting' },
+      { label: 'Blockchain', href: '/features/blockchain' },
+      { label: 'Cloud Security', href: '/features/cloud-security' },
+      { label: 'Penetration Testing', href: '/features/penetration-testing' },
     ],
   },
   {
@@ -70,19 +70,19 @@ const footerSections = [
     links: [
       { label: 'Our Services', href: '/services' },
       { label: 'Our Products', href: '/products' },
-      { label: 'Resources', href: '/resources' },
+      { label: 'Resources', href: '/library' },
       { label: 'Testimonials', href: '/testimonials' },
-      { label: 'Our Partners', href: '/partners' },
-      { label: 'Case Studies', href: '/clients' },
-      { label: 'Portfolio', href: '/clients' },
-      { label: 'Success Stories', href: '/testimonials' },
+      { label: 'Our Papers', href: '/library#research-paper' },
+      { label: 'Case Studies', href: '/library#case-study' },
+      { label: 'Upcoming Events', href: '/events' },
+      { label: 'Success Stories', href: '/products#product-lifecycle' },
     ],
   },
   {
     title: 'Help Center',
     links: [
       { label: 'Support', href: '/contact' },
-      { label: 'FAQs', href: '/blog' },
+      { label: 'FAQs', href: '/#faq' },
       { label: 'Privacy & Security Policies', href: '/legal' },
       { label: 'Documentation', href: '/developer' },
       { label: 'API Reference', href: '/developer' },
@@ -96,6 +96,9 @@ const footerSections = [
 
 export function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
+  
+  // Memoize the current year to ensure consistent rendering between server and client
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <footer className="border-t border-border/40 relative z-20">
@@ -193,7 +196,7 @@ export function Footer() {
       <div className="bg-black relative z-10">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-center gap-6 text-sm text-foreground/60 max-w-4xl mx-auto">
-            <p className="text-center">&copy; {new Date().getFullYear()} ECX, LLP. All rights reserved. | Empowering secure digital futures through advanced cryptography.</p>
+            <p className="text-center">&copy; {currentYear} ECX, LLP. All rights reserved. | Empowering secure digital futures through advanced cryptography.</p>
             <div className="flex items-center gap-6">
               <Link href="#" className="hover:text-primary transition-colors duration-200">
                 Privacy Policy
@@ -201,7 +204,7 @@ export function Footer() {
               <Link href="#" className="hover:text-primary transition-colors duration-200">
                 Terms of Service
               </Link>
-              <Link href="#" className="hover:text-primary transition-colors duration-200">
+              <Link href="/legal#cookies" className="hover:text-primary transition-colors duration-200">
                 Cookie Policy
               </Link>
             </div>

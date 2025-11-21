@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { GradientButton } from '@/components/ui/gradient-button';
-import { ArrowRight, Shield, Sparkles } from 'lucide-react';
+import { ArrowRight, Shield, Sparkles, ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export function ServicesHero() {
@@ -195,13 +195,54 @@ export function ServicesHero() {
 								<ArrowRight className="ml-2 w-5 h-5" />
 							</a>
 						</GradientButton>
-						<a
+						<motion.a
 							href="#services"
-							className="inline-flex items-center text-sm font-medium text-primary hover:text-accent transition-colors"
+							onClick={(e) => {
+								e.preventDefault();
+								const servicesSection = document.getElementById('services');
+								if (servicesSection) {
+									const offset = 100; // Offset for fixed header
+									const elementPosition = servicesSection.getBoundingClientRect().top;
+									const offsetPosition = elementPosition + window.pageYOffset - offset;
+									
+									window.scrollTo({
+										top: offsetPosition,
+										behavior: 'smooth'
+									});
+								} else {
+									// Fallback: try to find any service-related section
+									const fallbackSection = document.querySelector('section[id*="service"], section[id*="Service"]');
+									if (fallbackSection) {
+										const elementPosition = fallbackSection.getBoundingClientRect().top;
+										const offsetPosition = elementPosition + window.pageYOffset - 100;
+										window.scrollTo({
+											top: offsetPosition,
+											behavior: 'smooth'
+										});
+									}
+								}
+							}}
+							className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors group cursor-pointer"
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
 						>
-							<Shield className="mr-2 w-4 h-4" />
-							Explore All Services
-						</a>
+							<Shield className="w-4 h-4" />
+							<span>Explore All Services</span>
+							<motion.div
+								animate={{ 
+									y: [0, 4, 0],
+									opacity: [1, 0.7, 1]
+								}}
+								transition={{ 
+									duration: 2,
+									repeat: Infinity,
+									ease: "easeInOut"
+								}}
+								className="flex items-center"
+							>
+								<ChevronDown className="w-4 h-4" />
+							</motion.div>
+						</motion.a>
 					</motion.div>
 				</div>
 			</div>
